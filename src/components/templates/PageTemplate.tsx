@@ -17,7 +17,7 @@ export default function PageTemplate({ title, children }: PageTemplateProps) {
     return (
         <>
             <Head>
-                <title>{title || "PT Solid Gold Berjangka"}</title>
+                <title>{title ? `${title} - PT. Rifan Financindo Berjangka` : "PT. Rifan Financindo Berjangka"}</title>
 
                 {/* Favicon & Icons */}
                 <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />

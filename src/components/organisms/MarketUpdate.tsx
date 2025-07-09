@@ -2,11 +2,21 @@ import { useEffect, useState } from "react";
 
 export default function MarketUpdate() {
     const [marketData, setMarketData] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         const fetchMarketData = async () => {
             try {
                 const res = await fetch('/api/market');
+
+                if (!res.ok) {
+                    const errorText = `${res.status} ${res.statusText}`;
+                    console.error('Respon error:', errorText);
+                    setErrorMessage(errorText);
+                    setMarketData([]);
+                    return;
+                }
+
                 const data = await res.json();
 
                 const filteredData = data
@@ -18,16 +28,19 @@ export default function MarketUpdate() {
                     }));
 
                 setMarketData(filteredData);
+                setErrorMessage(""); // clear error
             } catch (error) {
-                console.error('Gagal ambil data:', error);
+                console.error('Fetch gagal:', error);
+                setErrorMessage(error.message || "Gagal memuat data");
+                setMarketData([]);
             }
         };
 
-        fetchMarketData(); // Fetch pertama kali
+        fetchMarketData();
 
-        const interval = setInterval(fetchMarketData, 1000); // Fetch ulang tiap 30 detik
+        const interval = setInterval(fetchMarketData, 10000);
 
-        return () => clearInterval(interval); // Bersihkan interval saat unmount
+        return () => clearInterval(interval);
     }, []);
 
     const formatPrice = (symbol, price) => {
@@ -50,23 +63,33 @@ export default function MarketUpdate() {
                 </div>
 
                 <div className="relative overflow-hidden w-full bg-green-500 h-full flex items-center min-w-0">
-                    <div className="flex animate-marquee whitespace-nowrap items-center text-xs sm:text-sm md:text-base group-hover:[animation-play-state:paused]">
-                        {[...marketData, ...marketData].map((item, idx) => (
-                            <div key={idx} className="flex items-center">
-                                <div className="flex items-center gap-2 px-4">
-                                    <span className="font-semibold">{item.symbol}:</span>
-                                    <span>{formatPrice(item.symbol, item.last)}</span>
-                                    <span className={`font-medium ${item.percentChange > 0 ? 'text-green-200' :
-                                        item.percentChange < 0 ? 'text-red-300' :
-                                            'text-white/60'
-                                        }`}>
-                                        ({formatPercent(item.percentChange)})
-                                    </span>
+                    {errorMessage ? (
+                        <div className="px-4 text-xs sm:text-sm md:text-base font-semibold text-white">
+                            {errorMessage}
+                        </div>
+                    ) : marketData.length === 0 ? (
+                        <div className="px-4 text-xs sm:text-sm md:text-base font-semibold text-white">
+                            Memuat data...
+                        </div>
+                    ) : (
+                        <div className="flex animate-marquee whitespace-nowrap items-center text-xs sm:text-sm md:text-base group-hover:[animation-play-state:paused]">
+                            {[...marketData, ...marketData].map((item, idx) => (
+                                <div key={idx} className="flex items-center">
+                                    <div className="flex items-center gap-2 px-4">
+                                        <span className="font-semibold">{item.symbol}:</span>
+                                        <span>{formatPrice(item.symbol, item.last)}</span>
+                                        <span className={`font-medium ${item.percentChange > 0 ? 'text-green-800' :
+                                                item.percentChange < 0 ? 'text-red-500' :
+                                                    'text-white/60'
+                                            }`}>
+                                            ({formatPercent(item.percentChange)})
+                                        </span>
+                                    </div>
+                                    <span className="mx-4 h-full text-white/50">|</span>
                                 </div>
-                                <span className="mx-4 h-full text-white/50">|</span>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

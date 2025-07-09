@@ -3,7 +3,7 @@ import PageTemplate from "@/components/templates/PageTemplate";
 
 export default function PetunjukTransaksi() {
     return (
-        <PageTemplate title="Petunjuk Transaksi - PT Solid Gold Berjangka">
+        <PageTemplate title="Petunjuk Transaksi">
             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
                 <ProfilContainer title="Petunjuk Transaksi">
                     <div className="space-y-6 text-gray-700 text-base sm:text-lg leading-relaxed">

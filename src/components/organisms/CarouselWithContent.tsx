@@ -26,6 +26,12 @@ const slides: Slide[] = [
     },
 ];
 
+const items = [
+    { label: "Registrasi Akun Online", link: "https://regol.rifan-financindo-berjangka.co.id/" },
+    { label: "Akun Demo", link: "https://demo.rifanberjangka.com/login" },
+    { label: "Akun Real", link: "https://etrade.rifanberjangka.com/login" },
+];
+
 const totalSlides = slides.length;
 const fullSlides = [slides[totalSlides - 1], ...slides, slides[0]];
 
@@ -82,13 +88,14 @@ export default function CarouselWithContent() {
                             <h1 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h1>
                             <p className="text-base md:text-lg mb-6">{slide.description}</p>
                             <div className="flex flex-col md:flex-row gap-3">
-                                {["Registrasi Akun Online", "Akun Demo", "Akun Real"].map((label, i) => (
+                                {items.map((item, i) => (
                                     <a
                                         key={i}
-                                        href="#"
+                                        href={item.link}
+                                        target="_blank"
                                         className="inline-block bg-white hover:bg-gray-100 transition text-green-800 rounded-full px-5 py-3 font-semibold shadow"
                                     >
-                                        {label}
+                                        {item.label}
                                     </a>
                                 ))}
                             </div>

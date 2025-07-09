@@ -1,13 +1,24 @@
 import { useEffect, useState, useRef } from "react";
+import MarketCard from "../moleculs/MarketCard";
+import Header1 from "../moleculs/Header1";
 
-export default function Iso() {
+export default function Market() {
     const [marketData, setMarketData] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
     const prevDataRef = useRef([]);
 
     useEffect(() => {
         const fetchMarketData = async () => {
             try {
                 const res = await fetch('/api/market');
+
+                if (!res.ok) {
+                    const errorText = `${res.status} ${res.statusText}`;
+                    setErrorMessage(errorText);
+                    setMarketData([]);
+                    return;
+                }
+
                 const data = await res.json();
 
                 const filteredData = data
@@ -30,16 +41,15 @@ export default function Iso() {
                         direction = item.percentChange > 0 ? 'up' : (item.percentChange < 0 ? 'down' : 'neutral');
                     }
 
-                    return {
-                        ...item,
-                        direction,
-                    };
+                    return { ...item, direction };
                 });
 
                 setMarketData(updatedData);
                 prevDataRef.current = filteredData;
+                setErrorMessage("");
             } catch (error) {
-                console.error('Gagal ambil data:', error);
+                setErrorMessage(error.message || "Gagal memuat data");
+                setMarketData([]);
             }
         };
 
@@ -61,29 +71,31 @@ export default function Iso() {
     };
 
     return (
-       <div className="w-full bg-gradient-to-b from-gray-100 to-[#1e293b] py-10 flex flex-col items-center">
-            <h1 className="text-black text-2xl font-bold uppercase mb-6">Market Update</h1>
+        <div className="w-full bg-zinc-500 py-10 flex flex-col items-center space-y-4">
+            <Header1 title="Market" className="text-white text-2xl md:text-3xl" />
 
-            <div className="bg-white rounded-xl shadow-md p-6 w-full max-w-6xl flex flex-wrap justify-center gap-6">
-                {marketData.map((item, index) => {
-                    const colorClass =
-                        item.direction === 'up'
-                            ? 'text-green-600'
-                            : item.direction === 'down'
-                            ? 'text-red-600'
-                            : 'text-gray-500';
-
-                    return (
-                        <div
-                            key={index}
-                            className={`rounded-lg px-4 py-3 min-w-[140px] text-center shadow-sm border ${colorClass}`}
-                        >
-                            <div className="text-sm font-semibold text-black">{item.symbol}</div>
-                            <div className="text-lg font-bold">{formatPrice(item.symbol, item.last)}</div>
-                            <div className="text-sm">{formatPercent(item.percentChange)}</div>
+            <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-36 2xl:px-52 w-full">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                    {errorMessage ? (
+                        <div className="col-span-full text-center text-red-600 font-semibold text-sm sm:text-base">
+                            {errorMessage}
                         </div>
-                    );
-                })}
+                    ) : marketData.length === 0 ? (
+                        <div className="col-span-full text-center text-gray-500 font-medium text-sm sm:text-base animate-pulse">
+                            Memuat data pasar...
+                        </div>
+                    ) : (
+                        marketData.map((item, index) => (
+                            <MarketCard
+                                key={index}
+                                symbol={item.symbol}
+                                last={formatPrice(item.symbol, item.last)}
+                                percentChange={formatPercent(item.percentChange)}
+                                direction={item.direction}
+                            />
+                        ))
+                    )}
+                </div>
             </div>
         </div>
     );

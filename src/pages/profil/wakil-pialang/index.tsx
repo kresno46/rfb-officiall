@@ -21,7 +21,7 @@ export default function WakilPialang() {
     ];
 
     return (
-        <PageTemplate title="Wakil Pialang - PT Solid Gold Berjangka">
+        <PageTemplate title="Wakil Pialang">
             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
                 <ProfilContainer title="Wakil Pialang">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

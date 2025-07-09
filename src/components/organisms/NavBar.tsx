@@ -11,15 +11,16 @@ const menuItems = [
             { label: "Profil Perusahaan", href: "/profil/perusahaan" },
             { label: "Wakil Pialang", href: "/profil/wakil-pialang" },
             { label: "Legalitas", href: "/profil/legalitas" },
-            { label: "Umum", href: "/informasi/umum" },
+            { label: "Fasilitas & Layanan", href: "/informasi/fasilitas-layanan" },
+            { label: "Informasi Umum", href: "/informasi/umum" },
             { label: "Video Umum", href: "/informasi/video-umum" },
         ],
     },
     {
         label: "Produk",
         submenu: [
-            { label: "Produk Multilateral", href: "/produk/multilateral" },
-            { label: "Produk Bilateral", href: "/produk/bilateral" },
+            { label: "Produk Multilateral (JFX)", href: "/produk/JFX" },
+            { label: "Produk Bilateral (SPA)", href: "/produk/SPA" },
             { label: "Prosedur Registrasi Online", href: "/prosedur/registrasi-online" },
             { label: "Prosedur Penarikan", href: "/prosedur/penarikan" },
             { label: "Petunjuk Transaksi", href: "/prosedur/petunjuk-transaksi" },
@@ -95,10 +96,10 @@ export default function Navbar() {
         <header className="sticky top-0 z-40">
             {/* Navbar utama */}
             <div className="bg-zinc-800 text-white">
-                <div className="flex justify-between items-center px-3 md:px-22 py-3">
+                <div className="flex justify-between items-center px-3 md:px-10 lg:px-22 py-3">
                     {/* Logo */}
-                    <a href="/" className="flex items-center gap-3 text-xl font-bold">
-                        <img src="/assets/logo-rfb.png" alt="Logo RFB" className="h-10" />
+                    <a href="/" className="flex items-center gap-3 text-base sm:text-lg lg:text-xl font-bold">
+                        <img src="/assets/logo-rfb.png" alt="Logo RFB" className="h-6 md:h-10" />
                         <span>Rifan Financindo Berjangka</span>
                     </a>
 
@@ -123,10 +124,10 @@ export default function Navbar() {
                                     <>
                                         <button
                                             onClick={() => isMobile && toggleDropdown(item.label)}
-                                            className="flex items-center gap-1 hover:border-b-2 border-green-700 transition"
+                                            className="flex items-center gap-1 text-center hover:border-b-2 border-green-700 transition"
                                         >
                                             {item.label}
-                                            <i className="fa-solid fa-chevron-down text-xs mt-1" />
+                                            <i className="fa-solid fa-chevron-down text-sm mt-1" />
                                         </button>
                                         {openDropdown === item.label && (
                                             <div className="absolute top-full left-0 w-56 mt-2 z-50" onMouseEnter={() => handleMouseEnter(item.label)} onMouseLeave={handleMouseLeave}>
@@ -148,7 +149,7 @@ export default function Navbar() {
                                 ) : (
                                     <a
                                         href={item.href}
-                                        className="hover:border-b-2 border-green-700 transition"
+                                        className="text-center hover:border-b-2 border-green-700 transition"
                                     >
                                         {item.label}
                                     </a>
@@ -160,7 +161,7 @@ export default function Navbar() {
 
                 {/* Menu Mobile */}
                 {menuOpen && (
-                    <nav className="md:hidden px-6 pb-4 space-y-2 text-sm bg-zinc-900">
+                    <nav className="md:hidden px-6 pb-4 space-y-2 text-base bg-zinc-900">
                         {menuItems.map((item) => (
                             <div key={item.label}>
                                 {item.submenu ? (

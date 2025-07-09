@@ -23,7 +23,7 @@ export default function ProfilPerusahaan() {
     ];
 
     return (
-        <PageTemplate title="Profil Perusahaan - PT Solid Gold Berjangka">
+        <PageTemplate title="Profil Perusahaan">
             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
                 <ProfilContainer title="PT. Rifan Financinda Berjangka">
                     <div className="space-y-10 text-center">

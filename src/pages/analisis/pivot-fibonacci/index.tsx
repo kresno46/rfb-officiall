@@ -9,7 +9,7 @@ export default function HistoricalData() {
     const [activeTab, setActiveTab] = useState("Pivot");
 
     return (
-        <PageTemplate title="Pivot & Fibonacci - PT Solid Gold Berjangka">
+        <PageTemplate title="Pivot & Fibonacci">
             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
                 <ProfilContainer title="Pivot & Fibonacci" hideTitle={true}>
                     <div className="space-y-6">

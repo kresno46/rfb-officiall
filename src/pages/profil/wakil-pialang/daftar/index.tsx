@@ -11,7 +11,7 @@ export default function DaftarWakilPialang() {
     ];
 
     return (
-        <PageTemplate title="Wakil Pialang - PT Solid Gold Berjangka">
+        <PageTemplate title="Wakil Pialang">
             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
                 <ProfilContainer title="AXA Tower - Jakarta">
                     <div className="overflow-x-auto">

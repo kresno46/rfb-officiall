@@ -35,7 +35,7 @@ export default function Multilateral() {
     ];
 
     return (
-        <PageTemplate title="Kalender Ekonomi - PT Solid Gold Berjangka">
+        <PageTemplate title="Kalender Ekonomi">
             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
                 <ProfilContainer title="Kalender Ekonomi">
                     <div className="space-y-5">

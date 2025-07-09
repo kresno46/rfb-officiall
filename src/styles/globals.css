@@ -44,3 +44,33 @@ body {
   background-repeat: no-repeat; /* Prevent image repetition */
   background-attachment: fixed;
 }
+
+.prose h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.prose h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0px;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid #000;
+  padding: 8px;
+  text-align: center;
+}
+
+.prose th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
