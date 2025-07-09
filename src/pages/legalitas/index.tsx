@@ -1,21 +1,3 @@
-// // Profil Perusahaan
-
-// import ProfilContainer from "@/components/templates/PageContainer/Container";
-// import PageTemplate from "@/components/templates/PageTemplate";
-
-// export default function Legalitas() {
-//     return (
-//         <PageTemplate title="Legalitas - PT Solid Gold Berjangka">
-//             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-//                 <ProfilContainer title="Legalitas Bisnis">
-//                     <div></div>
-//                 </ProfilContainer>
-//             </div>
-//         </PageTemplate >
-//     );
-// }
-
-
 // Legalitas Bisnis
 
 import BusinessContainer from "@/components/templates/PageContainer/BusinessContainer";
@@ -136,4 +118,3 @@ export default function LegalitasBisnis() {
     </PageTemplate>
   );
 }
-
