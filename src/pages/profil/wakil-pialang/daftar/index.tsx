@@ -6,8 +6,15 @@ import PageTemplate from "@/components/templates/PageTemplate";
 export default function DaftarWakilPialang() {
     const dataWakil = [
         { nama: "Andi Prasetyo", nomorIzin: "123/WPB.01/2020", status: "Aktif" },
-        { nama: "Dewi Lestari", nomorIzin: "456/WPB.02/2021", status: "Aktif" },
-        { nama: "Rudi Hartono", nomorIzin: "789/WPB.03/2022", status: "Tidak Aktif" },
+        { nama: "Marcel Widjojo", nomorIzin: "186/WPB.02/2020", status: "Aktif" },
+        { nama: "Bayu Norman", nomorIzin: "244/WPB.03/2021", status: "Aktif" },
+        { nama: "Dewi Lestari", nomorIzin: "456/WPB.04/2021", status: "Aktif" },
+        { nama: "Florencia Wijaya", nomorIzin: "764/WPB.05/2021", status: "Aktif" },
+        { nama: "Rudi Hartono", nomorIzin: "789/WPB.06/2022", status: "Tidak Aktif" },
+        { nama: "Antoni Wahyu", nomorIzin: "679/WPB.07/2023", status: "Tidak Aktif" },
+        { nama: "Nadya Adila", nomorIzin: "345/WPB.08/2024", status: "Aktif" },
+        { nama: "Tomi Setiawan", nomorIzin: "538/WPB.09/2025", status: "Aktif" },
+        { nama: "Aulia Silvie", nomorIzin: "290/WPB.10/2025", status: "Aktif" },
     ];
 
     return (
