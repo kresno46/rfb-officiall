@@ -65,7 +65,12 @@ export default function CarouselWithContent() {
         if (!transitioning) return;
 
         timeoutRef.current = setTimeout(goToNext, 20000);
-        return () => timeoutRef.current && clearTimeout(timeoutRef.current);
+
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
     }, [index, transitioning]);
 
     return (
