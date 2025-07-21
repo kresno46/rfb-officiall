@@ -9,12 +9,14 @@ type Product = {
     slug: string;
     deskripsi?: string;
     specs?: string;
-    category: string;  // Tambahan untuk membedakan jenis produk
+    category: string;
 };
+
+const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_URL || "http://rfb-backpanel.test/img/produk";
 
 export default function ProdukContainer() {
     const [productList, setProductList] = useState<Product[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchProducts() {
@@ -24,24 +26,29 @@ export default function ProdukContainer() {
                     fetch("/api/spa"),
                 ]);
 
-                if (!jfxRes.ok || !spaRes.ok) throw new Error("Gagal memuat data produk");
+                if (!jfxRes.ok) throw new Error(`JFX error: ${jfxRes.status}`);
+                if (!spaRes.ok) throw new Error(`SPA error: ${spaRes.status}`);
 
                 const jfxData = await jfxRes.json();
                 const spaData = await spaRes.json();
 
-                const jfxProducts: Product[] = jfxData.map((item: any) => ({
-                    ...item,
-                    category: "JFX",
-                }));
+                const jfxProducts: Product[] = Array.isArray(jfxData)
+                    ? jfxData.map((item: any) => ({
+                        ...item,
+                        category: "JFX",
+                    }))
+                    : [];
 
-                const spaProducts: Product[] = spaData.map((item: any) => ({
-                    ...item,
-                    category: "SPA",
-                }));
+                const spaProducts: Product[] = Array.isArray(spaData)
+                    ? spaData.map((item: any) => ({
+                        ...item,
+                        category: "SPA",
+                    }))
+                    : [];
 
                 setProductList([...jfxProducts, ...spaProducts]);
             } catch (error) {
-                console.error("Error fetching products:", error);
+                console.error("Gagal memuat produk:", error);
             } finally {
                 setLoading(false);
             }
@@ -62,9 +69,9 @@ export default function ProdukContainer() {
                         <ProductCard
                             key={`${product.category}-${product.id}`}
                             title={product.name}
-                            image={`http://rfb-backpanel.test/img/produk/${product.image}`}
+                            image={`${BASE_IMAGE_URL}/${product.image}`}
                             category={product.category}
-                            slug={`${product.slug}`}
+                            slug={product.slug}
                         />
                     ))}
                 </div>
