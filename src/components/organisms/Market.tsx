@@ -2,10 +2,23 @@ import { useEffect, useState, useRef } from "react";
 import MarketCard from "../moleculs/MarketCard";
 import Header1 from "../moleculs/Header1";
 
+interface MarketItem {
+    symbol: string;
+    last: number;
+    percentChange: number;
+    direction?: 'up' | 'down' | 'neutral';
+}
+
+interface ApiMarketItem {
+    symbol: string;
+    last: number;
+    percentChange: number;
+}
+
 export default function Market() {
-    const [marketData, setMarketData] = useState([]);
-    const [errorMessage, setErrorMessage] = useState("");
-    const prevDataRef = useRef([]);
+    const [marketData, setMarketData] = useState<MarketItem[]>([]);
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    const prevDataRef = useRef<MarketItem[]>([]);
 
     useEffect(() => {
         const fetchMarketData = async () => {
@@ -19,19 +32,19 @@ export default function Market() {
                     return;
                 }
 
-                const data = await res.json();
+                const data: ApiMarketItem[] = await res.json();
 
-                const filteredData = data
-                    .filter(item => item.symbol && typeof item.last === 'number')
-                    .map(item => ({
+                const filteredData: ApiMarketItem[] = data
+                    .filter((item: ApiMarketItem) => item.symbol && typeof item.last === 'number')
+                    .map((item: ApiMarketItem) => ({
                         symbol: item.symbol,
                         last: item.last,
                         percentChange: item.percentChange,
                     }));
 
-                const updatedData = filteredData.map(item => {
-                    const prevItem = prevDataRef.current.find(p => p.symbol === item.symbol);
-                    let direction;
+                const updatedData: MarketItem[] = filteredData.map((item: ApiMarketItem) => {
+                    const prevItem = prevDataRef.current.find((p: MarketItem) => p.symbol === item.symbol);
+                    let direction: 'up' | 'down' | 'neutral';
 
                     if (prevItem) {
                         if (item.last > prevItem.last) direction = 'up';
@@ -47,8 +60,9 @@ export default function Market() {
                 setMarketData(updatedData);
                 prevDataRef.current = filteredData;
                 setErrorMessage("");
-            } catch (error) {
-                setErrorMessage(error.message || "Gagal memuat data");
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : "Gagal memuat data";
+                setErrorMessage(errorMessage);
                 setMarketData([]);
             }
         };
@@ -58,13 +72,13 @@ export default function Market() {
         return () => clearInterval(interval);
     }, []);
 
-    const formatPrice = (symbol, price) => {
+    const formatPrice = (symbol: string, price: number): string => {
         if (symbol.includes('IDR')) return `Rp${price.toLocaleString('id-ID')}`;
         if (symbol.includes('BTC')) return `$${price.toLocaleString('en-US')}`;
         return `$${price.toFixed(2)}`;
     };
 
-    const formatPercent = (percent) => {
+    const formatPercent = (percent: number): string => {
         const formatted = percent?.toFixed(2);
         const sign = percent > 0 ? '+' : '';
         return `${sign}${formatted}%`;
@@ -85,13 +99,13 @@ export default function Market() {
                             Memuat data pasar...
                         </div>
                     ) : (
-                        marketData.map((item, index) => (
+                        marketData.map((item: MarketItem, index: number) => (
                             <MarketCard
                                 key={index}
                                 symbol={item.symbol}
                                 last={formatPrice(item.symbol, item.last)}
                                 percentChange={formatPercent(item.percentChange)}
-                                direction={item.direction}
+                                direction={item.direction || 'neutral'}
                             />
                         ))
                     )}
