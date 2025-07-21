@@ -48,6 +48,7 @@ export default function BeritaDetail() {
                         title={berita.title}
                         img={berita.img}
                         content={berita.content}
+                        kategori={berita.kategori || "Berita"}
                     />
                 </ProfilContainer>
             </div>

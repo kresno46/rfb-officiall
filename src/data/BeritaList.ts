@@ -4,6 +4,7 @@ const beritaList = [
         date: "2025-07-01",
         slug: "harga-komoditas-melonjak",
         img: "https://placehold.co/1920x1080",
+        kategori: "Komoditas",
         content: `
             <p>Harga <strong>komoditas global</strong> seperti <em>emas</em>, <em>minyak mentah</em>, dan <em>perak</em> mencatatkan lonjakan signifikan seiring meningkatnya ketegangan geopolitik di berbagai kawasan. Kekhawatiran terhadap stabilitas politik mendorong investor mencari aset safe haven, sehingga memperkuat permintaan komoditas tersebut.</p>
 
@@ -17,6 +18,7 @@ const beritaList = [
         date: "2025-06-28",
         slug: "pasar-forex-bergejolak",
         img: "https://placehold.co/1920x1080",
+        kategori: "Forex",
         content: `
             <p>Pasar <strong>valuta asing (forex)</strong> mengalami volatilitas tinggi menyusul penguatan <em>Dolar AS (USD)</em> terhadap mata uang utama lainnya. Ketidakpastian terkait suku bunga The Federal Reserve dan data inflasi Amerika Serikat menjadi faktor utama penggerak pasar.</p>
 
@@ -30,6 +32,7 @@ const beritaList = [
         date: "2025-06-20",
         slug: "permintaan-emas-dunia",
         img: "https://placehold.co/1920x1080",
+        kategori: "Emas",
         content: `
             <p>Harga <strong>emas dunia</strong> terus menguat seiring meningkatnya kekhawatiran akan potensi <em>resesi global</em>. Perlambatan ekonomi di sejumlah negara besar, termasuk Eropa dan Amerika Serikat, mendorong investor beralih ke logam mulia sebagai aset pelindung nilai.</p>
 
@@ -43,6 +46,7 @@ const beritaList = [
         date: "2025-06-15",
         slug: "minyak-mentah-menguat",
         img: "https://placehold.co/1920x1080",
+        kategori: "Minyak",
         content: `
             <p>Harga <strong>minyak mentah</strong> mencatatkan kenaikan tajam di tengah ketatnya pasokan global akibat gangguan produksi dan peningkatan permintaan energi. Ketegangan geopolitik di kawasan Timur Tengah dan keputusan OPEC+ untuk membatasi produksi memperkuat tekanan pada sisi suplai.</p>
 
