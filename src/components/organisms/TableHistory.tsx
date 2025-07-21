@@ -1,6 +1,15 @@
+import React from "react";
+
+type HistoricalData = {
+    date: string;
+    open: number;
+    high: number;
+    low: number;
+    close: number;
+};
 
 export default function HistoricalTable() {
-    const sampleData = [
+    const sampleData: HistoricalData[] = [
         { date: "2025-07-01", open: 7200, high: 7300, low: 7100, close: 7250 },
         { date: "2025-07-02", open: 7250, high: 7350, low: 7150, close: 7300 },
         { date: "2025-07-03", open: 7300, high: 7400, low: 7200, close: 7350 },
@@ -21,7 +30,7 @@ export default function HistoricalTable() {
                 <tbody>
                     {sampleData.length === 0 ? (
                         <tr>
-                            <td colSpan="5" className="text-center py-6 text-gray-500">
+                            <td colSpan={5} className="text-center py-6 text-gray-500">
                                 No data available.
                             </td>
                         </tr>
