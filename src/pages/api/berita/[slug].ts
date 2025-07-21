@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-        const response = await fetch(`http://rfbdev.newsmaker.id/berita/${encodeURIComponent(slug)}`);
+        const response = await fetch(`http://rfb-backpanel.test/api/berita/${encodeURIComponent(slug)}`);
 
         if (!response.ok) {
             return res.status(response.status).json({ error: 'Data tidak ditemukan' });
