@@ -15,7 +15,7 @@ type Spa = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const response = await fetch("http://rfb-backpanel.test/api/spa");
+        const response = await fetch("https://rfbdev.newsmaker.id/api/spa");
         if (!response.ok) {
             return res.status(response.status).json({ error: 'Failed to fetch SPA Product' });
         }
