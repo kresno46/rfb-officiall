@@ -36,9 +36,14 @@ const totalSlides = slides.length;
 const fullSlides = [slides[totalSlides - 1], ...slides, slides[0]];
 
 export default function CarouselWithContent() {
-    const [index, setIndex] = useState(1); // start dari 1 karena clone
+    const [index, setIndex] = useState(1);
     const [transitioning, setTransitioning] = useState(true);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const [showModal, setShowModal] = useState(false);
+    const [agreeChecked, setAgreeChecked] = useState(false);
+    const [showTnC, setShowTnC] = useState(false);
+    const [showPrivacy, setShowPrivacy] = useState(false);
 
     const goTo = (newIndex: number) => {
         setIndex(newIndex);
@@ -50,17 +55,14 @@ export default function CarouselWithContent() {
 
     const handleTransitionEnd = () => {
         if (index === 0) {
-            // ke clone belakang → reset ke slide terakhir
             setTransitioning(false);
-            setTimeout(() => setIndex(totalSlides), 10); // delay 10ms
+            setTimeout(() => setIndex(totalSlides), 10);
         } else if (index === fullSlides.length - 1) {
-            // ke clone depan → reset ke slide pertama
             setTransitioning(false);
             setTimeout(() => setIndex(1), 10);
         }
     };
 
-    // Autoplay hanya jika transitioning aktif
     useEffect(() => {
         if (!transitioning) return;
 
@@ -93,16 +95,30 @@ export default function CarouselWithContent() {
                             <h1 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h1>
                             <p className="text-base md:text-lg mb-6">{slide.description}</p>
                             <div className="flex flex-col md:flex-row gap-3">
-                                {items.map((item, i) => (
-                                    <a
-                                        key={i}
-                                        href={item.link}
-                                        target="_blank"
-                                        className="inline-block bg-white hover:bg-gray-100 transition text-green-800 rounded-full px-5 py-3 font-semibold shadow"
-                                    >
-                                        {item.label}
-                                    </a>
-                                ))}
+                                {items.map((item, i) => {
+                                    const isDemo = item.label === "Akun Demo";
+                                    return isDemo ? (
+                                        <button
+                                            key={i}
+                                            onClick={() => {
+                                                setShowModal(true);
+                                                setAgreeChecked(false);
+                                            }}
+                                            className="inline-block bg-white hover:bg-gray-100 transition text-green-800 rounded-full px-5 py-3 font-semibold shadow"
+                                        >
+                                            {item.label}
+                                        </button>
+                                    ) : (
+                                        <a
+                                            key={i}
+                                            href={item.link}
+                                            target="_blank"
+                                            className="inline-block bg-white hover:bg-gray-100 transition text-green-800 rounded-full px-5 py-3 font-semibold shadow"
+                                        >
+                                            {item.label}
+                                        </a>
+                                    );
+                                })}
                             </div>
                         </div>
 
@@ -141,6 +157,101 @@ export default function CarouselWithContent() {
             >
                 &#10095;
             </button>
+
+            {/* Main Modal */}
+            {showModal && !showTnC && !showPrivacy && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white text-black rounded-lg p-6 w-11/12 max-w-md shadow-lg">
+                        <h2 className="text-xl font-semibold mb-4">Syarat Penggunaan</h2>
+                        <p className="mb-4 text-sm">
+                            Harap centang kotak di bawah ini untuk melanjutkan ke halaman akun demo.
+                        </p>
+
+                        <div className="flex items-start gap-2 mb-6">
+                            <input
+                                type="checkbox"
+                                id="agree"
+                                checked={agreeChecked}
+                                onChange={(e) => setAgreeChecked(e.target.checked)}
+                                className="mt-1"
+                            />
+                            <label htmlFor="agree" className="text-sm">
+                                Saya telah membaca dan menyetujui{" "}
+                                <button
+                                    onClick={() => setShowTnC(true)}
+                                    className="text-green-700 underline hover:text-green-900"
+                                >
+                                    Syarat dan Ketentuan
+                                </button>{" "}
+                                serta{" "}
+                                <button
+                                    onClick={() => setShowPrivacy(true)}
+                                    className="text-green-700 underline hover:text-green-900"
+                                >
+                                    Kebijakan Privasi
+                                </button>.
+                            </label>
+                        </div>
+
+                        <div className="flex justify-end gap-3">
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                disabled={!agreeChecked}
+                                onClick={() => {
+                                    window.open("https://demo.rifanberjangka.com/login", "_blank");
+                                    setShowModal(false);
+                                }}
+                                className={`px-4 py-2 rounded text-white ${
+                                    agreeChecked ? "bg-green-600 hover:bg-green-700" : "bg-green-300 cursor-not-allowed"
+                                }`}
+                            >
+                                Lanjut ke Demo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* TnC Modal */}
+            {showTnC && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white text-black rounded-lg p-6 w-11/12 max-w-md shadow-lg relative">
+                        <button
+                            className="absolute top-2 right-3 text-lg font-bold"
+                            onClick={() => setShowTnC(false)}
+                        >
+                            ×
+                        </button>
+                        <h3 className="text-lg font-semibold mb-2">Syarat dan Ketentuan</h3>
+                        <p className="text-sm mb-4">
+                            Ini adalah teks dummy untuk syarat dan ketentuan penggunaan akun demo. Silakan baca dengan seksama.
+                        </p>
+                    </div>
+                </div>
+            )}
+
+            {/* Privacy Policy Modal */}
+            {showPrivacy && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white text-black rounded-lg p-6 w-11/12 max-w-md shadow-lg relative">
+                        <button
+                            className="absolute top-2 right-3 text-lg font-bold"
+                            onClick={() => setShowPrivacy(false)}
+                        >
+                            ×
+                        </button>
+                        <h3 className="text-lg font-semibold mb-2">Kebijakan Privasi</h3>
+                        <p className="text-sm mb-4">
+                            Ini adalah teks dummy untuk kebijakan privasi. Informasi Anda akan dijaga dengan aman sesuai kebijakan kami.
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
