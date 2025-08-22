@@ -1,34 +1,83 @@
+import { useEffect, useState } from "react";
 import ProductCard from "@/components/moleculs/ProductCard";
 import Header1 from "@/components/moleculs/Header1";
 
-const products = [
-    { title: "Kontrak Berjangka Olein (OLE)" },
-    { title: "Kontrak Berjangka Emas (GOL)" },
-    { title: "Kontrak Berjangka Emas 250 Gram (GOL250)" },
-    { title: "UJ1010_BBJ & UJ10F_BBJ (USD/JPY)" },
-    { title: "UC1010_BBJ & UC10F_BBJ (USD/CHF)" },
-    { title: "XAG10_BBJ & XAGF_BBJ (SILVER)" },
-    { title: "XUL10 & XULF (XUL)" },
-    { title: "AU1010_BBJ & AU10F_BBJ (AUD/USD)" },
-    { title: "EU1010_BBJ & EU10F_BBJ (EUR/USD)" },
-    { title: "GU1010_BBJ & GU10F_BBJ (GBP/USD)" },
-    { title: "HKK50_BBJ & HKK5U_BBJ (HKK50)" },
-    { title: "JPK50_BBJ & JPK5U_BBJ (JPK50)" },
-];
+type Product = {
+    id: number;
+    image: string;
+    name: string;
+    slug: string;
+    deskripsi?: string;
+    specs?: string;
+    category: string;
+};
+
+const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_URL || "http://rfb-backpanel.test/img/produk";
 
 export default function ProdukContainer() {
+    const [productList, setProductList] = useState<Product[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchProducts() {
+            try {
+                const [jfxRes, spaRes] = await Promise.all([
+                    fetch("/api/jfx"),
+                    fetch("/api/spa"),
+                ]);
+
+                if (!jfxRes.ok) throw new Error(`JFX error: ${jfxRes.status}`);
+                if (!spaRes.ok) throw new Error(`SPA error: ${spaRes.status}`);
+
+                const jfxData = await jfxRes.json();
+                const spaData = await spaRes.json();
+
+                const jfxProducts: Product[] = Array.isArray(jfxData)
+                    ? jfxData.map((item: any) => ({
+                        ...item,
+                        category: "JFX",
+                    }))
+                    : [];
+
+                const spaProducts: Product[] = Array.isArray(spaData)
+                    ? spaData.map((item: any) => ({
+                        ...item,
+                        category: "SPA",
+                    }))
+                    : [];
+
+                setProductList([...jfxProducts, ...spaProducts]);
+            } catch (error) {
+                console.error("Gagal memuat produk:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchProducts();
+    }, []);
+
     return (
         <div className="mx-auto px-4">
-            <Header1 title="Produk Kami" center className="mb-6" />
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                {products.map((product, index) => (
-                    <ProductCard
-                        key={index}
-                        title={product.title}
-                        image={`https://placehold.co/400`}
-                    />
-                ))}
-            </div>
+            <Header1 title="Produk Kami" center className="mb-6 text-2xl md:text-3xl" />
+
+            {loading ? (
+                <p className="text-center py-10">Memuat produk...</p>
+            ) : productList.length > 0 ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    {productList.map((product) => (
+                        <ProductCard
+                            key={`${product.category}-${product.id}`}
+                            title={product.name}
+                            image={`${BASE_IMAGE_URL}/${product.image}`}
+                            category={product.category}
+                            slug={product.slug}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <p className="text-center py-10">Tidak ada produk tersedia.</p>
+            )}
         </div>
     );
 }

@@ -1,3 +1,4 @@
+
 // Legalitas Bisnis
 
 import BusinessContainer from "@/components/templates/PageContainer/BusinessContainer";

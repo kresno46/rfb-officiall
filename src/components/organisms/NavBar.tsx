@@ -1,193 +1,213 @@
-import React from "react";
+"use client";
 
-const Navbar = () => {
+import { useEffect, useRef, useState } from "react";
+import MarketUpdate from "./MarketUpdate";
+
+const menuItems = [
+    { label: "Beranda", href: "/" },
+    {
+        label: "Profil",
+        submenu: [
+            { label: "Profil Perusahaan", href: "/profil/perusahaan" },
+            { label: "Wakil Pialang", href: "/profil/wakil-pialang" },
+            { label: "Legalitas", href: "/profil/legalitas" },
+            { label: "Fasilitas & Layanan", href: "/informasi/fasilitas-layanan" },
+            { label: "Informasi Umum", href: "/informasi/umum" },
+            { label: "Video Umum", href: "/informasi/video-umum" },
+        ],
+    },
+    {
+        label: "Produk",
+        submenu: [
+            { label: "Produk Multilateral (JFX)", href: "/produk/JFX" },
+            { label: "Produk Bilateral (SPA)", href: "/produk/SPA" },
+            { label: "Prosedur Registrasi Online", href: "/prosedur/registrasi-online" },
+            { label: "Prosedur Penarikan", href: "/prosedur/penarikan" },
+            { label: "Petunjuk Transaksi", href: "/prosedur/petunjuk-transaksi" },
+        ],
+    },
+    {
+        label: "Analisis",
+        submenu: [
+            { label: "Berita", href: "/analisis/berita" },
+            { label: "Kalender Ekonomi", href: "/analisis/economic-calendar" },
+            { label: "Data Historis", href: "/analisis/historical-data" },
+            { label: "Pivot & Fibonacci", href: "/analisis/pivot-fibonacci" },
+        ],
+    },
+    // {
+    //     label: "Prosedur Investasi",
+    //     submenu: [
+    //         { label: "Prosedur Registrasi Online", href: "/prosedur/registrasi-online" },
+    //         { label: "Prosedur Penarikan", href: "/prosedur/penarikan" },
+    //         { label: "Petunjuk Transaksi", href: "/prosedur/petunjuk-transaksi" },
+    //     ],
+    // },
+    // {
+    //     label: "Informasi",
+    //     submenu: [
+    //         { label: "Umum", href: "/informasi/umum" },
+    //         { label: "Video Umum", href: "/informasi/video-umum" },
+    //     ],
+    // },
+    { label: "Hubungi Kami", href: "/hubungi-kami" },
+];
+
+export default function Navbar() {
+    const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    const toggleDropdown = (label: string) => {
+        setOpenDropdown((prev) => (prev === label ? null : label));
+    };
+
+    const handleMouseEnter = (label: string) => {
+        if (!isMobile) {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+            setOpenDropdown(label);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        if (!isMobile) {
+            timeoutRef.current = setTimeout(() => {
+                setOpenDropdown(null);
+            }, 200); // delay close
+        }
+    };
+
+    const closeAllMenus = () => {
+        setOpenDropdown(null);
+        setMenuOpen(false);
+    };
+
     return (
-        <>
-            <div className="sticky top-0 z-50">
-                {/* Navbar */}
-                <div className="w-full bg-zinc-800 text-white ">
-                    {/* Menu Navbar */}
-                    <div className="flex justify-between items-center text-base px-22 py-3">
-                        {/* Logo */}
-                        <div className="text-xl font-bold flex items-center gap-3">
-                            <img src="/assets/logo-rfb.png" alt="Logo RFB" className="h-10" />
-                            <span>Rifan Financinda Berjangka</span>
-                        </div>
+        <header className="sticky top-0 z-40">
+            {/* Navbar utama */}
+            <div className="bg-zinc-800 text-white">
+                <div className="flex justify-between items-center px-3 md:px-10 lg:px-22 py-3">
+                    {/* Logo */}
+                    <a href="/" className="flex items-center gap-3 text-base sm:text-lg lg:text-xl font-bold">
+                        <img src="/assets/logo-rfb.png" alt="Logo RFB" className="h-6 md:h-10" />
+                        <span>Rifan Financindo Berjangka</span>
+                    </a>
 
-                        {/* Navbar Menu */}
-                        <nav>
-                            <ul className="flex space-x-6">
-                                {/* Beranda */}
-                                <li>
+                    {/* Mobile menu toggle */}
+                    <button
+                        className="md:hidden text-white text-2xl"
+                        onClick={() => setMenuOpen(!menuOpen)}
+                    >
+                        <i className={`fa-solid ${menuOpen ? "fa-xmark" : "fa-bars"}`} />
+                    </button>
+
+                    {/* Menu Desktop */}
+                    <nav className="hidden md:flex items-center space-x-6 text-base">
+                        {menuItems.map((item) => (
+                            <div
+                                key={item.label}
+                                className="relative"
+                                onMouseEnter={() => handleMouseEnter(item.label)}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                {item.submenu ? (
+                                    <>
+                                        <button
+                                            onClick={() => isMobile && toggleDropdown(item.label)}
+                                            className="flex items-center gap-1 text-center hover:border-b-2 border-green-700 transition"
+                                        >
+                                            {item.label}
+                                            <i className="fa-solid fa-chevron-down text-sm mt-1" />
+                                        </button>
+                                        {openDropdown === item.label && (
+                                            <div className="absolute top-full left-0 w-56 mt-2 z-50" onMouseEnter={() => handleMouseEnter(item.label)} onMouseLeave={handleMouseLeave}>
+                                                <ul className="bg-white text-black rounded shadow">
+                                                    {item.submenu.map((sub) => (
+                                                        <li key={sub.href}>
+                                                            <a
+                                                                href={sub.href}
+                                                                className="block px-4 py-2 hover:bg-gray-100"
+                                                            >
+                                                                {sub.label}
+                                                            </a>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </>
+                                ) : (
                                     <a
-                                        href="/"
-                                        className="hover:border-b-2 border-green-700 transition duration-300"
+                                        href={item.href}
+                                        className="text-center hover:border-b-2 border-green-700 transition"
                                     >
-                                        Beranda
+                                        {item.label}
                                     </a>
-                                </li>
-
-                                {/* Profil */}
-                                <li className="relative group">
-                                    <button className="flex items-center hover:border-b-2 border-green-700 transition duration-300">
-                                        Profil <i className="fa-solid fa-chevron-down ml-2"></i>
-                                    </button>
-                                    <ul className="absolute left-0 bg-white text-black py-2 w-48 rounded mt-4 shadow opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
-                                        <li>
-                                            <a href="/profil/perusahaan" className="block px-4 py-2">
-                                                Profil Perusahaan
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/profil/wakil-pialang" className="block px-4 py-2">
-                                                Wakil Pialang
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/profil/legalitas" className="block px-4 py-2">
-                                                Legalitas
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Produk */}
-                                <li className="relative group">
-                                    <button className="flex items-center hover:border-b-2 border-green-700 transition duration-300">
-                                        Produk <i className="fa-solid fa-chevron-down ml-2"></i>
-                                    </button>
-                                    <ul className="absolute left-0 bg-white text-black py-2 w-48 rounded mt-4 shadow opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
-                                        <li>
-                                            <a href="/produk/multilateral" className="block px-4 py-2">
-                                                Produk Multilateral
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/produk/bilateral" className="block px-4 py-2">
-                                                Produk Bilateral
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Analisis */}
-                                <li className="relative group">
-                                    <button className="flex items-center hover:border-b-2 border-green-700 transition duration-300">
-                                        Analisis <i className="fa-solid fa-chevron-down ml-2"></i>
-                                    </button>
-                                    <ul className="absolute left-0 bg-white text-black py-2 w-48 rounded mt-4 shadow opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
-                                        <li>
-                                            <a href="/analisis/berita" className="block px-4 py-2">
-                                                Berita
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="/analisis/economic-calendar"
-                                                className="block px-4 py-2"
-                                            >
-                                                Economic Calendar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="/analisis/historical-data"
-                                                className="block px-4 py-2"
-                                            >
-                                                Historical Data
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="/analisis/pivot-fibonacci"
-                                                className="block px-4 py-2"
-                                            >
-                                                Pivot & Fibonacci
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Prosedur Investasi */}
-                                <li className="relative group">
-                                    <button className="flex items-center hover:border-b-2 border-green-700 transition duration-300">
-                                        Prosedur Investasi{" "}
-                                        <i className="fa-solid fa-chevron-down ml-2"></i>
-                                    </button>
-                                    <ul className="absolute left-0 bg-white text-black py-2 w-48 rounded mt-4 shadow opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
-                                        <li>
-                                            <a
-                                                href="/prosedur/registrasi-online"
-                                                className="block px-4 py-2"
-                                            >
-                                                Prosedur Registrasi Online
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/prosedur/penarikan" className="block px-4 py-2">
-                                                Prosedur Penarikan
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="/prosedur/petunjuk-transaksi"
-                                                className="block px-4 py-2"
-                                            >
-                                                Petunjuk Transaksi
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Informasi */}
-                                <li className="relative group">
-                                    <button className="flex items-center hover:border-b-2 border-green-700 transition duration-300">
-                                        Informasi <i className="fa-solid fa-chevron-down ml-2"></i>
-                                    </button>
-                                    <ul className="absolute left-0 bg-white text-black py-2 w-48 rounded mt-4 shadow opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
-                                        <li>
-                                            <a href="/informasi/umum" className="block px-4 py-2">
-                                                Umum
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/informasi/video-umum" className="block px-4 py-2">
-                                                Video Umum
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {/* Hubungi Kami */}
-                                <li>
-                                    <a
-                                        href="/hubungi-kami"
-                                        className="hover:border-b-2 border-green-700 transition duration-300"
-                                    >
-                                        Hubungi Kami
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-
-                {/* Market Update */}
-                <div className="w-full bg-zinc-800 text-white overflow-hidden">
-                    <div className="flex items-center h-12">
-                        <div className="bg-red-600 px-4 h-full flex items-center font-bold text-sm sm:text-base whitespace-nowrap">
-                            Market Update
-                        </div>
-                        <div className="relative overflow-hidden w-full bg-green-600 h-full flex items-center">
-                            <div className="animate-marquee whitespace-nowrap px-4 text-sm sm:text-base">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium rerum at architecto, deserunt magni tempora amet vitae magnam sit, enim quam nihil saepe fugiat dolor quod, laudantium et ipsum molestias.
+                                )}
                             </div>
-                        </div>
-                    </div>
+                        ))}
+                    </nav>
                 </div>
-            </div>
-        </>
-    );
-};
 
-export default Navbar;
+                {/* Menu Mobile */}
+                {menuOpen && (
+                    <nav className="md:hidden px-6 pb-4 space-y-2 text-base bg-zinc-900">
+                        {menuItems.map((item) => (
+                            <div key={item.label}>
+                                {item.submenu ? (
+                                    <>
+                                        <button
+                                            onClick={() => toggleDropdown(item.label)}
+                                            className="w-full flex justify-between items-center py-2"
+                                        >
+                                            {item.label}
+                                            <i
+                                                className={`fa-solid fa-chevron-down transition-transform ${openDropdown === item.label ? "rotate-180" : ""}`}
+                                            />
+                                        </button>
+                                        {openDropdown === item.label && (
+                                            <ul className="pl-4">
+                                                {item.submenu.map((sub) => (
+                                                    <li key={sub.href}>
+                                                        <a
+                                                            href={sub.href}
+                                                            className="block py-2 text-white hover:text-green-400"
+                                                            onClick={closeAllMenus}
+                                                        >
+                                                            {sub.label}
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </>
+                                ) : (
+                                    <a
+                                        href={item.href}
+                                        className="block py-2 text-white hover:text-green-400"
+                                        onClick={closeAllMenus}
+                                    >
+                                        {item.label}
+                                    </a>
+                                )}
+                            </div>
+                        ))}
+                    </nav>
+                )}
+            </div>
+
+            {/* Market Update */}
+            <MarketUpdate />
+        </header>
+    );
+}

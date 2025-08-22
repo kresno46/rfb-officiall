@@ -17,7 +17,7 @@ export default function PageTemplate({ title, children }: PageTemplateProps) {
     return (
         <>
             <Head>
-                <title>{title || "PT Solid Gold Berjangka"}</title>
+                <title>{title ? `${title} - PT. Rifan Financindo Berjangka` : "PT. Rifan Financindo Berjangka"}</title>
 
                 {/* Favicon & Icons */}
                 <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
@@ -30,10 +30,6 @@ export default function PageTemplate({ title, children }: PageTemplateProps) {
                 {/* Font: Montserrat */}
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-                    rel="stylesheet"
-                />
             </Head>
 
             <DateTimeDisplay />
