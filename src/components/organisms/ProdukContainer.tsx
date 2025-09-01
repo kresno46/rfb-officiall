@@ -12,7 +12,7 @@ type Product = {
     category: string;
 };
 
-const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_URL || "http://rfb-backpanel.test/img/produk";
+const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_URL || "https://kpf-backpanel-production.up.railway.app/img/produk";
 
 export default function ProdukContainer() {
     const [productList, setProductList] = useState<Product[]>([]);

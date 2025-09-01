@@ -55,7 +55,7 @@ export default function HomePage() {
           <hr className="border-gray-200" />
 
           <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-36 2xl:px-52">
-            <BeritaSection limit={3} className="mx-auto flex flex-col gap-7 px-4  lg:px-16" />
+            <BeritaSection className="mx-auto flex flex-col gap-7 px-4 lg:px-16" />
           </div>
         </div>
 

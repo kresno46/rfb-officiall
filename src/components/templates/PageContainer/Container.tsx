@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState, useEffect } from "react";
 
 interface ProfilContainerProps {
     children: ReactNode;
@@ -7,8 +7,18 @@ interface ProfilContainerProps {
 }
 
 export default function ProfilContainer({ children, title, hideTitle = false }: ProfilContainerProps) {
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return null;
+    }
+
     return (
-        <div className="bg-white border-8 rounded-2xl border-amber-400">
+        <div className="bg-white border-8 rounded-2xl border-amber-400 relative">
             {!hideTitle && title && (
                 <div>
                     <div className="text-center text-2xl md:text-3xl font-bold my-5 md:my-10">

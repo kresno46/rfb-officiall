@@ -80,9 +80,13 @@ export default function ProductDetail() {
                     <div>
                         <div className="flex justify-center mb-6">
                             <img
-                                src={`http://rfb-backpanel.test/img/produk/${product.image}`}
+                                src={`https://kpf-backpanel-production.up.railway.app/img/produk/${product.image}`}
                                 alt={product.name}
                                 className="w-full max-h-100 object-cover rounded-lg shadow"
+                                onError={(e) => {
+                                    // Fallback to a placeholder image if the image fails to load
+                                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=Image+Not+Available';
+                                }}
                             />
                         </div>
                         <div

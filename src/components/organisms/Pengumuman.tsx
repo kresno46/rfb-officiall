@@ -4,7 +4,7 @@ import Header1 from "@/components/moleculs/Header1";
 
 type Berita = {
     id: number;
-    image: string;
+    image?: string;  
     kategori: string;
     status: string;
     judul: string;
@@ -31,7 +31,49 @@ export default function PengumumanHome({ showHeader = true, className }: Pengumu
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
                 const data: Berita[] = await response.json();
-                setPengumumanList(data);
+                
+                // Proses URL gambar
+                const processedData = data.map(item => {
+                    
+                    // Proses URL gambar
+                    let imageUrl = item.image;
+                    if (imageUrl) {
+                        // Dapatkan nama file dari path
+                        const fileName = imageUrl.split('/').pop()?.split('?')[0] || '';
+                        const baseImagePath = '/img/berita/';
+                        
+                        // Coba format URL yang mungkin
+                        const possiblePaths = [
+                            `${baseImagePath}${fileName}`,  // Format: /img/berita/nama-file.jpg
+                            imageUrl.startsWith('storage/') ? `${baseImagePath}${imageUrl.replace('storage/', '')}` : null,
+                            imageUrl  // Format asli sebagai fallback
+                        ].filter(Boolean);
+
+                        const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://kpf-backpanel-production.up.railway.app';
+                        
+                        for (const path of possiblePaths) {
+                            if (!path) continue;
+                            try {
+                                const cleanPath = String(path).trim().replace(/^\/+/, '');
+                                const url = new URL(cleanPath, baseUrl);
+                                
+                                if (url.hostname === new URL(baseUrl).hostname) {
+                                    imageUrl = url.toString();
+                                    break;
+                                }
+                            } catch (e) {
+                                // Error handling tetap dipertahankan
+                            }
+                        }
+                    }
+                    
+                    return {
+                        ...item,
+                        image: imageUrl
+                    };
+                });
+            
+                setPengumumanList(processedData);
             } catch (error) {
                 console.error("Gagal memuat berita:", error);
             } finally {
@@ -57,9 +99,11 @@ export default function PengumumanHome({ showHeader = true, className }: Pengumu
                         <NewsCard2
                             key={item.id}
                             title={item.judul}
-                            date={item.created_at.substring(0, 10)}
+                            date={item.created_at}
                             content={item.isi}
-                            link={`/informasi/umum/${item.slug}`}
+                            image={item.image}
+                            category={item.kategori}
+                            link={`/pengumuman/${item.slug}`}
                         />
                     ))}
                 </div>
