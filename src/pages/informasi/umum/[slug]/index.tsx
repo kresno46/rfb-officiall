@@ -20,63 +20,98 @@ type Berita = {
 export default function BeritaDetail() {
     const router = useRouter();
     const { slug } = router.query;
-
     const [berita, setBerita] = useState<Berita | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [isMounted, setIsMounted] = useState(false);
+    
+    // Pastikan slug adalah string
+    const slugString = Array.isArray(slug) ? slug[0] : slug || '';
 
     useEffect(() => {
-        if (!router.isReady || !slug) return;
+        setIsMounted(true);
+        return () => setIsMounted(false);
+    }, []);
+
+    useEffect(() => {
+        if (!router.isReady || !slugString) return;
 
         async function fetchBerita() {
             try {
-                const response = await fetch(`/api/berita/${slug}`);
-                if (!response.ok) throw new Error('Data tidak ditemukan');
+                setLoading(true);
+                const response = await fetch(`/api/berita/${encodeURIComponent(slugString)}`);
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || 'Gagal memuat data berita');
+                }
 
                 const data: Berita = await response.json();
-                setBerita(data);
+                if (isMounted) {
+                    setBerita(data);
+                }
             } catch (error) {
                 console.error('Gagal memuat berita:', error);
-                setBerita(null);
+                if (isMounted) {
+                    setBerita(null);
+                }
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         }
 
         fetchBerita();
-    }, [router.isReady, slug]);
+    }, [router.isReady, slug, isMounted]);
 
     const formatDate = (inputDate: string) => {
-        const options: Intl.DateTimeFormatOptions = {
-            weekday: 'long',
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
-        };
-        const parsedDate = new Date(inputDate);
-        return parsedDate.toLocaleDateString('id-ID', options);
+        if (!inputDate) return '';
+        try {
+            const options: Intl.DateTimeFormatOptions = {
+                weekday: 'long',
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+            };
+            const parsedDate = new Date(inputDate);
+            return parsedDate.toLocaleDateString('id-ID', options);
+        } catch (error) {
+            console.error('Error formatting date:', error);
+            return inputDate;
+        }
     };
+
+    if (!isMounted) {
+        return null;
+    }
 
     if (loading) {
         return (
             <PageTemplate title="Memuat...">
-                <div className="text-center py-20">Memuat data berita...</div>
+                <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
+                    <ProfilContainer title="Memuat Informasi...">
+                        <div className="flex justify-center items-center h-64">
+                            <div className="animate-pulse text-gray-500">Memuat informasi...</div>
+                        </div>
+                    </ProfilContainer>
+                </div>
             </PageTemplate>
         );
     }
 
     if (!berita) {
         return (
-            <PageTemplate title="Berita Tidak Ditemukan">
+            <PageTemplate title="Informasi Tidak Ditemukan">
                 <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                    <ProfilContainer title="Berita Tidak Ditemukan">
-                        <div className="text-center">
+                    <ProfilContainer title="Informasi Tidak Ditemukan">
+                        <div className='text-center'>
                             <NotFound />
-                            <div>
-                                <a
-                                    href="/analisis/berita"
-                                    className="bg-green-500 hover:bg-green-400 px-2 py-1 rounded text-black transition-all duration-300"
+                            <div className="mt-4">
+                                <a 
+                                    href="/informasi/umum" 
+                                    className='bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white transition-all duration-300 inline-block'
                                 >
-                                    &#129032; Halaman Berita
+                                    &#129032; Kembali ke Daftar Informasi
                                 </a>
                             </div>
                         </div>
@@ -93,9 +128,9 @@ export default function BeritaDetail() {
                     <DetailBerita
                         date={formatDate(berita.created_at)}
                         title={berita.judul}
-                        img={`http://rfb-backpanel.test/img/berita/${berita.image}`}
-                        kategori={berita.kategori}
+                        img={berita.image}
                         content={berita.isi}
+                        kategori={berita.kategori || "Informasi Umum"}
                     />
                 </ProfilContainer>
             </div>

@@ -103,7 +103,7 @@ export default function PengumumanHome({ showHeader = true, className }: Pengumu
                             content={item.isi}
                             image={item.image}
                             category={item.kategori}
-                            link={`/pengumuman/${item.slug}`}
+                            link={`/informasi/umum/${item.slug}`}
                         />
                     ))}
                 </div>

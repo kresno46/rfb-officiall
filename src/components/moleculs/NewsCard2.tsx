@@ -51,12 +51,27 @@ export default function NewsCard2({ date, title, content, link, image, category,
     const truncatedContent = truncate(cleanContent, 150);
     const truncatedTitle = truncate(stripHtml(title), 70);
 
-    // Gunakan div wrapper untuk menghindari nested links
-    const Wrapper = ({ children }: { children: React.ReactNode }) => (
-        <div className="group flex flex-col h-full bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-green-100">
+    // Define proper props type for Wrapper
+    interface WrapperProps {
+        children: React.ReactNode;
+        onClick?: (e: React.MouseEvent) => void;
+    }
+
+    // Wrapper component with hover effect and proper link handling
+    const Wrapper = ({ children, onClick }: WrapperProps) => (
+        <div 
+            className="group bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col hover:shadow-lg transition-shadow duration-300"
+            onClick={onClick}
+        >
             {children}
         </div>
     );
+
+    // Handle card click to prevent event bubbling
+    const handleCardClick = (e: React.MouseEvent) => {
+        // Stop propagation to prevent parent click handlers from interfering
+        e.stopPropagation();
+    };
 
     // Cek apakah URL gambar valid
     const getValidImageUrl = (url: string | undefined): string | null => {
@@ -80,7 +95,7 @@ export default function NewsCard2({ date, title, content, link, image, category,
     const imageUrl = getValidImageUrl(image);
 
     return (
-        <Wrapper>
+        <Wrapper onClick={handleCardClick}>
             {/* Image Container */}
             <div className="relative w-full h-48 overflow-hidden bg-gray-100">
                 {imageUrl ? (
