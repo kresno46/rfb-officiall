@@ -10,7 +10,7 @@ interface Slide {
 
 const slides: Slide[] = [
     {
-        title: "Selamat Datang di PT. Solid Gold Berjangka",
+        title: "Selamat Datang di PT. Rifan Financindo Berjangka",
         description: "Pialang berjangka terpercaya untuk masa depan keuangan Anda.",
         image: "/assets/corousel-1.png",
     },

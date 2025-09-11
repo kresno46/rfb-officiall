@@ -17,7 +17,7 @@ interface BeritaSectionProps {
     className?: string;
 }
 
-export default function BeritaSection({ className, limit, showHeader = true }: BeritaSectionProps) {
+export default function BeritaSection({ className, limit = 6, showHeader = true }: BeritaSectionProps) {
     const [berita, setBerita] = useState<Berita[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -33,18 +33,24 @@ export default function BeritaSection({ className, limit, showHeader = true }: B
                 const data = await response.json();
                 console.log('Data berhasil diambil, total:', data.length);
                 
+                // Urutkan berita berdasarkan created_at (dari yang terbaru)
+                const sortedBerita = [...data].sort((a, b) => {
+                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+                });
+                
                 // Log detail setiap item
-                data.forEach((item: any, index: number) => {
+                sortedBerita.forEach((item: any, index: number) => {
                     console.log(`Item ${index + 1}:`, {
                         id: item.id,
                         judul: item.judul,
+                        created_at: item.created_at,
                         gambar: item.gambar,
                         hasImage: !!item.gambar,
                         imageUrl: item.gambar ? new URL(item.gambar).toString() : 'Tidak ada gambar'
                     });
                 });
                 
-                setBerita(Array.isArray(data) ? data : []);
+                setBerita(Array.isArray(sortedBerita) ? sortedBerita : []);
             } catch (err) {
                 console.error('Error fetching berita:', err);
                 setError('Gagal memuat data berita. Silakan coba lagi nanti.');
@@ -60,7 +66,14 @@ export default function BeritaSection({ className, limit, showHeader = true }: B
 
     return (
         <div className={`${className}`}>
-            {showHeader && <Header2 title="Berita Terbaru" />}
+            {showHeader && (
+                <Header2 
+                    title="Berita Terbaru" 
+                    showViewAll={true}
+                    viewAllHref="/analisis/berita"
+                    className="mb-6"
+                />
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {isLoading ? (
                     <p>Memuat berita...</p>
