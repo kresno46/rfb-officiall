@@ -1,4 +1,4 @@
-// Home
+// Home.jsx
 
 import { useState, useEffect } from "react";
 import PageTemplate from "@/components/templates/PageTemplate";
@@ -10,12 +10,11 @@ import Iso from "@/components/organisms/Market";
 import Pengumuman from "@/components/organisms/Pengumuman";
 import ModalPopup from "@/components/moleculs/ModalPopup";
 
-
 export default function HomePage() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // Buka modal otomatis saat halaman load
+    // Open modal automatically on page load
     setShowModal(true);
   }, []);
 
@@ -23,7 +22,11 @@ export default function HomePage() {
 
   return (
     <PageTemplate>
-      <ModalPopup isOpen={showModal} onClose={handleCloseModal} title="Selamat Datang!">
+      <ModalPopup
+        isOpen={showModal}
+        onClose={handleCloseModal}
+        title="Selamat Datang!"
+      >
         <div className="flex flex-col items-center gap-3">
           <div className="bg-zinc-200 p-5 rounded-lg">
             <img src="/assets/logo-rfb.png" alt="Modal Popup" className="h-30" />
@@ -31,8 +34,23 @@ export default function HomePage() {
           <h1 className="text-2xl md:text-3xl font-bold text-center text-green-800">
             Welcome to PT Rifan Financindo Berjangka
           </h1>
-          <p className="text-lg text-center">Join us now and start your trading journey!</p>
-          <a href="https://regol.rifan-financindo-berjangka.co.id/" className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-all duration-300">Register Now</a>
+          <p className="text-lg text-center">
+            Join us now and start your trading journey!
+          </p>
+          <a
+            href="https://regol.rifan-financindo-berjangka.co.id/"
+            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-all duration-300"
+          >
+            Register Now
+          </a>
+
+          {/* NEW Later Button */}
+          <button
+            onClick={handleCloseModal}
+            className="text-gray-600 hover:text-gray-800 mt-2 underline"
+          >
+            Later
+          </button>
         </div>
       </ModalPopup>
 
