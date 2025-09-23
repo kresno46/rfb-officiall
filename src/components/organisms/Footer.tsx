@@ -1,6 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useRouter } from 'next/router';
 
 const Footer = () => {
+    const router = useRouter();
+
+    // Handle scroll to produk when landing on homepage with #produk hash
+    useEffect(() => {
+        const handleRouteChange = () => {
+            if (window.location.pathname === '/' && window.location.hash === '#produk') {
+                // Small timeout to ensure the page has fully rendered
+                const timer = setTimeout(() => {
+                    const produkSection = document.getElementById('produk');
+                    if (produkSection) {
+                        window.scrollTo({
+                            top: produkSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 100);
+                return () => clearTimeout(timer);
+            }
+        };
+
+        // Check on initial load
+        handleRouteChange();
+
+        // Check on route change
+        router.events.on('routeChangeComplete', handleRouteChange);
+
+        return () => {
+            router.events.off('routeChangeComplete', handleRouteChange);
+        };
+    }, [router.events]);
     return (
         /* Footer */
         <footer className="flex flex-col justify-between items-center gap-10 bg-zinc-800 text-white px-10 md:px-10 lg-22 py-10">
@@ -27,20 +58,26 @@ const Footer = () => {
                         <h1 className="text-xl font-bold">USEFUL LINKS</h1>
                         <div className="flex flex-col gap-3 text-sm md:text-base">
                             <a
-                                href=""
-                                className="flex items-center gap-2 hover:text-green-500"
+                                href="/"
+                                className="flex items-center gap-2 hover:text-green-500 transition-colors"
                             >
                                 <i className="fa-solid fa-chevron-right"></i> Beranda
                             </a>
                             <a
-                                href=""
-                                className="flex items-center gap-2 hover:text-green-500"
+                                href="/produk/jfx"
+                                className="flex items-center gap-2 hover:text-green-500 transition-colors"
                             >
-                                <i className="fa-solid fa-chevron-right"></i> Lihat Produk
+                                <i className="fa-solid fa-chevron-right"></i> Produk JFX
                             </a>
                             <a
-                                href=""
-                                className="flex items-center gap-2 hover:text-green-500"
+                                href="/produk/spa"
+                                className="flex items-center gap-2 hover:text-green-500 transition-colors"
+                            >
+                                <i className="fa-solid fa-chevron-right"></i> Produk SPA
+                            </a>
+                            <a
+                                href="/hubungi-kami"
+                                className="flex items-center gap-2 hover:text-green-500 transition-colors"
                             >
                                 <i className="fa-solid fa-chevron-right"></i> Kontak
                             </a>
@@ -81,11 +118,11 @@ const Footer = () => {
                         corporate@rifan-financindo-berjangka.co.id
                     </p>
                     <p className="text-sm md:text-base">
-                        <strong>Telepon: </strong>(021) 30056300
+                        <strong>Telepon: </strong>(021) 3005 6300
                     </p>
                     <p className="text-sm md:text-base">
                         <strong>Fax (AXA Tower): </strong>
-                        +62 21 3005 8500
+                        (021) 3005 6200
                     </p>
                     <p className="text-sm md:text-base">
                         <strong>Layanan pengaduan: </strong>
@@ -104,8 +141,8 @@ const Footer = () => {
                         <a>
                             <div className="bg-gradient-to-br from-white via-zinc-100 to-zinc-200 p-3 rounded-2xl shadow-xl border border-zinc-300 w-fit hover:scale-105 hover:shadow-2xl transition transform duration-300 ease-in-out">
                                 <img
-                                    src="/assets/iso.png"
-                                    alt="Logo Komdigi"
+                                    src="/assets/ISO.png"
+                                    alt="Logo ISO"
                                     className="h-10 drop-shadow-lg"
                                 />
                             </div>
