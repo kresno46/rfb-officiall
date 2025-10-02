@@ -1,38 +1,71 @@
-// Profil Perusahaan
-
+import { useEffect, useState } from 'react';
 import ProfilContainer from "@/components/templates/PageContainer/Container";
 import PageTemplate from "@/components/templates/PageTemplate";
 
-export default function Multilateral() {
-    const dataKalender = [
-        {
-            time: "08:00",
-            country: "USA",
-            impact: "High",
-            figures: "GDP",
-            previous: "3.0%",
-            forecast: "3.2%",
-            actual: "3.5%",
-        },
-        {
-            time: "09:30",
-            country: "JPN",
-            impact: "Medium",
-            figures: "CPI",
-            previous: "1.1%",
-            forecast: "1.3%",
-            actual: "1.4%",
-        },
-        {
-            time: "10:45",
-            country: "EUR",
-            impact: "Low",
-            figures: "PMI",
-            previous: "50.1",
-            forecast: "51.0",
-            actual: "50.5",
-        },
-    ];
+interface CalendarEvent {
+  time: string;
+  country: string;
+  impact: 'High' | 'Medium' | 'Low';
+  figures: string;
+  previous: string;
+  forecast: string;
+  actual: string;
+}
+
+export default function EconomicCalendar() {
+    const [dataKalender, setDataKalender] = useState<CalendarEvent[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/api/economic-calendar');
+                if (!response.ok) {
+                    throw new Error('Gagal mengambil data kalender ekonomi');
+                }
+                const data = await response.json();
+                setDataKalender(data);
+            } catch (err) {
+                console.error('Error:', err);
+                setError('Gagal memuat data kalender ekonomi. Silakan coba lagi nanti.');
+                // Fallback ke data statis jika API gagal
+                setDataKalender([
+                    {
+                        time: "08:00",
+                        country: "USA",
+                        impact: "High",
+                        figures: "GDP",
+                        previous: "3.0%",
+                        forecast: "3.2%",
+                        actual: "3.5%",
+                    },
+                    {
+                        time: "09:30",
+                        country: "JPN",
+                        impact: "Medium",
+                        figures: "CPI",
+                        previous: "1.1%",
+                        forecast: "1.3%",
+                        actual: "1.4%",
+                    },
+                    {
+                        time: "10:45",
+                        country: "EUR",
+                        impact: "Low",
+                        figures: "PMI",
+                        previous: "50.1",
+                        forecast: "51.0",
+                        actual: "50.5",
+                    },
+                ]);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <PageTemplate title="Kalender Ekonomi">
