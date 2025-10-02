@@ -3,7 +3,7 @@ import ProfilContainer from "@/components/templates/PageContainer/Container";
 import { useState } from "react";
 import PivotSection from "@/components/organisms/PivotSection"; // Tambahkan ini
 import FibonacciSection from "@/components/organisms/FIbonacciSection";
-import HistoricalTable from "@/components/organisms/TableHistory";
+import HistoricalDataContent from "@/components/organisms/HistoricalDataContent";
 
 export default function HistoricalData() {
     const [activeTab, setActiveTab] = useState("Pivot");
@@ -35,7 +35,7 @@ export default function HistoricalData() {
 
                         <hr className="border-zinc-200" />
 
-                        <HistoricalTable />
+                        <HistoricalDataContent />
                     </div>
                 </ProfilContainer>
             </div>

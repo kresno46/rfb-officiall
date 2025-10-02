@@ -267,93 +267,153 @@ export default function HistoricalDataContent() {
       )}
 
       {/* Filter Section */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-wrap">
-        <div className="w-full sm:w-auto">
-          <select
-            id="symbol"
-            value={selectedSymbol}
-            onChange={(e) => setSelectedSymbol(e.target.value)}
-            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
-            disabled={isLoading || symbols.length === 0}
-          >
-            {symbols.length === 0 ? (
-              <option value="">Memuat daftar simbol...</option>
-            ) : (
-              symbols.map((symbol) => (
-                <option key={symbol.value} value={symbol.value}>
-                  {symbol.label}
-                </option>
-              ))
-            )}
-          </select>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+        <div className="p-2">
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Symbol Selector */}
+            <div className="w-full sm:w-auto flex-1 min-w-[120px] max-w-[200px]">
+              <select
+                id="symbol"
+                value={selectedSymbol}
+                onChange={(e) => setSelectedSymbol(e.target.value)}
+                className="w-full text-xs px-2 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                disabled={isLoading || symbols.length === 0}
+              >
+                {symbols.length === 0 ? (
+                  <option value="" disabled>Memuat simbol...</option>
+                ) : (
+                  symbols.map((symbol) => (
+                    <option key={symbol.value} value={symbol.value}>
+                      {symbol.label}
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
+
+            {/* Date Range */}
+            <div className="flex items-center gap-1 flex-shrink-0">
+              <input
+                type="date"
+                id="from"
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
+                className="text-xs px-2 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 w-28"
+                disabled={isLoading}
+              />
+              <span className="text-gray-500 whitespace-nowrap text-xs">s/d</span>
+              <input
+                type="date"
+                id="to"
+                value={toDate}
+                onChange={(e) => setToDate(e.target.value)}
+                className="text-xs px-2 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 w-28"
+                disabled={isLoading}
+              />
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex items-center gap-1.5 ml-auto">
+              <button
+                onClick={() => {
+                  setFromDate('');
+                  setToDate('');
+                  setSelectedSymbol('');
+                }}
+                disabled={isLoading || (!fromDate && !toDate && !selectedSymbol)}
+                className="px-2.5 py-1.5 bg-white text-green-600 border border-green-600 rounded-md hover:bg-gray-50 transition-colors text-xs whitespace-nowrap flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span>Reset</span>
+              </button>
+              <button
+                onClick={handleDownload}
+                disabled={isLoading || filteredData.length === 0}
+                className="px-2.5 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-xs whitespace-nowrap flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span>Unduh</span>
+              </button>
+            </div>
+          </div>
         </div>
-        
-        <div className="flex items-center gap-2">
-          <label htmlFor="from" className="font-medium">Dari:</label>
-          <input
-            type="date"
-            id="from"
-            value={fromDate}
-            onChange={(e) => setFromDate(e.target.value)}
-            className="border px-3 py-2 rounded-md"
-            disabled={isLoading}
-          />
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <label htmlFor="to" className="font-medium">Sampai:</label>
-          <input
-            type="date"
-            id="to"
-            value={toDate}
-            onChange={(e) => setToDate(e.target.value)}
-            className="border px-3 py-2 rounded-md"
-            disabled={isLoading}
-          />
-        </div>
-        
-        <button
-          onClick={handleDownload}
-          disabled={isLoading || filteredData.length === 0}
-          className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition disabled:opacity-50"
-        >
-          {isLoading ? 'Memproses...' : 'Unduh Data'}
-        </button>
       </div>
 
       {/* Tabel Data */}
       {!isLoading && filteredData.length > 0 && (
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Open</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">High</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Low</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Close</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Volume</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {currentItems.map((item: HistoricalDataItem, index: number) => (
-                <tr key={`${item.symbol}-${item.date}-${index}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatDisplayDate(item.date)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatNumber(item.open)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatNumber(item.high)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatNumber(item.low)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatNumber(item.close)}</td>
-                  <td className={`px-6 py-4 whitespace-nowrap text-sm ${item.change && parseFloat(item.change) < 0 ? 'text-red-600' : 'text-green-600'}`}>
-                    {item.change || '-'}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatNumber(item.volume, 0)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.event || '-'}</td>
+        <div className="bg-white rounded-lg shadow-sm border border-[#E5E7EB] overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-[#E5E7EB]">
+              <thead className="bg-zinc-800">
+                <tr>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Tanggal
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Open
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    High
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Low
+                  </th>
+                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Close
+                  </th>
+                  {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
+                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                      Change
+                    </th>
+                  )}
+                  {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
+                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                      Volume
+                    </th>
+                  )}
+                  {selectedSymbol.includes('HSI') && (
+                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                      Open Interest
+                    </th>
+                  )}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-[#E5E7EB]">
+                {currentItems.map((item: HistoricalDataItem, index: number) => (
+                  <tr key={`${item.symbol}-${item.date}-${index}`} className={index % 2 === 0 ? 'bg-white' : 'bg-[#F9FAFB] hover:bg-[#FFF9F5]'}>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C]">
+                      {formatDisplayDate(item.date)}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                      {formatNumber(item.open)}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                      {formatNumber(item.high)}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                      {formatNumber(item.low)}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                      {formatNumber(item.close)}
+                    </td>
+                    {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
+                      <td className={`px-4 py-3 whitespace-nowrap text-sm text-right ${item.change && parseFloat(item.change) < 0 ? 'text-red-600' : 'text-green-600'}`}>
+                        {item.change || '-'}
+                      </td>
+                    )}
+                    {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                        {item.volume ? formatNumber(item.volume, 0) : '-'}
+                      </td>
+                    )}
+                    {selectedSymbol.includes('HSI') && (
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                        {item.openInterest ? formatNumber(item.openInterest, 0) : '-'}
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           
           {/* Pagination */}
           {totalPages > 1 && (
