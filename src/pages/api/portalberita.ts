@@ -24,7 +24,13 @@ interface BeritaResponse {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const response = await fetch('https://portalnews.newsmaker.id/api/berita');
+        const response = await fetch('https://portalnews.newsmaker.id/api/v1/berita', {
+            headers: {
+                'accept': 'application/json',
+                'Authorization': 'Bearer RFB-115886a7f25067f3'
+            },
+            cache: 'no-store' as RequestCache
+        });
         
         if (!response.ok) {
             throw new Error(`API request failed with status ${response.status}`);
