@@ -69,6 +69,7 @@ export default function ProdukContainer() {
                         <ProductCard
                             key={`${product.category}-${product.id}`}
                             title={product.name}
+                            description={product.deskripsi}
                             image={`${BASE_IMAGE_URL}/${product.image}`}
                             category={product.category}
                             slug={product.slug}
