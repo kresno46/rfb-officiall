@@ -31,7 +31,7 @@ interface ApiResponse {
 // Format tanggal dari 'DD MMM YYYY' ke 'YYYY-MM-DD'
 const formatDateToISO = (dateStr: string): string => {
   if (!dateStr) return '';
-  
+
   // Coba format 'DD MMM YYYY' (e.g., '30 Sep 2025')
   const parts = dateStr.match(/^(\d{1,2})\s(\w{3})\s(\d{4})$/);
   if (parts) {
@@ -39,17 +39,17 @@ const formatDateToISO = (dateStr: string): string => {
       'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
       'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
     };
-    
+
     const day = parseInt(parts[1], 10);
     const month = months[parts[2]];
     const year = parseInt(parts[3], 10);
-    
+
     if (!isNaN(day) && !isNaN(year) && month !== undefined) {
       const date = new Date(year, month, day);
       return date.toISOString().split('T')[0];
     }
   }
-  
+
   // Jika format tidak dikenali, kembalikan aslinya
   return dateStr;
 };
@@ -58,14 +58,14 @@ export default function HistoricalDataContent() {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [selectedSymbol, setSelectedSymbol] = useState<string>("");
-  const [symbols, setSymbols] = useState<{value: string; label: string}[]>([]);
+  const [symbols, setSymbols] = useState<{ value: string; label: string }[]>([]);
   const [apiData, setApiData] = useState<SymbolData[]>([]);
   const [filteredData, setFilteredData] = useState<HistoricalDataItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  
+
   // Hitung data yang akan ditampilkan di halaman saat ini
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -78,28 +78,28 @@ export default function HistoricalDataContent() {
       try {
         setIsLoading(true);
         const response = await fetch('/api/historical-data');
-        
+
         if (!response.ok) {
           throw new Error('Gagal mengambil data historis');
         }
-        
+
         const data: ApiResponse = await response.json();
         setApiData(data.data);
-        
+
         // Daftar simbol untuk dropdown
         const symbolOptions = data.data.map(item => ({
           value: item.symbol,
           label: item.symbol
         }));
-        
+
         setSymbols(symbolOptions);
-        
+
         // Set default symbol jika belum ada
         if (symbolOptions.length > 0 && !selectedSymbol) {
           const defaultSymbol = symbolOptions.find(s => s.value === 'LGD Daily') || symbolOptions[0];
           setSelectedSymbol(defaultSymbol.value);
         }
-        
+
         setError(null);
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -115,47 +115,47 @@ export default function HistoricalDataContent() {
   // Filter data saat simbol atau tanggal berubah
   useEffect(() => {
     if (!selectedSymbol || !apiData.length) return;
-    
+
     const filterAndSortData = () => {
       try {
         setIsLoading(true);
-        
+
         // Cari data untuk simbol yang dipilih
         const selectedData = apiData.find(item => item.symbol === selectedSymbol);
-        
+
         if (!selectedData) {
           setFilteredData([]);
           return;
         }
-        
+
         // Filter berdasarkan tanggal jika ada
         let result = [...selectedData.data];
-        
+
         if (fromDate || toDate) {
           const from = fromDate ? new Date(fromDate) : null;
           const to = toDate ? new Date(toDate) : null;
-          
+
           if (from) from.setHours(0, 0, 0, 0);
           if (to) to.setHours(23, 59, 59, 999);
-          
+
           result = result.filter(item => {
             const itemDate = new Date(formatDateToISO(item.date));
-            return (!from || itemDate >= from) && 
-                  (!to || itemDate <= to);
+            return (!from || itemDate >= from) &&
+              (!to || itemDate <= to);
           });
         }
-        
+
         // Urutkan dari tanggal terbaru
         result.sort((a, b) => {
           const dateA = new Date(formatDateToISO(a.date));
           const dateB = new Date(formatDateToISO(b.date));
           return dateB.getTime() - dateA.getTime();
         });
-        
+
         setFilteredData(result);
         setCurrentPage(1); // Reset ke halaman pertama saat filter berubah
         setError(null);
-        
+
       } catch (err) {
         console.error('Error filtering data:', err);
         setError('Gagal memfilter data. Silakan coba lagi.');
@@ -169,7 +169,7 @@ export default function HistoricalDataContent() {
 
   const handleDownload = () => {
     if (filteredData.length === 0) return;
-    
+
     try {
       const header = "Date,Open,High,Low,Close,Change,Volume,Event\n";
       const rows = filteredData.map(row => {
@@ -204,7 +204,7 @@ export default function HistoricalDataContent() {
   // Format angka dengan pemisah ribuan
   const formatNumber = (value: number | null, decimals: number = 2) => {
     if (value === null || value === undefined) return '-';
-    
+
     // Jika desimal 0, tampilkan tanpa koma
     if (decimals === 0) {
       return value.toLocaleString('id-ID', {
@@ -212,13 +212,13 @@ export default function HistoricalDataContent() {
         minimumFractionDigits: 0
       });
     }
-    
+
     return value.toLocaleString('id-ID', {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals
     });
   };
-  
+
   // Format tanggal untuk tampilan
   const formatDisplayDate = (dateStr: string) => {
     try {
@@ -232,19 +232,19 @@ export default function HistoricalDataContent() {
       return dateStr;
     }
   };
-  
+
   // Handler untuk ganti halaman
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-  
+
   // Handler untuk halaman sebelumnya
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
-  
+
   // Handler untuk halaman selanjutnya
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -347,30 +347,30 @@ export default function HistoricalDataContent() {
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                     Tanggal
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                     Open
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                     High
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                     Low
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                  <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                     Close
                   </th>
                   {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
-                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                       Change
                     </th>
                   )}
                   {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
-                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                       Volume
                     </th>
                   )}
                   {selectedSymbol.includes('HSI') && (
-                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                       Open Interest
                     </th>
                   )}
@@ -382,30 +382,30 @@ export default function HistoricalDataContent() {
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C]">
                       {formatDisplayDate(item.date)}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-center">
                       {formatNumber(item.open)}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-center">
                       {formatNumber(item.high)}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-center">
                       {formatNumber(item.low)}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-center">
                       {formatNumber(item.close)}
                     </td>
                     {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
-                      <td className={`px-4 py-3 whitespace-nowrap text-sm text-right ${item.change && parseFloat(item.change) < 0 ? 'text-red-600' : 'text-green-600'}`}>
+                      <td className={`px-4 py-3 whitespace-nowrap text-sm text-center ${item.change && parseFloat(item.change) < 0 ? 'text-red-600' : 'text-green-600'}`}>
                         {item.change || '-'}
                       </td>
                     )}
                     {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-center">
                         {item.volume ? formatNumber(item.volume, 0) : '-'}
                       </td>
                     )}
                     {selectedSymbol.includes('HSI') && (
-                      <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-right">
+                      <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-center">
                         {item.openInterest ? formatNumber(item.openInterest, 0) : '-'}
                       </td>
                     )}
@@ -414,7 +414,7 @@ export default function HistoricalDataContent() {
               </tbody>
             </table>
           </div>
-          
+
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex items-center justify-between px-6 py-3 bg-white border-t border-gray-200">
@@ -452,7 +452,7 @@ export default function HistoricalDataContent() {
                       <span className="sr-only">Sebelumnya</span>
                       &larr;
                     </button>
-                    
+
                     {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                       let pageNum;
                       if (totalPages <= 5) {
@@ -464,20 +464,20 @@ export default function HistoricalDataContent() {
                       } else {
                         pageNum = currentPage - 2 + i;
                       }
-                      
+
                       return (
                         <button
                           key={pageNum}
                           onClick={() => handlePageChange(pageNum)}
-                          className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${currentPage === pageNum 
-                            ? 'z-10 bg-green-50 border-green-500 text-green-600' 
+                          className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${currentPage === pageNum
+                            ? 'z-10 bg-green-50 border-green-500 text-green-600'
                             : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'}`}
                         >
                           {pageNum}
                         </button>
                       );
                     })}
-                    
+
                     <button
                       onClick={handleNextPage}
                       disabled={currentPage === totalPages}
