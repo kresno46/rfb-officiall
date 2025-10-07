@@ -74,7 +74,7 @@ export default function ProdukByCategory() {
                                 <ProductCard
                                     key={product.id}
                                     title={product.name}
-                                    image={product.image ? `https://kpf-backpanel-production.up.railway.app/img/produk/${product.image}` : ''}
+                                    image={product.image ? `https://rfbdev.newsmaker.id/img/produk/${product.image}` : ''}
                                     category={product.category}
                                     slug={`${product.slug}`}
                                 />
