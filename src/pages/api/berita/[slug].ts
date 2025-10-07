@@ -1,38 +1,43 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from "next";
 
 type Berita = {
-    id: number;
-    image: string;
-    kategori: string;
-    status: string;
-    judul: string;
-    slug: string;
-    isi: string;
-    created_at: string;
-    updated_at: string;
+  id: number;
+  image: string;
+  kategori: string;
+  status: string;
+  judul: string;
+  slug: string;
+  isi: string;
+  created_at: string;
+  updated_at: string;
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { slug } = req.query;
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { slug } = req.query;
 
-    if (!slug || typeof slug !== 'string') {
-        return res.status(400).json({ error: 'Slug tidak valid' });
+  if (!slug || typeof slug !== "string") {
+    return res.status(400).json({ error: "Slug tidak valid" });
+  }
+
+  try {
+    const response = await fetch(
+      `https://rfbdev.newsmaker.id/api/berita/${encodeURIComponent(slug)}`
+    );
+
+    if (!response.ok) {
+      return res.status(404).json({ error: "Berita tidak ditemukan" });
     }
 
-    try {
-        const response = await fetch(`https://kpf-backpanel-production.up.railway.app/api/berita/${encodeURIComponent(slug)}`);
-
-        if (!response.ok) {
-            return res.status(404).json({ error: 'Berita tidak ditemukan' });
-        }
-
-        const data: Berita = await response.json();
-        return res.status(200).json(data);
-    } catch (error: any) {
-        console.error("Error fetching berita detail:", error.message);
-        return res.status(500).json({ 
-            error: 'Gagal memuat detail berita',
-            details: error.message 
-        });
-    }
+    const data: Berita = await response.json();
+    return res.status(200).json(data);
+  } catch (error: any) {
+    console.error("Error fetching berita detail:", error.message);
+    return res.status(500).json({
+      error: "Gagal memuat detail berita",
+      details: error.message,
+    });
+  }
 }

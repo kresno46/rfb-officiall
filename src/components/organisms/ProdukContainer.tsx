@@ -12,7 +12,7 @@ type Product = {
     category: string;
 };
 
-const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_URL || "https://kpf-backpanel-production.up.railway.app/img/produk";
+const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_URL || "https://rfbdev.newsmaker.id/";
 
 export default function ProdukContainer() {
     const [productList, setProductList] = useState<Product[]>([]);
@@ -70,7 +70,7 @@ export default function ProdukContainer() {
                             key={`${product.category}-${product.id}`}
                             title={product.name}
                             description={product.deskripsi}
-                            image={`${BASE_IMAGE_URL}/${product.image}`}
+                            image={`${BASE_IMAGE_URL}/img/produk/${product.image}`}
                             category={product.category}
                             slug={product.slug}
                         />

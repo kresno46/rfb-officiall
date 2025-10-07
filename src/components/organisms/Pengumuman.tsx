@@ -4,7 +4,7 @@ import Header1 from "@/components/moleculs/Header1";
 
 type Berita = {
     id: number;
-    image?: string;  
+    image?: string;
     kategori: string;
     status: string;
     judul: string;
@@ -14,7 +14,6 @@ type Berita = {
     updated_at: string;
 };
 
-// Tambahkan props showHeader
 type PengumumanHomeProps = {
     showHeader?: boolean;
     className?: string;
@@ -31,48 +30,25 @@ export default function PengumumanHome({ showHeader = true, className }: Pengumu
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
                 const data: Berita[] = await response.json();
-                
-                // Proses URL gambar
-                const processedData = data.map(item => {
-                    
-                    // Proses URL gambar
-                    let imageUrl = item.image;
-                    if (imageUrl) {
-                        // Dapatkan nama file dari path
-                        const fileName = imageUrl.split('/').pop()?.split('?')[0] || '';
-                        const baseImagePath = '/img/berita/';
-                        
-                        // Coba format URL yang mungkin
-                        const possiblePaths = [
-                            `${baseImagePath}${fileName}`,  // Format: /img/berita/nama-file.jpg
-                            imageUrl.startsWith('storage/') ? `${baseImagePath}${imageUrl.replace('storage/', '')}` : null,
-                            imageUrl  // Format asli sebagai fallback
-                        ].filter(Boolean);
 
-                        const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://kpf-backpanel-production.up.railway.app';
-                        
-                        for (const path of possiblePaths) {
-                            if (!path) continue;
-                            try {
-                                const cleanPath = String(path).trim().replace(/^\/+/, '');
-                                const url = new URL(cleanPath, baseUrl);
-                                
-                                if (url.hostname === new URL(baseUrl).hostname) {
-                                    imageUrl = url.toString();
-                                    break;
-                                }
-                            } catch (e) {
-                                // Error handling tetap dipertahankan
-                            }
-                        }
+                const baseUrl = (process.env.NEXT_PUBLIC_API_BASE_URL || "https://rfbdev.newsmaker.id").replace(/\/$/, "");
+
+                // Mapping dan bentuk URL gambar dengan benar
+                const processedData = data.map((item) => {
+                    let imageUrl: string | undefined = undefined;
+
+                    if (item.image) {
+                        // Contoh hasil akhir yang diinginkan:
+                        // https://rfbdev.newsmaker.id/img/berita/2025-07-07-xxx.jpg
+                        imageUrl = `${baseUrl}/img/berita/${item.image}`;
                     }
-                    
+
                     return {
                         ...item,
-                        image: imageUrl
+                        image: imageUrl,
                     };
                 });
-            
+
                 setPengumumanList(processedData);
             } catch (error) {
                 console.error("Gagal memuat berita:", error);
@@ -86,7 +62,6 @@ export default function PengumumanHome({ showHeader = true, className }: Pengumu
 
     return (
         <div className={className}>
-            {/* Tampilkan Header jika showHeader true */}
             {showHeader && (
                 <Header1 title="Pengumuman" center className="mb-10 uppercase font-bold text-2xl md:text-3xl" />
             )}

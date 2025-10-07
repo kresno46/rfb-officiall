@@ -23,7 +23,7 @@ export default function BeritaDetail() {
     const [berita, setBerita] = useState<Berita | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [isMounted, setIsMounted] = useState(false);
-    
+
     // Pastikan slug adalah string
     const slugString = Array.isArray(slug) ? slug[0] : slug || '';
 
@@ -39,7 +39,7 @@ export default function BeritaDetail() {
             try {
                 setLoading(true);
                 const response = await fetch(`/api/berita/${encodeURIComponent(slugString)}`);
-                
+
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
                     throw new Error(errorData.error || 'Gagal memuat data berita');
@@ -107,8 +107,8 @@ export default function BeritaDetail() {
                         <div className='text-center'>
                             <NotFound />
                             <div className="mt-4">
-                                <a 
-                                    href="/informasi/umum" 
+                                <a
+                                    href="/informasi/umum"
                                     className='bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white transition-all duration-300 inline-block'
                                 >
                                     &#129032; Kembali ke Daftar Informasi
@@ -128,7 +128,7 @@ export default function BeritaDetail() {
                     <DetailBerita
                         date={formatDate(berita.created_at)}
                         title={berita.judul}
-                        img={berita.image}
+                        img={`https://rfbdev.newsmaker.id/img/berita/${berita.image}`}
                         content={berita.isi}
                         kategori={berita.kategori || "Informasi Umum"}
                     />

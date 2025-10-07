@@ -5,10 +5,11 @@ type PivotInput = { [key: string]: string };
 type PivotResult = { [key: string]: number | string };
 
 export default function PivotSection() {
-    const [inputs, setInputs] = useState<PivotInput>({ 
-        high: "", 
-        low: "", 
-        close: "" 
+    const [inputs, setInputs] = useState<PivotInput>({
+        high: "",
+        low: "",
+        close: "",
+        open: ""
     });
     const [results, setResults] = useState<{
         classic: PivotResult;
@@ -28,9 +29,10 @@ export default function PivotSection() {
         const high = parseFloat(inputs.high);
         const low = parseFloat(inputs.low);
         const close = parseFloat(inputs.close);
+        const open = parseFloat(inputs.open);
 
-        if (isNaN(high) || isNaN(low) || isNaN(close)) {
-            alert('Mohon isi semua field yang diperlukan dengan angka yang valid.');
+        if (isNaN(high) || isNaN(low) || isNaN(close) || isNaN(open)) {
+            alert('Mohon isi semua field (High, Low, Close, Open) dengan angka yang valid.');
             return;
         }
 
@@ -44,11 +46,11 @@ export default function PivotSection() {
         const classicS2 = classicPP - range;
         const classicR3 = classicR1 + range;
         const classicS3 = classicS1 - range;
-        const classicR4 = classicR2 + range * 1.618;  // Extended level using Fibonacci
-        const classicS4 = classicS2 - range * 1.618;  // Extended level using Fibonacci
+        const classicR4 = classicR2 + range * 1.618;
+        const classicS4 = classicS2 - range * 1.618;
 
-        // Woodie Pivots
-        const woodiePP = (high + low + 2 * close) / 4;
+        // Woodie Pivots (menggunakan Open)
+        const woodiePP = (high + low + 2 * open) / 4;
         const woodieR1 = (2 * woodiePP) - low;
         const woodieS1 = (2 * woodiePP) - high;
         const woodieR2 = woodiePP + range;
@@ -58,7 +60,7 @@ export default function PivotSection() {
         const woodieR4 = woodieR2 + range;
         const woodieS4 = woodieS2 - range;
 
-        // Camarilla Pivots
+        // Camarilla Pivots (menggunakan close & range)
         const camarillaR4 = close + (range * 1.1) / 2;
         const camarillaR3 = close + (range * 1.1) / 4;
         const camarillaR2 = close + (range * 1.1) / 6;
@@ -81,7 +83,7 @@ export default function PivotSection() {
             },
             camarilla: {
                 R4: camarillaR4, R3: camarillaR3, R2: camarillaR2, R1: camarillaR1,
-                PP: classicPP, // Gunakan Classic PP sebagai referensi
+                PP: classicPP, // tetap pakai Classic PP sebagai referensi tengah
                 S1: camarillaS1, S2: camarillaS2, S3: camarillaS3, S4: camarillaS4,
             },
         });
@@ -89,7 +91,7 @@ export default function PivotSection() {
 
     const formatNumber = (num: number | string) => {
         if (typeof num === 'number') {
-            return num.toFixed(2); // Tampilkan 2 angka di belakang koma
+            return num.toFixed(2);
         }
         return num;
     };
@@ -97,12 +99,18 @@ export default function PivotSection() {
     return (
         <div className="space-y-6">
             <h2 className="text-xl font-semibold">Kalkulator Pivot Point</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {['high', 'low', 'close'].map((field) => (
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                {['high', 'low', 'close', 'open'].map((field) => (
                     <div key={field} className="space-y-1">
                         <label className="block text-sm font-medium text-gray-700">
-                            {field === 'high' ? 'Tertinggi' : field === 'low' ? 'Terendah' : 'Penutupan'}
+                            {field === 'high'
+                                ? 'Tertinggi'
+                                : field === 'low'
+                                    ? 'Terendah'
+                                    : field === 'close'
+                                        ? 'Penutupan'
+                                        : 'Pembukaan'}
                         </label>
                         <input
                             type="text"
@@ -110,7 +118,7 @@ export default function PivotSection() {
                             value={inputs[field]}
                             onChange={handleInputChange}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                            placeholder={field === 'high' ? 'Masukkan harga tertinggi' : field === 'low' ? 'Masukkan harga terendah' : 'Masukkan harga penutupan'}
+                            placeholder={`Masukkan harga ${field}`}
                         />
                     </div>
                 ))}
@@ -125,7 +133,7 @@ export default function PivotSection() {
                 </button>
                 <button
                     onClick={() => {
-                        setInputs({ high: "", low: "", close: "" });
+                        setInputs({ high: "", low: "", close: "", open: "" });
                         setResults(null);
                     }}
                     className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"

@@ -5,19 +5,25 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'kpf-backpanel-production.up.railway.app',
-        port: '',
-        pathname: '/**', // Mengizinkan semua path dari domain ini
+        protocol: "https",
+        hostname: "kpf-backpanel-production.up.railway.app",
+        port: "",
+        pathname: "/**", // Mengizinkan semua path dari domain ini
       },
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '8000',
-        pathname: '/**', // Untuk development local
+        protocol: "https",
+        hostname: "rfbdev.newsmaker.id",
+        port: "",
+        pathname: "/**", // Mengizinkan semua path dari domain ini
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8000",
+        pathname: "/**", // Untuk development local
       },
     ],
-    unoptimized: process.env.NODE_ENV !== 'production', // Nonaktifkan optimasi di development
+    unoptimized: process.env.NODE_ENV !== "production", // Nonaktifkan optimasi di development
   },
 };
 

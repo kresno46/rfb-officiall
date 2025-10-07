@@ -80,7 +80,7 @@ export default function ProductDetail() {
                     <div>
                         <div className="flex justify-center mb-6">
                             <img
-                                src={`https://kpf-backpanel-production.up.railway.app/img/produk/${product.image}`}
+                                src={`https://rfbdev.newsmaker.id/img/produk/${product.image}`}
                                 alt={product.name}
                                 className="w-full max-h-100 object-cover rounded-lg shadow"
                                 onError={(e) => {
