@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useRouter } from 'next/router';
 
 const Footer = () => {
+    const router = useRouter();
+
+    // Handle scroll to produk when landing on homepage with #produk hash
+    useEffect(() => {
+        const handleRouteChange = () => {
+            if (window.location.pathname === '/' && window.location.hash === '#produk') {
+                // Small timeout to ensure the page has fully rendered
+                const timer = setTimeout(() => {
+                    const produkSection = document.getElementById('produk');
+                    if (produkSection) {
+                        window.scrollTo({
+                            top: produkSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 100);
+                return () => clearTimeout(timer);
+            }
+        };
+
+        // Check on initial load
+        handleRouteChange();
+
+        // Check on route change
+        router.events.on('routeChangeComplete', handleRouteChange);
+
+        return () => {
+            router.events.off('routeChangeComplete', handleRouteChange);
+        };
+    }, [router.events]);
     return (
         /* Footer */
-        <footer className="flex flex-col justify-between items-center gap-10 bg-zinc-800 text-white px-10 md:px-22 py-10">
+        <footer className="flex flex-col justify-between items-center gap-10 bg-zinc-800 text-white px-10 md:px-10 lg-22 py-10">
             <div className="flex flex-col md:flex-row gap-10 md:gap-20 w-full">
                 {/* Section 1 - Attention */}
                 <div className="flex-1 text-center space-y-5">
@@ -18,6 +49,7 @@ const Footer = () => {
                         Account) guna melaksanakan transaksi Perdagangan Berjangka adalah
                         atas nama PT Rifan Financindo Berjangka, bukan atas nama individu.
                     </p>
+                    <div className="md:hidden w-full h-1 bg-green-500"></div>
                 </div>
 
                 {/* Section 2 - Useful Links */}
@@ -26,20 +58,26 @@ const Footer = () => {
                         <h1 className="text-xl font-bold">USEFUL LINKS</h1>
                         <div className="flex flex-col gap-3 text-sm md:text-base">
                             <a
-                                href=""
-                                className="flex items-center gap-2 hover:text-green-500"
+                                href="/"
+                                className="flex items-center gap-2 hover:text-green-500 transition-colors"
                             >
                                 <i className="fa-solid fa-chevron-right"></i> Beranda
                             </a>
                             <a
-                                href=""
-                                className="flex items-center gap-2 hover:text-green-500"
+                                href="/produk/jfx"
+                                className="flex items-center gap-2 hover:text-green-500 transition-colors"
                             >
-                                <i className="fa-solid fa-chevron-right"></i> Lihat Produk
+                                <i className="fa-solid fa-chevron-right"></i> Produk JFX
                             </a>
                             <a
-                                href=""
-                                className="flex items-center gap-2 hover:text-green-500"
+                                href="/produk/spa"
+                                className="flex items-center gap-2 hover:text-green-500 transition-colors"
+                            >
+                                <i className="fa-solid fa-chevron-right"></i> Produk SPA
+                            </a>
+                            <a
+                                href="/hubungi-kami"
+                                className="flex items-center gap-2 hover:text-green-500 transition-colors"
                             >
                                 <i className="fa-solid fa-chevron-right"></i> Kontak
                             </a>
@@ -50,14 +88,14 @@ const Footer = () => {
                     <div className="flex flex-col gap-5">
                         <h1 className="text-xl font-bold">Download Aplikasi Pro Trader</h1>
                         <div className="flex items-center gap-5">
-                            <a href="">
+                            <a href="https://apps.apple.com/id/app/pro-trader-royalassetindo/id6502900138?l=id">
                                 <img
                                     src="/assets/download-on-the-app-store.svg"
                                     alt="Download on the App Store"
                                     className="h-12 transition-transform duration-300 hover:scale-110"
                                 />
                             </a>
-                            <a href="">
+                            <a href="https://play.google.com/store/apps/details?id=com.royalassetindo.protrader&hl=id">
                                 <img
                                     src="/assets/en_badge_web_generic.png"
                                     alt="Get it on Google Play"
@@ -80,25 +118,46 @@ const Footer = () => {
                         corporate@rifan-financindo-berjangka.co.id
                     </p>
                     <p className="text-sm md:text-base">
-                        <strong>Telepn: </strong>(021) 30056300
+                        <strong>Telepon: </strong>(021) 3005 6300
                     </p>
                     <p className="text-sm md:text-base">
-                        <strong>Whatsapp: </strong>+6281210697841
+                        <strong>Fax (AXA Tower): </strong>
+                        (021) 3005 6200
                     </p>
                     <p className="text-sm md:text-base">
                         <strong>Layanan pengaduan: </strong>
                         corporate@rifan-financindo-berjangka.co.id
                     </p>
+                    <div className="flex items-center gap-3">
+                        <a href="https://www.komdigi.go.id/">
+                            <div className="bg-gradient-to-br from-white via-zinc-100 to-zinc-200 p-3 rounded-2xl shadow-xl border border-zinc-300 w-fit hover:scale-105 hover:shadow-2xl transition transform duration-300 ease-in-out">
+                                <img
+                                    src="/assets/BrandLogo.org-KOMDIGI-Logo-2024.png"
+                                    alt="Logo Komdigi"
+                                    className="h-10 drop-shadow-lg"
+                                />
+                            </div>
+                        </a>
+                        <a>
+                            <div className="bg-gradient-to-br from-white via-zinc-100 to-zinc-200 p-3 rounded-2xl shadow-xl border border-zinc-300 w-fit hover:scale-105 hover:shadow-2xl transition transform duration-300 ease-in-out">
+                                <img
+                                    src="/assets/web_iso_2025.png"
+                                    alt="Logo ISO"
+                                    className="h-10 drop-shadow-lg"
+                                />
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
             {/* Footer Divider */}
             <div className="w-full h-1 bg-green-500"></div>
 
-            <div>
-                © Copyright 2025, PT Rifan Financindo Berjangka. All Rights Reserved
+            <div className="text-center">
+                &copy; Copyright 2025, PT Rifan Financindo Berjangka. All Rights Reserved
             </div>
-        </footer>
+        </footer >
     );
 };
 

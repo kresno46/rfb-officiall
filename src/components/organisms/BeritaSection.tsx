@@ -1,45 +1,99 @@
+import { useEffect, useState } from 'react';
 import NewsCard from "@/components/moleculs/Newscard";
 import Header2 from "@/components/moleculs/Header2";
 
-const beritaList = [
-    {
-        title: "Kinerja Perdagangan Komoditas Meningkat",
-        date: "1 Juli 2025",
-        excerpt:
-            "Pasar komoditas menunjukkan performa yang kuat di kuartal kedua tahun ini. Harga emas, minyak sawit, dan perak mengalami kenaikan yang signifikan seiring meningkatnya permintaan global dan stabilitas kebijakan fiskal. PT Solid Gold Berjangka mencatat pertumbuhan volume transaksi yang positif dibandingkan periode sebelumnya.",
-        link: "/berita/kinerja-perdagangan",
-    },
-    {
-        title: "PT Solid Gold Buka Cabang Baru",
-        date: "28 Juni 2025",
-        excerpt:
-            "Peresmian kantor cabang baru di Yogyakarta disambut antusias oleh para investor lokal. Cabang ini dilengkapi fasilitas modern dan layanan konsultasi investasi personal untuk meningkatkan kepercayaan serta edukasi masyarakat terhadap perdagangan berjangka.",
-        link: "/berita/buka-cabang-baru",
-    },
-    {
-        title: "Webinar Edukasi Pasar Komoditas Digelar",
-        date: "20 Juni 2025",
-        excerpt:
-            "PT Solid Gold Berjangka mengadakan webinar nasional dengan tema 'Strategi Investasi Komoditas di Era Digital'. Acara ini diikuti oleh ratusan peserta dari berbagai kota dan menghadirkan pembicara ahli di bidang pasar berjangka dan ekonomi global.",
-        link: "/berita/webinar-edukasi",
-    },
-    {
-        title: "Peningkatan Literasi Keuangan Melalui Sekolah Pasar",
-        date: "15 Juni 2025",
-        excerpt:
-            "Program Sekolah Pasar kembali digelar sebagai komitmen perusahaan dalam meningkatkan pemahaman masyarakat tentang instrumen perdagangan komoditas. Materi yang disampaikan mencakup analisa teknikal, manajemen risiko, dan pengenalan kontrak derivatif.",
-        link: "/berita/sekolah-pasar",
-    },
-];
+interface Berita {
+    id: number;
+    judul: string;
+    isi: string;
+    gambar: string;
+    created_at: string;
+    slug: string;
+}
 
-export default function BeritaSection() {
+interface BeritaSectionProps {
+    limit?: number;
+    showHeader?: boolean;
+    className?: string;
+}
+
+export default function BeritaSection({ className, limit = 6, showHeader = true }: BeritaSectionProps) {
+    const [berita, setBerita] = useState<Berita[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                console.log('Mengambil data dari API...');
+                const response = await fetch('/api/portalberita');
+                if (!response.ok) {
+                    throw new Error('Gagal mengambil data berita');
+                }
+                const data = await response.json();
+                console.log('Data berhasil diambil, total:', data.length);
+                
+                // Urutkan berita berdasarkan created_at (dari yang terbaru)
+                const sortedBerita = [...data].sort((a, b) => {
+                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+                });
+                
+                // Log detail setiap item
+                sortedBerita.forEach((item: any, index: number) => {
+                    console.log(`Item ${index + 1}:`, {
+                        id: item.id,
+                        judul: item.judul,
+                        created_at: item.created_at,
+                        gambar: item.gambar,
+                        hasImage: !!item.gambar,
+                        imageUrl: item.gambar ? new URL(item.gambar).toString() : 'Tidak ada gambar'
+                    });
+                });
+                
+                setBerita(Array.isArray(sortedBerita) ? sortedBerita : []);
+            } catch (err) {
+                console.error('Error fetching berita:', err);
+                setError('Gagal memuat data berita. Silakan coba lagi nanti.');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const data = limit ? berita.slice(0, limit) : berita;
+
     return (
-        <div className="mx-auto flex flex-col gap-7 px-4">
-            <Header2 title="Berita Terbaru" />
+        <div className={`${className}`}>
+            {showHeader && (
+                <Header2 
+                    title="Berita Terbaru" 
+                    showViewAll={true}
+                    viewAllHref="/analisis/berita"
+                    className="mb-6"
+                />
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {beritaList.slice(0, 3).map((berita, index) => (
-                    <NewsCard key={index} {...berita} />
-                ))}
+                {isLoading ? (
+                    <p>Memuat berita...</p>
+                ) : error ? (
+                    <p className="text-red-500">{error}</p>
+                ) : berita.length > 0 ? (
+                    data.map((item) => (
+                        <div key={item.id} onClick={(e) => e.stopPropagation()}>
+                            <NewsCard
+                                title={item.judul}
+                                date={new Date(item.created_at).toLocaleDateString()}
+                                content={item.isi}
+                                slug={item.slug}
+                                image={item.gambar}
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <p>Tidak ada berita tersedia</p>
+                )}
             </div>
         </div>
     );
