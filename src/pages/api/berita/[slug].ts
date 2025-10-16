@@ -23,8 +23,9 @@ export default async function handler(
   }
 
   try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://rfbdev.newsmaker.id";
     const response = await fetch(
-      `https://rfbdev.newsmaker.id/api/berita/${encodeURIComponent(slug)}`
+      `${apiUrl}/api/berita/${encodeURIComponent(slug)}`
     );
 
     if (!response.ok) {

@@ -24,10 +24,12 @@ interface BeritaResponse {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const response = await fetch('https://portalnews.newsmaker.id/api/v1/berita', {
+        const portalApiUrl = process.env.NEXT_PUBLIC_PORTAL_API_URL || 'https://portalnews.newsmaker.id';
+        const portalApiToken = process.env.NEXT_PUBLIC_PORTAL_API_TOKEN || 'RFB-115886a7f25067f3';
+        const response = await fetch(`${portalApiUrl}/api/v1/berita`, {
             headers: {
                 'accept': 'application/json',
-                'Authorization': 'Bearer RFB-115886a7f25067f3'
+                'Authorization': `Bearer ${portalApiToken}`
             },
             cache: 'no-store' as RequestCache
         });
