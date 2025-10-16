@@ -4,12 +4,12 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "kpf-backpanel-production.up.railway.app",
-        port: "",
-        pathname: "/**", // Mengizinkan semua path dari domain ini
-      },
+      // {
+      //   protocol: "https",
+      //   hostname: "kpf-backpanel-production.up.railway.app",
+      //   port: "",
+      //   pathname: "/**", // Mengizinkan semua path dari domain ini
+      // },
       {
         protocol: "https",
         hostname: "rfbdev.newsmaker.id",
