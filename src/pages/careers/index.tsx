@@ -10,9 +10,13 @@ const CareersPage = () => {
   if (loading) {
     return (
       <PageTemplate title="Karier">
-        <div className="flex justify-center items-center min-h-[50vh]">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#d22a27]"></div>
-        </div>
+        <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
+        <ProfilContainer>
+          <div className="flex justify-center items-center min-h-[50vh]">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#d22a27]"></div>
+          </div>
+        </ProfilContainer>
+      </div>
       </PageTemplate>
     );
   }
@@ -20,15 +24,17 @@ const CareersPage = () => {
   if (error) {
     return (
       <PageTemplate title="Karier">
-        <div className="text-center py-10">
-          <p className="text-red-500">Error: {error.message}</p>
-          <button 
-            onClick={() => window.location.reload()} 
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Coba Lagi
-          </button>
-        </div>
+        <ProfilContainer>
+          <div className="text-center py-10">
+            <p className="text-red-500">Error: {error.message}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="mt-4 px-4 py-2 bg-[#d22a27] text-white rounded hover:bg-[#b82421] transition-colors"
+            >
+              Coba Lagi
+            </button>
+          </div>
+        </ProfilContainer>
       </PageTemplate>
     );
   }
@@ -36,9 +42,11 @@ const CareersPage = () => {
   if (careers.length === 0) {
     return (
       <PageTemplate title="Karier">
-        <div className="text-center py-10">
-          <p className="text-gray-600">Tidak ada lowongan tersedia saat ini</p>
-        </div>
+        <ProfilContainer>
+          <div className="text-center py-10">
+            <p className="text-gray-600">Tidak ada lowongan tersedia saat ini</p>
+          </div>
+        </ProfilContainer>
       </PageTemplate>
     );
   }

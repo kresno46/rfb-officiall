@@ -5,9 +5,10 @@ interface ApplyModalProps {
   onClose: () => void;
   position: string;
   city: string;
+  karierId?: number;
 }
 
-const ApplyModal: React.FC<ApplyModalProps> = ({ isOpen, onClose, position, city }) => {
+const ApplyModal: React.FC<ApplyModalProps> = ({ isOpen, onClose, position, city, karierId = 0 }) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -68,15 +69,31 @@ const ApplyModal: React.FC<ApplyModalProps> = ({ isOpen, onClose, position, city
     }
 
     const formDataToSend = new FormData();
-    formDataToSend.append('name', formData.name);
-    formDataToSend.append('email', formData.email);
-    formDataToSend.append('phone', formData.phone);
-    formDataToSend.append('experience', formData.experience);
-    formDataToSend.append('noticePeriod', formData.noticePeriod);
-    formDataToSend.append('position', formData.position);
-    formDataToSend.append('vacancySource', formData.vacancySource || '');
-    formDataToSend.append('motivation', formData.motivation);
     
+    // Add form data
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value !== null && key !== 'cvFile') {
+        // Handle different value types
+        if (typeof value === 'string' || value instanceof Blob) {
+          formDataToSend.append(key, value);
+        } else if (typeof value === 'number' || typeof value === 'boolean') {
+          formDataToSend.append(key, value.toString());
+        } else if (value !== undefined) {
+          formDataToSend.append(key, String(value));
+        }
+      }
+    });
+    
+    // Add karier_id if provided
+    if (karierId) {
+      formDataToSend.append('karier_id', karierId.toString());
+    } else {
+      console.error('karierId is required');
+      alert('Terjadi kesalahan: ID karier tidak valid');
+      return;
+    }
+
+    // Add CV file if exists
     if (formData.cvFile) {
       formDataToSend.append('cv', formData.cvFile);
     }

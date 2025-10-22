@@ -68,6 +68,7 @@ const CareerCard: React.FC<CareerCardProps> = ({ city, position, id, slug }) => 
         onClose={() => setIsModalOpen(false)}
         position={position}
         city={city}
+        karierId={id}
       />
     </>
   );

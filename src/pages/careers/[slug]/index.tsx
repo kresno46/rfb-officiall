@@ -125,6 +125,7 @@ const CareerDetail: React.FC<CareerDetailProps> = ({ career }) => {
           onClose={() => setIsModalOpen(false)}
           position={career.posisi}
           city={career.nama_kota}
+          karierId={career.id}
         />
       </div>
     </PageTemplate>
