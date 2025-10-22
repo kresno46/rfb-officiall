@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import LanguageSwitcher from "../atoms/LanguageSwitcher";
 
 const DateTimeDisplay = () => {
     const [currentDate, setCurrentDate] = useState("");
@@ -105,13 +106,9 @@ const DateTimeDisplay = () => {
                 </div>
             </div>
 
-            {/* Language Select (Same for all screens) */}
-            <div>
-                <select className="border border-white rounded text-white px-2 py-1 text-xs md:text-sm">
-                    <option className="text-black" value="id">Bahasa</option>
-                    <option className="text-black" value="en">English</option>
-                    <option className="text-black" value="cn">中文</option>
-                </select>
+            {/* Language Switcher */}
+            <div className="flex justify-end">
+                <LanguageSwitcher />
             </div>
         </div>
     );
