@@ -5,7 +5,7 @@ module.exports = {
   i18n: {
     defaultLocale: 'id',
     locales: ['id', 'en'],
-    // Menghapus localeDetection karena tidak kompatibel dengan Next.js 13+
+    localeDetection: false,
   },
   localePath: path.resolve('./public/locales'),
   defaultNS: 'common',
@@ -13,9 +13,16 @@ module.exports = {
   fallbackLng: 'id',
   react: {
     useSuspense: false,
+    transSupportBasicHtmlNodes: true,
+    transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p', 'b', 'em'],
   },
   interpolation: {
     escapeValue: false,
   },
+  // Hapus konfigurasi yang tidak diperlukan
+  saveMissing: process.env.NODE_ENV === 'development',
+  returnObjects: true,
+  compatibilityJSON: 'v3',
   reloadOnPrerender: process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV === 'development',
 };

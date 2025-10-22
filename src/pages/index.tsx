@@ -1,5 +1,6 @@
-// Home.jsx
-
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import { useState, useEffect } from "react";
 import PageTemplate from "@/components/templates/PageTemplate";
 import CarouselWithContent from "@/components/organisms/CarouselWithContent";
@@ -10,7 +11,7 @@ import Iso from "@/components/organisms/Market";
 import Pengumuman from "@/components/organisms/Pengumuman";
 import ModalPopup from "@/components/moleculs/ModalPopup";
 
-export default function HomePage() {
+const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -194,4 +195,14 @@ export default function HomePage() {
       </div>
     </PageTemplate>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale = 'id' }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
+};
+
+export default HomePage;

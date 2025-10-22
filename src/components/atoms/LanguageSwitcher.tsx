@@ -6,18 +6,11 @@ import { useTranslation } from 'next-i18next';
 const LanguageSwitcher = () => {
   const router = useRouter();
   const { t } = useTranslation('common');
-  const { locale } = router;
+  const { locale, asPath } = router;
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLocale = e.target.value;
-    const { pathname, asPath, query } = router;
-    
-    // Navigasi ke halaman yang sama dengan locale baru
-    router.push(
-      { pathname, query },
-      asPath,
-      { locale: newLocale }
-    );
+    router.push(asPath, asPath, { locale: newLocale, scroll: false });
   };
 
   return (
