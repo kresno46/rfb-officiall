@@ -38,11 +38,14 @@
 }
 
 body {
-  background-image: url("/assets/bg-rfb.jpg");
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("/assets/bg-rfb.jpg");
   background-size: cover; /* Ensure the image covers the entire page */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent image repetition */
   background-attachment: fixed;
+  background-blend-mode: darken; /* Menerapkan overlay hitam */
 }
 
 .prose h3 {

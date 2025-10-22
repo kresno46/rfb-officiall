@@ -22,7 +22,7 @@ export default function CarouselWithContent() {
     const [slides, setSlides] = useState<Slide[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [index, setIndex] = useState(1);
+    const [index, setIndex] = useState(0); // Diubah dari 1 menjadi 0 untuk menampilkan slide pertama
     const [transitioning, setTransitioning] = useState(true);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [showModal, setShowModal] = useState(false);
@@ -90,19 +90,32 @@ export default function CarouselWithContent() {
 
     const handleTransitionEnd = () => {
         setTransitioning(false);
+        
+        // Set timeout untuk auto-slide berikutnya setelah transisi selesai
+        if (totalSlides > 0) {
+            timeoutRef.current = setTimeout(() => {
+                goToNext();
+            }, 3000);
+        }
     };
 
     useEffect(() => {
-        if (!transitioning || totalSlides === 0) return;
-
-        timeoutRef.current = setTimeout(goToNext, 5000);
+        // Hanya jalankan auto-slide jika tidak ada interaksi pengguna
+        if (totalSlides === 0) return;
+        
+        // Set timeout untuk auto-slide pertama
+        timeoutRef.current = setTimeout(() => {
+            if (!transitioning) {
+                goToNext();
+            }
+        }, 3000);
 
         return () => {
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
         };
-    }, [index, transitioning, totalSlides, goToNext]);
+    }, [index, totalSlides]); // Hanya depend pada index dan totalSlides
 
     if (isLoading) {
         return (
@@ -148,31 +161,17 @@ export default function CarouselWithContent() {
                             <h1 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h1>
                             <p className="text-base md:text-lg mb-6">{slide.description}</p>
                             <div className="flex flex-col md:flex-row gap-3">
-                                {items.map((item, i) => {
-                                    const isDemo = item.label === "Akun Demo";
-                                    return isDemo ? (
-                                        <button
-                                            key={i}
-                                            onClick={() => {
-                                                setShowModal(true);
-                                                setAgreeChecked(false);
-                                            }}
-                                            className="inline-block bg-white hover:bg-gray-100 transition text-[#080031] rounded-full px-5 py-3 font-semibold shadow"
-                                        >
-                                            {item.label}
-                                        </button>
-                                    ) : (
-                                        <a
-                                            key={i}
-                                            href={item.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-block bg-white hover:bg-gray-100 transition text-[#080031] rounded-full px-5 py-3 font-semibold shadow"
-                                        >
-                                            {item.label}
-                                        </a>
-                                    );
-                                })}
+                                {items.map((item, i) => (
+                                    <a
+                                        key={i}
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-block bg-white hover:bg-gray-100 transition text-[#080031] rounded-full px-5 py-3 font-semibold shadow text-center"
+                                    >
+                                        {item.label}
+                                    </a>
+                                ))}
                             </div>
                         </div>
 

@@ -14,6 +14,7 @@ const menuItems = [
             { label: "Fasilitas & Layanan", href: "/informasi/fasilitas-layanan" },
             { label: "Informasi Umum", href: "/informasi/umum" },
             { label: "Video Umum", href: "/informasi/video-umum" },
+            { label: "Karier", href: "/careers" },
         ],
     },
     {
@@ -35,21 +36,6 @@ const menuItems = [
             { label: "Pivot & Fibonacci", href: "/analisis/pivot-fibonacci" },
         ],
     },
-    // {
-    //     label: "Prosedur Investasi",
-    //     submenu: [
-    //         { label: "Prosedur Registrasi Online", href: "/prosedur/registrasi-online" },
-    //         { label: "Prosedur Penarikan", href: "/prosedur/penarikan" },
-    //         { label: "Petunjuk Transaksi", href: "/prosedur/petunjuk-transaksi" },
-    //     ],
-    // },
-    // {
-    //     label: "Informasi",
-    //     submenu: [
-    //         { label: "Umum", href: "/informasi/umum" },
-    //         { label: "Video Umum", href: "/informasi/video-umum" },
-    //     ],
-    // },
     { label: "Hubungi Kami", href: "/hubungi-kami" },
 ];
 
