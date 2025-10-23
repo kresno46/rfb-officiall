@@ -1,0 +1,21 @@
+{
+  "title": "Our Products",
+  "viewAll": "View All",
+  "loading": "Loading products...",
+  "noProducts": "No products available.",
+  "productNotFound": "Product not found",
+  "loadingProduct": "Loading product details...",
+  "errorLoading": "Failed to load product data",
+  "specifications": "Product Specifications",
+  "backToProducts": "Back to Products",
+  
+  "categories": {
+    "jfx": "JFX",
+    "spa": "SPA"
+  },
+  
+  "productCard": {
+    "noImage": "No Image",
+    "seeDetails": "See Details"
+  }
+}

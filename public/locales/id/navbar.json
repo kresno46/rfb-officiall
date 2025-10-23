@@ -1,0 +1,53 @@
+{
+  "menu": {
+    "home": "Beranda",
+    "profile": {
+      "label": "Profil",
+      "submenu": {
+        "companyProfile": "Profil Perusahaan",
+        "brokerRepresentative": "Wakil Pialang",
+        "legality": "Legalitas",
+        "facilitiesServices": "Fasilitas & Layanan",
+        "generalInfo": "Informasi Umum",
+        "generalVideo": "Video Umum",
+        "careers": "Karier"
+      }
+    },
+    "products": {
+      "label": "Produk",
+      "submenu": {
+        "jfx": "Produk Multilateral (JFX)",
+        "spa": "Produk Bilateral (SPA)",
+        "registrationProcedure": "Prosedur Registrasi Online",
+        "withdrawalProcedure": "Prosedur Penarikan",
+        "transactionGuide": "Petunjuk Transaksi"
+      }
+    },
+    "analysis": {
+      "label": "Analisis",
+      "submenu": {
+        "news": "Berita",
+        "economicCalendar": "Kalender Ekonomi",
+        "historicalData": "Data Historis"
+      }
+    },
+    "trading": {
+      "label": "Trading",
+      "submenu": {
+        "tradingAccount": "Akun Trading",
+        "priceList": "Daftar Harga",
+        "marginCalculator": "Kalkulator Margin"
+      }
+    },
+    "education": {
+      "label": "Edukasi",
+      "submenu": {
+        "tutorials": "Tutorial",
+        "seminars": "Seminar",
+        "glossary": "Glosarium"
+      }
+    },
+    "marketInfo": "Info Pasar",
+    "contact": "Kontak"
+  }
+}

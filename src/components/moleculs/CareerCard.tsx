@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import ApplyModal from './ApplyModal';
 
@@ -10,6 +11,7 @@ interface CareerCardProps {
 }
 
 const CareerCard: React.FC<CareerCardProps> = ({ city, position, id, slug }) => {
+  const { t } = useTranslation('careers');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -51,13 +53,13 @@ const CareerCard: React.FC<CareerCardProps> = ({ city, position, id, slug }) => 
               onClick={() => setIsModalOpen(true)}
               className="w-full text-center bg-[#d22a27] hover:bg-[#b82421] text-white font-medium py-2.5 px-4 rounded-lg transition duration-200 shadow-sm hover:shadow-md active:scale-[0.98] cursor-pointer"
             >
-              Lamar Sekarang
+              {t('card.applyNow')}
             </button>
             <Link 
               href={`/careers/${slug}`}
               className="w-full text-center bg-white border-2 border-[#5db846] text-[#5db846] hover:bg-[#5db846]/5 font-medium py-2 px-4 rounded-lg transition duration-200"
             >
-              Lihat Detail
+              {t('card.viewDetails')}
             </Link>
           </div>
         </div>

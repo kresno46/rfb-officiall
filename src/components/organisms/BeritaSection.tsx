@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
-import NewsCard from "@/components/moleculs/Newscard";
-import Header2 from "@/components/moleculs/Header2";
+import { useTranslation } from 'next-i18next';
+import dynamic from 'next/dynamic';
+
+// Dynamic import untuk komponen dengan SSR dinonaktifkan
+const NewsCard = dynamic(() => import("@/components/moleculs/Newscard"), { ssr: false });
+const Header2 = dynamic(() => import("@/components/moleculs/Header2"), { ssr: false });
 
 interface Berita {
     id: number;
@@ -18,6 +22,7 @@ interface BeritaSectionProps {
 }
 
 export default function BeritaSection({ className, limit = 6, showHeader = true }: BeritaSectionProps) {
+    const { t } = useTranslation('berita');
     const [berita, setBerita] = useState<Berita[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -68,17 +73,18 @@ export default function BeritaSection({ className, limit = 6, showHeader = true 
         <div className={`${className}`}>
             {showHeader && (
                 <Header2 
-                    title="Berita Terbaru" 
-                    showViewAll={true}
+                    title={t('title')} 
+                    showViewAll 
                     viewAllHref="/analisis/berita"
-                    className="mb-6"
+                    viewAllKey="viewAll"
+                    className={className}
                 />
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {isLoading ? (
                     <p>Memuat berita...</p>
                 ) : error ? (
-                    <p className="text-red-500">{error}</p>
+                    <div className="text-center py-10 text-red-600">{t('error.loading')}: {error}</div>
                 ) : berita.length > 0 ? (
                     data.map((item) => (
                         <div key={item.id} onClick={(e) => e.stopPropagation()}>
@@ -92,7 +98,7 @@ export default function BeritaSection({ className, limit = 6, showHeader = true 
                         </div>
                     ))
                 ) : (
-                    <p>Tidak ada berita tersedia</p>
+                    <div className="text-center py-10">{t('noNews')}</div>
                 )}
             </div>
         </div>

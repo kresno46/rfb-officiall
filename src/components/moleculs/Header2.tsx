@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 interface Header2Props {
     title: string;
@@ -6,6 +7,7 @@ interface Header2Props {
     className?: string;
     showViewAll?: boolean;
     viewAllHref?: string;
+    viewAllKey?: string;
 }
 
 export default function Header2({ 
@@ -13,8 +15,10 @@ export default function Header2({
     center = false, 
     className = "",
     showViewAll = false,
-    viewAllHref = ""
+    viewAllHref = "",
+    viewAllKey = "viewAll"
 }: Header2Props) {
+    const { t } = useTranslation('berita');
     const baseClass = "text-xl text-gray-400";
     const centerClass = center ? "text-center" : "";
     
@@ -32,7 +36,7 @@ export default function Header2({
                     href={viewAllHref}
                     className="text-green-500 hover:text-green-600 text-sm font-medium transition-colors"
                 >
-                    Lihat Semua Berita →
+                    {t(viewAllKey)} →
                 </Link>
             )}
         </div>

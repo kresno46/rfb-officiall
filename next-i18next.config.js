@@ -9,7 +9,22 @@ module.exports = {
   },
   localePath: path.resolve('./public/locales'),
   defaultNS: 'common',
-  ns: ['common'],
+  ns: [
+    'common',
+    'navbar',
+    'about-us',
+    'produk',
+    'berita',
+    'market',
+    'pengumuman',
+    'trading',
+    'footer',
+    'perusahaan',
+    'wakil-pialang',
+    'legalitas',
+    'fasilitas-layanan',
+    'careers'
+  ],
   fallbackLng: 'id',
   react: {
     useSuspense: false,

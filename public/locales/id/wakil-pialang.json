@@ -1,0 +1,44 @@
+{
+  "pageTitle": "Wakil Pialang",
+  "listTitle": "Daftar Wakil Pialang",
+  "viewDetail": "Lihat Detail",
+  "table": {
+    "no": "No",
+    "name": "Nama",
+    "licenseNumber": "Nomor Izin WPB",
+    "status": "Status",
+    "noData": "Tidak ada data yang tersedia"
+  },
+  "errors": {
+    "error": "Terjadi Kesalahan",
+    "notFound": "Halaman tidak ditemukan",
+    "loadError": "Gagal memuat data"
+  },
+  
+  "categories": [
+    {
+      "id": 1,
+      "name": "Wakil Pialang Berjangka"
+    },
+    {
+      "id": 2,
+      "name": "Wakil Pialang Berjangka Senior"
+    },
+    {
+      "id": 3,
+      "name": "Wakil Pialang Berjangka Utama"
+    },
+    {
+      "id": 4,
+      "name": "Wakil Pialang Berjangka Madya"
+    },
+    {
+      "id": 5,
+      "name": "Wakil Pialang Berjangka Muda"
+    },
+    {
+      "id": 6,
+      "name": "Wakil Pialang Berjangka Asosiasi"
+    }
+  ]
+}

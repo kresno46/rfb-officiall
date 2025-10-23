@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 interface CardCategoryPialangProps {
   title: string;
-  slug?: string;
+  slug: string;
   description?: string;
   icon?: React.ReactNode;
 }
@@ -10,9 +11,11 @@ interface CardCategoryPialangProps {
 export default function CardCategoryPialang({ 
   title, 
   slug, 
-  description = '',
-  icon = null 
+  description,
+  icon,
 }: CardCategoryPialangProps) {
+  const { t } = useTranslation('wakil-pialang');
+
   return (
     <Link 
       href={`/profil/wakil-pialang/${slug}`}
@@ -36,7 +39,7 @@ export default function CardCategoryPialang({
         )}
         
         <div className="mt-auto pt-4 border-t border-gray-100 flex items-center text-green-600 group-hover:text-green-700 font-medium text-sm transition-colors duration-300">
-          Lihat Detail
+          {t('viewDetail', 'Lihat Detail')}
           <svg className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>

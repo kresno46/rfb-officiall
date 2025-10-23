@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import MarketUpdate from "./MarketUpdate";
 import LocaleLink from "@/components/common/LocaleLink";
 
@@ -16,45 +17,46 @@ type MenuItem = {
 
 const NavBar = () => {
   const router = useRouter();
+  const { t } = useTranslation('navbar');
   const { locale } = router;
   
   const menuItems: MenuItem[] = [
-    { label: "Beranda", href: "/" },
+    { label: t('menu.home'), href: "/" },
     {
-      label: "Profil",
+      label: t('menu.profile.label'),
       href: "/profil",
       submenu: [
-        { label: "Profil Perusahaan", href: "/profil/perusahaan" },
-        { label: "Wakil Pialang", href: "/profil/wakil-pialang" },
-        { label: "Legalitas", href: "/profil/legalitas" },
-        { label: "Fasilitas & Layanan", href: "/informasi/fasilitas-layanan" },
-        { label: "Informasi Umum", href: "/informasi/umum" },
-        { label: "Video Umum", href: "/informasi/video-umum" },
-        { label: "Karier", href: "/careers" },
+        { label: t('menu.profile.submenu.companyProfile'), href: "/profil/perusahaan" },
+        { label: t('menu.profile.submenu.brokerRepresentative'), href: "/profil/wakil-pialang" },
+        { label: t('menu.profile.submenu.legality'), href: "/profil/legalitas" },
+        { label: t('menu.profile.submenu.facilitiesServices'), href: "/informasi/fasilitas-layanan" },
+        { label: t('menu.profile.submenu.generalInfo'), href: "/informasi/umum" },
+        { label: t('menu.profile.submenu.generalVideo'), href: "/informasi/video-umum" },
+        { label: t('menu.profile.submenu.careers'), href: "/careers" },
       ],
     },
     {
-      label: "Produk",
+      label: t('menu.products.label'),
       href: "/produk",
       submenu: [
-        { label: "Produk Multilateral (JFX)", href: "/produk/JFX" },
-        { label: "Produk Bilateral (SPA)", href: "/produk/SPA" },
-        { label: "Prosedur Registrasi Online", href: "/prosedur/registrasi-online" },
-        { label: "Prosedur Penarikan", href: "/prosedur/penarikan" },
-        { label: "Petunjuk Transaksi", href: "/prosedur/petunjuk-transaksi" },
+        { label: t('menu.products.submenu.jfx'), href: "/produk/JFX" },
+        { label: t('menu.products.submenu.spa'), href: "/produk/SPA" },
+        { label: t('menu.products.submenu.registrationProcedure'), href: "/prosedur/registrasi-online" },
+        { label: t('menu.products.submenu.withdrawalProcedure'), href: "/prosedur/penarikan" },
+        { label: t('menu.products.submenu.transactionGuide'), href: "/prosedur/petunjuk-transaksi" },
       ],
     },
     {
-      label: "Analisis",
+      label: t('menu.analysis.label'),
       href: "/analisis",
       submenu: [
-        { label: "Berita", href: "/analisis/berita" },
-        { label: "Kalender Ekonomi", href: "/analisis/economic-calendar" },
-        { label: "Data Historis", href: "/analisis/historical-data" },
+        { label: t('menu.analysis.submenu.news'), href: "/analisis/berita" },
+        { label: t('menu.analysis.submenu.economicCalendar'), href: "/analisis/economic-calendar" },
+        { label: t('menu.analysis.submenu.historicalData'), href: "/analisis/historical-data" },
         { label: "Pivot & Fibonacci", href: "/analisis/pivot-fibonacci" },
       ],
     },
-    { label: "Hubungi Kami", href: "/hubungi-kami" },
+    { label: t('menu.contact'), href: "/hubungi-kami" },
   ];
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);

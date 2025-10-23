@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "next-i18next";
+import dynamic from "next/dynamic";
 import ProductCard from "@/components/moleculs/ProductCard";
 import Header1 from "@/components/moleculs/Header1";
 
@@ -15,6 +17,7 @@ type Product = {
 const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_URL || "https://rfbdev.newsmaker.id/";
 
 export default function ProdukContainer() {
+    const { t } = useTranslation('produk');
     const [productList, setProductList] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -59,10 +62,10 @@ export default function ProdukContainer() {
 
     return (
         <div className="mx-auto px-4">
-            <Header1 title="Produk Kami" center className="mb-6 text-2xl md:text-3xl" />
+            <Header1 title={t("title")} center className="mb-6 text-2xl md:text-3xl" />
 
             {loading ? (
-                <p className="text-center py-10">Memuat produk...</p>
+                <p className="text-center py-10">{t("loading")}</p>
             ) : productList.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
                     {productList.map((product) => (
@@ -77,7 +80,7 @@ export default function ProdukContainer() {
                     ))}
                 </div>
             ) : (
-                <p className="text-center py-10">Tidak ada produk tersedia.</p>
+                <p className="text-center py-10">{t("noProducts")}</p>
             )}
         </div>
     );

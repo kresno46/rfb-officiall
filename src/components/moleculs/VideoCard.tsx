@@ -1,3 +1,5 @@
+import { useTranslation } from 'next-i18next';
+
 interface VideoCardProps {
     title: string;
     description: string;
@@ -5,6 +7,7 @@ interface VideoCardProps {
 }
 
 export default function VideoCard({ title, description, videoUrl }: VideoCardProps) {
+    const { t } = useTranslation('video');
     return (
         <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="bg-black aspect-video">

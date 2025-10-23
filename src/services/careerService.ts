@@ -5,6 +5,7 @@ export interface Career {
   nama_kota: string;
   posisi: string;
   slug: string;
+  jenis_pekerjaan?: string;
   responsibilities: string | null;
   qualifications: string | null;
   created_at: string;

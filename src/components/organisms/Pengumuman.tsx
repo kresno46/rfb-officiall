@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
-import NewsCard2 from "@/components/moleculs/NewsCard2";
-import Header1 from "@/components/moleculs/Header1";
+import { useTranslation } from "next-i18next";
+import dynamic from 'next/dynamic';
+
+// Dynamic import untuk komponen dengan SSR dinonaktifkan
+const   NewsCard2 = dynamic(() => import("@/components/moleculs/NewsCard2"), { ssr: false });
+const Header1 = dynamic(() => import("@/components/moleculs/Header1"), { ssr: false });
 
 type Berita = {
     id: number;
@@ -20,6 +24,7 @@ type PengumumanHomeProps = {
 };
 
 export default function PengumumanHome({ showHeader = true, className }: PengumumanHomeProps) {
+    const { t } = useTranslation('pengumuman');
     const [pengumumanList, setPengumumanList] = useState<Berita[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -63,11 +68,13 @@ export default function PengumumanHome({ showHeader = true, className }: Pengumu
     return (
         <div className={className}>
             {showHeader && (
-                <Header1 title="Pengumuman" center className="mb-10 uppercase font-bold text-2xl md:text-3xl" />
+                <div className="mb-6">
+                    <Header1 title={t('title')} className="text-2xl md:text-3xl" />
+                </div>
             )}
 
             {loading ? (
-                <p className="text-center">Memuat...</p>
+                <div className="text-center py-10">{t('loading')}</div>
             ) : pengumumanList.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {pengumumanList.map((item) => (
@@ -83,7 +90,7 @@ export default function PengumumanHome({ showHeader = true, className }: Pengumu
                     ))}
                 </div>
             ) : (
-                <p className="text-center">Tidak ada data berita.</p>
+                <div className="text-center py-10">{t('noAnnouncements')}</div>
             )}
         </div>
     );

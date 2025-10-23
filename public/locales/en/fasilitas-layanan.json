@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Facilities & Services",
+  "title": "Facilities & Services",
+  "items": [
+    {
+      "title": "Professional Futures Brokerage Representatives",
+      "content": "<p>The company has professional <strong>Futures Brokerage Representatives</strong> who are always ready to provide services to prospective or existing customers in the form of education, administrative procedures, and transaction mechanisms for the <em>Alternative Trading System</em> at the Jakarta Futures Exchange.</p>"
+    },
+    {
+      "title": "Online Trading & Demo Account Facilities",
+      "content": "<p>This facility provides convenience for customers to transact through the internet network. The company also provides a <strong>demo account</strong> for transaction simulations to help prospective customers better understand and master the available trading platform.</p>"
+    },
+    {
+      "title": "Daily Transaction Reports",
+      "content": "<p>Every day, customers will receive a <strong>daily transaction report</strong> containing transaction records and developments. Customers can also access these reports directly through the <em>online trading platform</em> using the Temporary Statement or Daily Statement menu.</p>"
+    },
+    {
+      "title": "Online Fund Withdrawal",
+      "content": "<p><strong>Fund withdrawals</strong> can be made at any time by customers online through the features available on the platform. Withdrawal requests will be processed within a maximum of one working day (T+1).</p>"
+    },
+    {
+      "title": "Segregated Account",
+      "content": "<p>All investor funds are stored in a <strong>Segregated Account</strong> separate from the company's assets and placed in custodian banks approved by BAPPEBTI such as BCA, CIMB Niaga, BNI, Mandiri, and Artha Graha. These funds are only used for customer transaction needs.</p>"
+    },
+    {
+      "title": "Transaction Flexibility",
+      "content": "<p><strong>Two-way transactions</strong> provide opportunities for customers to profit whether market prices rise or fall. Liquid products and high price volatility create various trading opportunities.</p>"
+    }
+  ]
+}

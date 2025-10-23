@@ -1,0 +1,29 @@
+{
+  "pageTitle": "Careers",
+  "joinTeam": "Join Our Team",
+  "noJobs": "No job openings available at the moment",
+  "error": {
+    "message": "Error",
+    "retry": "Try Again"
+  },
+  "notFound": {
+    "title": "Job Not Found",
+    "description": "Sorry, the job you are looking for cannot be found.",
+    "backToList": "Back to Job Listings"
+  },
+  "jobDetails": {
+    "responsibilities": "Job Responsibilities",
+    "requirements": "Requirements",
+    "location": "Location",
+    "type": "Job Type",
+    "applyButton": "Apply Now",
+    "backButton": "Back to List",
+    "fullTime": "Full-time",
+    "applicationNote": "Only qualified candidates will be processed further.",
+    "viewDetails": "View Details"
+  },
+  "card": {
+    "applyNow": "Apply Now",
+    "viewDetails": "View Details"
+  }
+}

@@ -21,10 +21,10 @@ const LanguageSwitcher = () => {
         className="border border-white rounded bg-transparent px-2 py-1 text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-white cursor-pointer"
       >
         <option className="text-black" value="id">
-          🇮🇩 {t('indonesian')}
+          {t('indonesian')}
         </option>
         <option className="text-black" value="en">
-          🇬🇧 {t('english')}
+          {t('english')}
         </option>
       </select>
     </div>

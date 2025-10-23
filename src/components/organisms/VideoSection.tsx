@@ -1,10 +1,19 @@
+import { useTranslation } from 'next-i18next';
 import VideoCard from "../moleculs/VideoCard";
 
 export default function VideoSection() {
+    const { t } = useTranslation('video');
+    
     const videoList = [
-        { title: "PT Rifan Financindo Berjangka Company Profile", desc: "Video Profil Perusahaan PT Rifan Financindo Berjangka", videoUrl: "https://www.youtube.com/embed/RWDEw0kIaEI?si=GxnrdoErsgDDicfI" },
-        {
-            title: "PT Rifan Financindo Berjangka Company Profile", desc: "Video Profil Perusahaan PT Rifan Financindo Berjangka", videoUrl: "https://www.youtube.com/embed/RWDEw0kIaEI?si=GxnrdoErsgDDicfI"
+        { 
+            title: t('videos.companyProfile.title'), 
+            desc: t('videos.companyProfile.description'), 
+            videoUrl: "https://www.youtube.com/embed/RWDEw0kIaEI?si=GxnrdoErsgDDicfI" 
+        },
+        { 
+            title: t('videos.companyProfile.title'), 
+            desc: t('videos.companyProfile.description'), 
+            videoUrl: "https://www.youtube.com/embed/RWDEw0kIaEI?si=GxnrdoErsgDDicfI" 
         },
     ];
 

@@ -1,5 +1,8 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import PageTemplate from '@/components/templates/PageTemplate';
 import ProfilContainer from '@/components/templates/PageContainer/Container';
 import NotFound from '@/components/moleculs/NotFound';
@@ -17,7 +20,27 @@ type Berita = {
     updated_at: string;
 };
 
+export const getStaticProps: GetStaticProps = async ({ locale = 'id' }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [
+      'common',
+      'navbar',
+      'footer',
+      'pengumuman'
+    ])),
+  },
+});
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // We'll pre-render nothing at build time, and handle paths at request time
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};
+
 export default function BeritaDetail() {
+    const { t } = useTranslation('pengumuman');
     const router = useRouter();
     const { slug } = router.query;
     const [berita, setBerita] = useState<Berita | null>(null);
@@ -101,19 +124,18 @@ export default function BeritaDetail() {
 
     if (!berita) {
         return (
-            <PageTemplate title="Informasi Tidak Ditemukan">
+            <PageTemplate title={t('notFound.title')}>
                 <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                    <ProfilContainer title="Informasi Tidak Ditemukan">
-                        <div className='text-center'>
-                            <NotFound />
-                            <div className="mt-4">
-                                <a
-                                    href="/informasi/umum"
-                                    className='bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white transition-all duration-300 inline-block'
-                                >
-                                    &#129032; Kembali ke Daftar Informasi
-                                </a>
-                            </div>
+                    <ProfilContainer title={t('notFound.title')}>
+                        <div className="text-center py-10">
+                            <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('notFound.title')}</h2>
+                            <p className="text-gray-600 mb-6">{t('notFound.description')}</p>
+                            <a
+                                href="/informasi/umum"
+                                className='bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white transition-all duration-300 inline-block'
+                            >
+                                &#129032; {t('backToList')}
+                            </a>
                         </div>
                     </ProfilContainer>
                 </div>

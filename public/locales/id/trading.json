@@ -1,0 +1,13 @@
+{
+  "tradingView": {
+    "logoAlt": "TradingView",
+    "description": {
+      "part1": "Chart yang kami gunakan disediakan oleh TradingView, sebuah platform charting bagi para trader dan investor dari seluruh penjuru dunia. Temukan berbagai instrumen finansial seperti chart ",
+      "part2": ", dan juga peralatan seperti ",
+      "part3": " yang tersedia secara gratis dan dapat membantu dalam aktivitas trading dan investasi anda."
+    },
+    "instruments": "EURUSD, BTCUSDT, IHSG",
+    "stockScreener": "Stock Screener",
+    "liveChartButton": "Live Chart"
+  }
+}

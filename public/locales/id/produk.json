@@ -1,0 +1,21 @@
+{
+  "title": "Produk Kami",
+  "viewAll": "Lihat Semua",
+  "loading": "Memuat produk...",
+  "noProducts": "Tidak ada produk yang tersedia.",
+  "productNotFound": "Produk tidak ditemukan",
+  "loadingProduct": "Memuat detail produk...",
+  "errorLoading": "Gagal memuat data produk",
+  "specifications": "Spesifikasi Produk",
+  "backToProducts": "Kembali ke Produk",
+  
+  "categories": {
+    "jfx": "JFX",
+    "spa": "SPA"
+  },
+  
+  "productCard": {
+    "noImage": "Tidak Ada Gambar",
+    "seeDetails": "Lihat Detail"
+  }
+}

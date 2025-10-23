@@ -10,5 +10,31 @@
   "search": "Search...",
   "language": "Language",
   "indonesian": "Indonesian",
-  "english": "English"
+  "english": "English",
+
+  "institutions": {
+    "licensedAndSupervised": "LICENSED AND SUPERVISED BY",
+    "membershipOf": "MEMBERSHIP OF"
+  },
+  "welcomeModal": {
+    "title": "Welcome!",
+    "logoAlt": "RFB Logo",
+    "heading": "Welcome to PT Rifan Financindo Berjangka",
+    "subheading": "Join us now and start your trading journey!",
+    "registerButton": "Register Now",
+    "laterButton": "Later"
+  },
+  
+  "dateTime": {
+    "date": "Date",
+    "worldTime": "World Time",
+    "days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "timezones": {
+      "jkt": "WIB",
+      "tky": "JST",
+      "hk": "HKT",
+      "ny": "EST"
+    }
+  }
 }
