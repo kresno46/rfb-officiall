@@ -1,0 +1,44 @@
+{
+  "pageTitle": "Brokerage Representatives",
+  "listTitle": "List of Brokerage Representatives",
+  "viewDetail": "View Details",
+  "table": {
+    "no": "No",
+    "name": "Name",
+    "licenseNumber": "WPB License Number",
+    "status": "Status",
+    "noData": "No data available"
+  },
+  "errors": {
+    "error": "Error",
+    "notFound": "Page not found",
+    "loadError": "Failed to load data"
+  },
+  
+  "categories": [
+    {
+      "id": 1,
+      "name": "Futures Broker Representative"
+    },
+    {
+      "id": 2,
+      "name": "Senior Futures Broker Representative"
+    },
+    {
+      "id": 3,
+      "name": "Principal Futures Broker Representative"
+    },
+    {
+      "id": 4,
+      "name": "Intermediate Futures Broker Representative"
+    },
+    {
+      "id": 5,
+      "name": "Junior Futures Broker Representative"
+    },
+    {
+      "id": 6,
+      "name": "Associate Futures Broker Representative"
+    }
+  ]
+}

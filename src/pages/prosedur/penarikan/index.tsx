@@ -1,51 +1,86 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import { GetStaticProps } from 'next';
 import ProfilContainer from "@/components/templates/PageContainer/Container";
 import PageTemplate from "@/components/templates/PageTemplate";
 
-export default function Penarikan() {
-    return (
-        <PageTemplate title="Prosedur Penarikan">
-            <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                <ProfilContainer title="Prosedur Penarikan">
-                    <div className="space-y-6 text-gray-700 text-sm sm:text-base leading-relaxed">
+interface StepProps {
+    text: string;
+    terms: Record<string, string>;
+}
 
+const StepItem = ({ text, terms }: StepProps) => {
+    // Create a map of replacements with their HTML-wrapped versions
+    const replacements = {
+        '{withdrawal}': `<span class="font-medium">${terms.withdrawal}</span>`,
+        '{maxTime}': `<span class="font-medium">${terms.maxTime}</span>`,
+        '{targetTime}': `<span class="font-medium">${terms.targetTime}</span>`,
+        '{effectiveMargin}': `<span class="font-medium">${terms.effectiveMargin}</span>`,
+        '{statementReport}': `<span class="italic">${terms.statementReport}</span>`
+    };
+    
+    // Replace all placeholders with their HTML-wrapped versions
+    let processedText = text;
+    Object.entries(replacements).forEach(([key, value]) => {
+        processedText = processedText.split(key).join(value);
+    });
+    
+    return <span dangerouslySetInnerHTML={{ __html: processedText }} />;
+};
+
+export default function Penarikan() {
+    const { t, i18n } = useTranslation('penarikan');
+    const { t: tCommon } = useTranslation('common');
+    
+    const terms = t('terms', { returnObjects: true }) as Record<string, string>;
+    const steps = t('steps', { returnObjects: true }) as Record<string, string>;
+
+    return (
+        <PageTemplate title={t('title')}>
+            <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
+                <ProfilContainer title={t('title')}>
+                    <div className="space-y-6 text-gray-700 text-sm sm:text-base leading-relaxed">
                         <p className="text-justify">
-                            Penarikan Dana (<span className="italic">Withdrawal</span>) dapat dilakukan kapan saja oleh
-                            Nasabah apabila diinginkan, dengan catatan dana yang ditarik tidak melebihi jumlah
-                            <span className="font-medium"> Effective Margin </span>
-                            yang tercantum dalam laporan transaksi harian Nasabah
-                            (<span className="italic">Statement Report</span>).
+                            <StepItem 
+                                text={t('intro', {
+                                    withdrawal: terms.withdrawal,
+                                    effectiveMargin: terms.effectiveMargin,
+                                    statementReport: terms.statementReport
+                                })} 
+                                terms={terms} 
+                            />
                         </p>
 
                         <p className="font-semibold text-gray-800">
-                            Proses Penarikan Dana (<span className="italic">Withdrawal</span>)
+                            <StepItem 
+                                text={t('process_title', {
+                                    withdrawal: terms.withdrawal
+                                })} 
+                                terms={terms} 
+                            />
                         </p>
 
                         <ol className="list-decimal pl-5 sm:pl-8 space-y-4 text-justify">
-                            <li>
-                                Nasabah masuk ke menu <span className="font-medium">Withdrawal</span> pada akun transaksi riil untuk
-                                melakukan permohonan penarikan dana dengan mengikuti syarat dan ketentuan yang berlaku.
-                            </li>
-
-                            <li>
-                                Nasabah mengisi formulir permohonan penarikan dana secara lengkap dan benar.
-                            </li>
-
-                            <li>
-                                Dana hanya dapat ditransfer ke rekening atas nama Nasabah yang sesuai dengan dokumen
-                                Aplikasi Pembukaan Rekening yang telah disahkan sebelumnya.
-                            </li>
-
-                            <li>
-                                Proses penarikan dana melalui mekanisme standar memerlukan waktu maksimum
-                                <span className="font-medium"> tiga hari kerja (T+3)</span>.
-                                Namun, PT. Rifan Financindo Berjangka berkomitmen untuk mempercepat proses agar dapat diselesaikan
-                                dalam waktu <span className="font-medium">satu hari kerja (T+1)</span>.
-                            </li>
+                            {Object.entries(steps).map(([key, text]) => (
+                                <li key={key}>
+                                    <StepItem text={text} terms={terms} />
+                                </li>
+                            ))}
                         </ol>
-
                     </div>
                 </ProfilContainer>
             </div>
         </PageTemplate>
     );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale = 'id' }) => ({
+    props: {
+        ...(await serverSideTranslations(locale, [
+            'common',
+            'navbar',
+            'footer',
+            'penarikan'
+        ])),
+    },
+});

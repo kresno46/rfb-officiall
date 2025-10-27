@@ -1,0 +1,53 @@
+{
+  "menu": {
+    "home": "Home",
+    "profile": {
+      "label": "Profile",
+      "submenu": {
+        "companyProfile": "Company Profile",
+        "brokerRepresentative": "Broker Representative",
+        "legality": "Legality",
+        "facilitiesServices": "Facilities & Services",
+        "generalInfo": "General Information",
+        "generalVideo": "General Video",
+        "careers": "Careers"
+      }
+    },
+    "products": {
+      "label": "Products",
+      "submenu": {
+        "jfx": "Multilateral Products (JFX)",
+        "spa": "Bilateral Products (SPA)",
+        "registrationProcedure": "Online Registration Procedure",
+        "withdrawalProcedure": "Withdrawal Procedure",
+        "transactionGuide": "Transaction Guide"
+      }
+    },
+    "analysis": {
+      "label": "Analysis",
+      "submenu": {
+        "news": "News",
+        "economicCalendar": "Economic Calendar",
+        "historicalData": "Historical Data"
+      }
+    },
+    "trading": {
+      "label": "Trading",
+      "submenu": {
+        "tradingAccount": "Trading Account",
+        "priceList": "Price List",
+        "marginCalculator": "Margin Calculator"
+      }
+    },
+    "education": {
+      "label": "Education",
+      "submenu": {
+        "tutorials": "Tutorials",
+        "seminars": "Seminars",
+        "glossary": "Glossary"
+      }
+    },
+    "marketInfo": "Market Info",
+    "contact": "Contact"
+  }
+}

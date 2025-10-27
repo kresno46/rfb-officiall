@@ -1,16 +1,18 @@
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 interface CardDetailProps {
     link?: string;
 }
 
 export default function CardDetail({ link }: CardDetailProps) {
+    const { t } = useTranslation('berita');
     // Jika link tidak ada, render sebagai div
     if (!link) {
         return (
             <div className="bg-gray-400 w-fit text-white px-3 py-1 rounded-lg font-medium inline-flex items-center mt-auto space-x-3 cursor-not-allowed">
                 <i className="fa-solid fa-magnifying-glass"></i>
-                <span>Baca Selengkapnya</span>
+                <span>{t('readMore')}</span>
             </div>
         );
     }
@@ -28,7 +30,7 @@ export default function CardDetail({ link }: CardDetailProps) {
             onMouseDown={(e) => e.stopPropagation()}
         >
             <i className="fa-solid fa-magnifying-glass"></i>
-            <span>Baca Selengkapnya</span>
+            <span>{t('readMore')}</span>
         </Link>
     );
 }

@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
 
 const Footer = () => {
     const router = useRouter();
+    const { t } = useTranslation('footer');
+    const currentYear = new Date().getFullYear();
 
     // Handle scroll to produk when landing on homepage with #produk hash
     useEffect(() => {
@@ -39,15 +43,10 @@ const Footer = () => {
                 {/* Section 1 - Attention */}
                 <div className="flex-1 text-center space-y-5">
                     <div className="w-full h-1 bg-green-500"></div>
-                    <h1 className="text-3xl font-bold">PERHATIAN!</h1>
+                    <h1 className="text-3xl font-bold">{t('attention.title')}</h1>
+                    <div className="md:hidden w-full h-1 bg-green-500"></div>
                     <p className="text-sm md:text-base">
-                        Manajemen PT. Rifan Financindo Berjangka (PT RFB) menghimbau kepada
-                        seluruh masyarakat untuk lebih berhati-hati terhadap beberapa bentuk
-                        penipuan yang berkedok investasi mengatasnamakan PT RFB dengan
-                        menggunakan media elektronik ataupun sosial media. Untuk itu harus
-                        dipastikan bahwa transfer dana ke rekening tujuan (Segregated
-                        Account) guna melaksanakan transaksi Perdagangan Berjangka adalah
-                        atas nama PT Rifan Financindo Berjangka, bukan atas nama individu.
+                        {t('attention.description')}
                     </p>
                     <div className="md:hidden w-full h-1 bg-green-500"></div>
                 </div>
@@ -55,50 +54,50 @@ const Footer = () => {
                 {/* Section 2 - Useful Links */}
                 <div className="flex-1 space-y-5">
                     <div className="flex flex-col gap-3">
-                        <h1 className="text-xl font-bold">USEFUL LINKS</h1>
+                        <h1 className="text-xl font-bold">{t('quickLinks.title')}</h1>
                         <div className="flex flex-col gap-3 text-sm md:text-base">
-                            <a
+                            <Link
                                 href="/"
                                 className="flex items-center gap-2 hover:text-green-500 transition-colors"
                             >
-                                <i className="fa-solid fa-chevron-right"></i> Beranda
-                            </a>
-                            <a
+                                <i className="fa-solid fa-chevron-right"></i> {t('quickLinks.home')}
+                            </Link>
+                            <Link
                                 href="/produk/jfx"
                                 className="flex items-center gap-2 hover:text-green-500 transition-colors"
                             >
-                                <i className="fa-solid fa-chevron-right"></i> Produk JFX
-                            </a>
-                            <a
+                                <i className="fa-solid fa-chevron-right"></i> {t('quickLinks.jfxProduct')}
+                            </Link>
+                            <Link
                                 href="/produk/spa"
                                 className="flex items-center gap-2 hover:text-green-500 transition-colors"
                             >
-                                <i className="fa-solid fa-chevron-right"></i> Produk SPA
-                            </a>
-                            <a
+                                <i className="fa-solid fa-chevron-right"></i> {t('quickLinks.spaProduct')}
+                            </Link>
+                            <Link
                                 href="/hubungi-kami"
                                 className="flex items-center gap-2 hover:text-green-500 transition-colors"
                             >
-                                <i className="fa-solid fa-chevron-right"></i> Kontak
-                            </a>
+                                <i className="fa-solid fa-chevron-right"></i> {t('quickLinks.contact')}
+                            </Link>
                         </div>
                     </div>
 
                     {/* Section 3 - Download Links */}
                     <div className="flex flex-col gap-5">
-                        <h1 className="text-xl font-bold">Download Aplikasi Pro Trader</h1>
+                        <h1 className="text-xl font-bold">{t('downloadApp.title')}</h1>
                         <div className="flex items-center gap-5">
-                            <a href="https://apps.apple.com/id/app/pro-trader-royalassetindo/id6502900138?l=id">
+                            <a href="https://apps.apple.com/id/app/pro-trader-royalassetindo/id6502900138?l=id" target="_blank" rel="noopener noreferrer">
                                 <img
                                     src="/assets/download-on-the-app-store.svg"
-                                    alt="Download on the App Store"
+                                    alt={t('downloadApp.appStore')}
                                     className="h-12 transition-transform duration-300 hover:scale-110"
                                 />
                             </a>
-                            <a href="https://play.google.com/store/apps/details?id=com.royalassetindo.protrader&hl=id">
+                            <a href="https://play.google.com/store/apps/details?id=com.royalassetindo.protrader&hl=id" target="_blank" rel="noopener noreferrer">
                                 <img
                                     src="/assets/en_badge_web_generic.png"
-                                    alt="Get it on Google Play"
+                                    alt={t('downloadApp.playStore')}
                                     className="h-18 transition-transform duration-300 hover:scale-110"
                                 />
                             </a>
@@ -108,25 +107,25 @@ const Footer = () => {
 
                 {/* Section 4 - Company Info */}
                 <div className="flex-1 space-y-3">
-                    <h1 className="font-bold">PT RIFAN FINANCINDO BERJANGKA</h1>
+                    <h1 className="font-bold">{t('company.title')}</h1>
                     <p className="text-sm md:text-base">
-                        AXA Tower Kuningan City Lt. 23, 25, 30 & 35 Jl. Prof. DR. Satrio
-                        Kav. 18, Kuningan Setiabudi, Jakarta 12940
+                        {t('company.address')}
                     </p>
                     <p className="text-sm md:text-base">
-                        <strong>Email: </strong>
-                        corporate@rifan-financindo-berjangka.co.id
+                        <strong>{t('company.email')}: </strong>
+                        {t('company.emailValue')}
                     </p>
                     <p className="text-sm md:text-base">
-                        <strong>Telepon: </strong>(021) 3005 6300
+                        <strong>{t('company.phone')}: </strong>
+                        {t('company.phoneValue')}
                     </p>
                     <p className="text-sm md:text-base">
-                        <strong>Fax (AXA Tower): </strong>
-                        (021) 3005 6200
+                        <strong>{t('company.fax')}: </strong>
+                        {t('company.faxValue')}
                     </p>
                     <p className="text-sm md:text-base">
-                        <strong>Layanan pengaduan: </strong>
-                        corporate@rifan-financindo-berjangka.co.id
+                        <strong>{t('company.complaint')}: </strong>
+                        {t('company.emailValue')}
                     </p>
                     <div className="flex items-center gap-3">
                         <a href="https://www.komdigi.go.id/">
@@ -155,7 +154,7 @@ const Footer = () => {
             <div className="w-full h-1 bg-green-500"></div>
 
             <div className="text-center">
-                &copy; Copyright 2025, PT Rifan Financindo Berjangka. All Rights Reserved
+                {t('copyright', { year: currentYear })}
             </div>
         </footer >
     );

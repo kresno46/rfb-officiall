@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslation } from 'next-i18next';
+import LanguageSwitcher from "../atoms/LanguageSwitcher";
 
 const DateTimeDisplay = () => {
+    const { t, i18n } = useTranslation('common');
     const [currentDate, setCurrentDate] = useState("");
     const [currentTimeJKT, setCurrentTimeJKT] = useState("");
     const [currentTimeTKY, setCurrentTimeTKY] = useState("");
@@ -15,16 +18,17 @@ const DateTimeDisplay = () => {
     useEffect(() => {
         const updateDateTime = () => {
             const now = new Date();
-            const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-            const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            const daysOfWeek = t('dateTime.days', { returnObjects: true }) as string[];
+            const months = t('dateTime.months', { returnObjects: true }) as string[];
             const formattedDate = `${daysOfWeek[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
             setCurrentDate(formattedDate);
 
             const formatTime = (timezone: string) => {
-                const formatter = new Intl.DateTimeFormat("en-GB", {
+                const formatter = new Intl.DateTimeFormat(i18n.language === 'id' ? 'id-ID' : 'en-GB', {
                     timeZone: timezone,
-                    hour: "2-digit",
-                    minute: "2-digit",
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
                 });
                 return formatter.format(now);
             };
@@ -51,10 +55,10 @@ const DateTimeDisplay = () => {
                 <div className="hidden md:flex items-center gap-5">
                     <p><i className="fa-solid fa-calendar-days"></i> {currentDate}</p>
                     <div className="flex items-center gap-3">
-                        <p><strong>JKT</strong> {currentTimeJKT}</p>
-                        <p><strong>TKY</strong> {currentTimeTKY}</p>
-                        <p><strong>HK</strong> {currentTimeHK}</p>
-                        <p><strong>NY</strong> {currentTimeNY}</p>
+                        <p><strong>{t('dateTime.timezones.jkt')}</strong> {currentTimeJKT}</p>
+                        <p><strong>{t('dateTime.timezones.tky')}</strong> {currentTimeTKY}</p>
+                        <p><strong>{t('dateTime.timezones.hk')}</strong> {currentTimeHK}</p>
+                        <p><strong>{t('dateTime.timezones.ny')}</strong> {currentTimeNY}</p>
                     </div>
                 </div>
 
@@ -70,7 +74,7 @@ const DateTimeDisplay = () => {
                             }}
                             className="flex items-center gap-2 bg-zinc-600 hover:bg-zinc-500 px-3 py-1 rounded text-xs"
                         >
-                            <i className="fa-solid fa-calendar-days"></i> Date
+                            <i className="fa-solid fa-calendar-days"></i> {t('dateTime.date')}
                         </button>
                         {showDate && (
                             <div className="absolute left-0 mt-2 bg-white text-black rounded shadow px-3 py-2 text-xs whitespace-nowrap z-50">
@@ -88,15 +92,15 @@ const DateTimeDisplay = () => {
                             }}
                             className="flex items-center gap-2 bg-zinc-600 hover:bg-zinc-500 px-3 py-1 rounded text-xs"
                         >
-                            <i className="fa-regular fa-clock"></i> World Time
+                            <i className="fa-regular fa-clock"></i> {t('dateTime.worldTime')}
                         </button>
                         {showTime && (
                             <div className="absolute left-0 mt-2 bg-white text-black rounded shadow px-3 py-2 text-xs whitespace-nowrap z-50">
                                 <div className="space-y-5">
-                                    <p><strong>JKT:</strong> {currentTimeJKT}</p>
-                                    <p><strong>TKY:</strong> {currentTimeTKY}</p>
-                                    <p><strong>HK:</strong> {currentTimeHK}</p>
-                                    <p><strong>NY:</strong> {currentTimeNY}</p>
+                                    <p><strong>{t('dateTime.timezones.jkt')}:</strong> {currentTimeJKT}</p>
+                                    <p><strong>{t('dateTime.timezones.tky')}:</strong> {currentTimeTKY}</p>
+                                    <p><strong>{t('dateTime.timezones.hk')}:</strong> {currentTimeHK}</p>
+                                    <p><strong>{t('dateTime.timezones.ny')}:</strong> {currentTimeNY}</p>
                                 </div>
                             </div>
                         )}
@@ -105,13 +109,9 @@ const DateTimeDisplay = () => {
                 </div>
             </div>
 
-            {/* Language Select (Same for all screens) */}
-            <div>
-                <select className="border border-white rounded text-white px-2 py-1 text-xs md:text-sm">
-                    <option className="text-black" value="id">Bahasa</option>
-                    <option className="text-black" value="en">English</option>
-                    <option className="text-black" value="cn">中文</option>
-                </select>
+            {/* Language Switcher */}
+            <div className="flex justify-end">
+                <LanguageSwitcher />
             </div>
         </div>
     );

@@ -1,0 +1,13 @@
+{
+  "tradingView": {
+    "logoAlt": "TradingView",
+    "description": {
+      "part1": "The charts we use are provided by TradingView, a charting platform for traders and investors from all over the world. Discover various financial instruments such as ",
+      "part2": " charts, as well as tools like ",
+      "part3": " which are available for free and can assist in your trading and investment activities."
+    },
+    "instruments": "EURUSD, BTCUSDT, IHSG",
+    "stockScreener": "Stock Screener",
+    "liveChartButton": "Live Chart"
+  }
+}

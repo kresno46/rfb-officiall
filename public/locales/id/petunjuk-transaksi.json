@@ -1,0 +1,19 @@
+{
+  "title": "Petunjuk Transaksi",
+  "steps": {
+    "step1": "Nasabah dapat menyampaikan amanat secara online dan/atau melalui telepon. Dianjurkan Nasabah melakukan simulasi terlebih dahulu sebelum menggunakan {realtrading}.",
+    "step2": "Nasabah yang menyampaikan amanat secara online akan memperoleh {userid} dan {password} dari PT. Rifan Financindo Berjangka.",
+    "step3": "Untuk melakukan transaksi secara online, harus terpenuhi hal-hal berikut:",
+    "requirements": {
+      "internet": "Tersedia jaringan internet yang stabil.",
+      "access": "Akses ke:",
+      "login_url": "http://etrade.rifanberjangka.com/login.php",
+      "credentials": "Nasabah sudah memiliki {userid} dan {password} dari PT. Rifan Financindo Berjangka."
+    }
+  },
+  "terms": {
+    "realtrading": "real online trading",
+    "userid": "User ID",
+    "password": "Password"
+  }
+}

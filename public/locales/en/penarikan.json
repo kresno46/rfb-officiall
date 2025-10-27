@@ -1,0 +1,18 @@
+{
+  "title": "Withdrawal Procedure",
+  "intro": "Fund Withdrawal ({withdrawal}) can be requested by the Client at any time, provided that the amount withdrawn does not exceed the {effectiveMargin} stated in the Client's daily transaction report ({statementReport}).",
+  "process_title": "Fund Withdrawal Process ({withdrawal})",
+  "steps": {
+    "step1": "Client logs in to the {withdrawal} menu on their real trading account to submit a withdrawal request in accordance with the applicable terms and conditions.",
+    "step2": "Client fills out the withdrawal request form completely and accurately.",
+    "step3": "Funds can only be transferred to an account under the Client's name that matches the previously approved Account Opening Application document.",
+    "step4": "The standard withdrawal process takes a maximum of {maxTime}. However, PT. Rifan Financindo Berjangka is committed to expediting the process to be completed within {targetTime}."
+  },
+  "terms": {
+    "withdrawal": "Withdrawal",
+    "effectiveMargin": "Effective Margin",
+    "statementReport": "Statement Report",
+    "maxTime": "three working days (T+3)",
+    "targetTime": "one working day (T+1)"
+  }
+}

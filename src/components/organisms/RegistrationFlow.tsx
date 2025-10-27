@@ -1,80 +1,92 @@
+import { useTranslation } from 'next-i18next';
+
+interface RegolTranslations {
+    steps: {
+        [key: string]: string | string[];
+    };
+    bank_accounts: {
+        [key: string]: string;
+    };
+}
+
 export default function RegistrationFlow() {
+    const { t } = useTranslation(['regol', 'common']);
+    const tRegol = t as (key: string, options?: any) => string | string[] | RegolTranslations;
+    
     const steps = [
         {
-            title: "Membuka Website Perusahaan",
-            description: "Calon Nasabah mengunjungi website resmi PT Rifan Financindo Berjangka."
+            title: t('steps.website'),
+            description: t('steps.website_desc')
         },
         {
-            title: "Registrasi Akun Demo",
+            title: t('steps.demo'),
             description: (
                 <ul className="list-disc ml-5 space-y-1">
-                    <li>Memasukkan data diri</li>
-                    <li>Mendapatkan akses akun demo</li>
-                    <li>Melakukan simulasi transaksi</li>
+                    {(tRegol('steps.demo_items', { returnObjects: true }) as string[]).map((item: string, index: number) => (
+                        <li key={index}>{item}</li>
+                    ))}
                 </ul>
             )
         },
         {
-            title: "Pengisian Dokumen Perjanjian",
+            title: t('steps.documents'),
             description: (
                 <>
-                    <p className="mb-2">Calon Nasabah melengkapi dokumen berikut:</p>
+                    <p className="mb-2">{t('steps.documents_desc')}</p>
                     <ul className="list-disc ml-5 space-y-1">
-                        <li>Aplikasi Perjanjian</li>
-                        <li>Dokumen Pemberitahuan Adanya Risiko</li>
-                        <li>Perjanjian Pemberian Amanat (PPA)</li>
-                        <li>Mekanisme Transaksi (Trading Rules)</li>
-                        <li>Dokumen pendukung (KTP dan lainnya)</li>
+                        {(tRegol('steps.documents_items', { returnObjects: true }) as string[]).map((item: string, index: number) => (
+                            <li key={index}>{item}</li>
+                        ))}
                     </ul>
                 </>
             )
         },
         {
-            title: "Verifikasi oleh Wakil Pialang Berjangka",
-            description: "Meliputi verifikasi data pribadi dan bukti penyetoran dana margin."
+            title: t('steps.verification'),
+            description: t('steps.verification_desc')
         },
         {
-            title: "Setoran Dana Margin ke Rekening Segregasi",
+            title: t('steps.deposit'),
             description: (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
                     <div>
-                        <p className="font-semibold">Bank BCA – Sudirman</p>
-                        <p>IDR: 035 – 311 – 8975</p>
-                        <p>USD: 035 – 311 – 7600</p>
+                        <p className="font-semibold">{t('bank_accounts.bca')}</p>
+                        <p>{t('bank_accounts.idr')}: 035 – 311 – 8975</p>
+                        <p>{t('bank_accounts.usd')}: 035 – 311 – 7600</p>
                     </div>
                     <div>
-                        <p className="font-semibold">Bank CIMB Niaga – Gajahmada</p>
-                        <p>IDR: 800 – 12 – 97271 – 00</p>
-                        <p>USD: 800 – 01 – 20945 – 40</p>
+                        <p className="font-semibold">{t('bank_accounts.cimb')}</p>
+                        <p>{t('bank_accounts.idr')}: 800 – 12 – 97271 – 00</p>
+                        <p>{t('bank_accounts.usd')}: 800 – 01 – 20945 – 40</p>
                     </div>
                     <div>
-                        <p className="font-semibold">Bank BNI – Gambir</p>
-                        <p>IDR: 017 – 5008 – 590</p>
-                        <p>USD: 017 – 5020 – 200</p>
+                        <p className="font-semibold">{t('bank_accounts.bni')}</p>
+                        <p>{t('bank_accounts.idr')}: 017 – 5008 – 590</p>
+                        <p>{t('bank_accounts.usd')}: 017 – 5020 – 200</p>
                     </div>
                     <div>
-                        <p className="font-semibold">Bank Mandiri – Imam Bonjol</p>
-                        <p>IDR: 122 – 000 – 664 – 2881</p>
-                        <p>USD: 122 – 000 – 664 – 2873</p>
+                        <p className="font-semibold">{t('bank_accounts.mandiri')}</p>
+                        <p>{t('bank_accounts.idr')}: 122 – 000 – 664 – 2881</p>
+                        <p>{t('bank_accounts.usd')}: 122 – 000 – 664 – 2873</p>
                     </div>
                     <div>
-                        <p className="font-semibold">Bank Artha Graha – Sudirman</p>
-                        <p>IDR: 107 – 996 – 3271</p>
+                        <p className="font-semibold">{t('bank_accounts.artha')}</p>
+                        <p>{t('bank_accounts.idr')}: 107 – 996 – 3271</p>
                     </div>
                 </div>
             )
         },
         {
-            title: "Pemrosesan Pendaftaran",
-            description: "PT Rifan Financindo Berjangka memproses seluruh data dan dokumen."
+            title: t('steps.processing'),
+            description: t('steps.processing_desc')
         },
         {
-            title: "Aktivasi Akun",
-            description: "Setelah verifikasi selesai, akun aktif dan data login dikirim ke Nasabah."
+            title: t('steps.activation'),
+            description: t('steps.activation_desc')
         },
         {
-            title: "Siap Melakukan Transaksi",
-            description: "Nasabah resmi dapat bertransaksi di pasar berjangka komoditi."
+            title: t('steps.ready'),
+            description: t('steps.ready_desc')
         }
     ];
 

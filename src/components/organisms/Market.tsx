@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import MarketCard from "../moleculs/MarketCard";
 import Header1 from "../moleculs/Header1";
+import { useTranslation } from "next-i18next";
 
 interface MarketItem {
     symbol: string;
@@ -16,6 +17,7 @@ interface ApiMarketItem {
 }
 
 export default function Market() {
+    const { t } = useTranslation('market');
     const [marketData, setMarketData] = useState<MarketItem[]>([]);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const prevDataRef = useRef<MarketItem[]>([]);
@@ -86,7 +88,9 @@ export default function Market() {
 
     return (
         <div className="w-full bg-zinc-500 py-10 flex flex-col items-center space-y-4">
-            <Header1 title="Market" className="text-white text-2xl md:text-3xl" />
+            <div className="mb-6">
+                <Header1 title={t('title')} className="text-white text-2xl md:text-3xl" />
+            </div>
 
             <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-36 2xl:px-52 w-full">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
@@ -96,7 +100,7 @@ export default function Market() {
                         </div>
                     ) : marketData.length === 0 ? (
                         <div className="col-span-full text-center text-gray-500 font-medium text-sm sm:text-base animate-pulse">
-                            Memuat data pasar...
+                            {t('loading')}
                         </div>
                     ) : (
                         marketData.map((item: MarketItem, index: number) => (

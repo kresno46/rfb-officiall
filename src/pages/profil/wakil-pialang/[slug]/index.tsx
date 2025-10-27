@@ -1,5 +1,8 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetStaticPropsContext } from 'next';
 import PageTemplate from '@/components/templates/PageTemplate';
 import ProfilContainer from '@/components/templates/PageContainer/Container';
 import { getWakilPialangByKategori, WakilPialang } from '@/services/wakilPialangService';
@@ -11,11 +14,33 @@ interface KategoriWakilPialang {
     nama_kategori: string;
 }
 
+export const getStaticProps = async ({ locale = 'id' }: GetStaticPropsContext) => ({
+  props: {
+    ...(await serverSideTranslations(locale as string, [
+      'common',
+      'navbar',
+      'footer',
+      'wakil-pialang'
+    ])),
+  },
+});
+
+export async function getStaticPaths() {
+  // Pre-render all paths at build time
+  const kategoriList = await getKategoriWakilPialang();
+  const paths = kategoriList.map((kategori: KategoriWakilPialang) => ({
+    params: { slug: kategori.slug },
+  }));
+
+  return { paths, fallback: 'blocking' };
+}
+
 export default function WakilPialangDetail() {
     const router = useRouter();
     const { slug } = router.query;
     const [wakilPialangList, setWakilPialangList] = useState<WakilPialang[]>([]);
     const [kategori, setKategori] = useState<KategoriWakilPialang | null>(null);
+    const { t } = useTranslation(['wakil-pialang']);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     
@@ -54,7 +79,7 @@ export default function WakilPialangDetail() {
                 
                 try {
                     // Get all wakil pialang
-                    const allWakilPialang = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://rfbdev.newsmaker.id/api'}/wakil-pialang`);
+                    const allWakilPialang = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://rfb-backend.test/api'}/wakil-pialang`);
                     if (!allWakilPialang.ok) {
                         throw new Error('Gagal mengambil data wakil pialang');
                     }
@@ -106,9 +131,9 @@ export default function WakilPialangDetail() {
 
     if (error) {
         return (
-            <PageTemplate title="Error">
+            <PageTemplate title={t('errors.error')}>
                 <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                    <ProfilContainer title="Error">
+                    <ProfilContainer title={t('errors.error')}>
                         <div className="text-center py-10 text-red-500">
                             {error}
                         </div>
@@ -119,17 +144,25 @@ export default function WakilPialangDetail() {
     }
 
     return (
-        <PageTemplate title={`Wakil Pialang - ${kategori?.nama_kategori || ''}`}>
+        <PageTemplate title={`${t('pageTitle')} - ${kategori?.nama_kategori || ''}`}>
             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                <ProfilContainer title={`Daftar Wakil Pialang - ${kategori?.nama_kategori || ''}`}>
+                <ProfilContainer title={`${t('pageTitle')} - ${kategori?.nama_kategori || ''}`}>
                     <div className="overflow-x-auto">
                         <table className="min-w-full bg-white rounded-lg overflow-hidden">
                             <thead className="bg-gray-100">
                                 <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nomor Izin WPB</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        {t('table.no')}
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        {t('table.name')}
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        {t('table.licenseNumber')}
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        {t('table.status')}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">

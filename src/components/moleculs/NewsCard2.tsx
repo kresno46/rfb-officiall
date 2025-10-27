@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import CardDetail from "../atoms/CardDetail";
+import dynamic from 'next/dynamic';
+import { useTranslation } from 'next-i18next';
+
+const CardDetail = dynamic(() => import('../atoms/CardDetail'), { ssr: false });
 
 interface NewsCard2Props {
     date: string;
@@ -14,23 +17,28 @@ interface NewsCard2Props {
 }
 
 export default function NewsCard2({ date, title, content, link, image, category, index = 0 }: NewsCard2Props) {
-    const displayCategory = category || 'Pengumuman';
+    const { t, i18n } = useTranslation('pengumuman');
+    const currentLanguage = i18n.language || 'id';
+    // Format tanggal berdasarkan bahasa
+    const displayCategory = category || t('announcement', 'Pengumuman');
     
-    // Format date
+    // Format date sederhana
     const formatDate = (inputDate: string) => {
         if (!inputDate) return '';
         
-        const options: Intl.DateTimeFormatOptions = {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
-        };
-        
         try {
-            const parsedDate = new Date(inputDate);
-            return parsedDate.toLocaleDateString('id-ID', options);
+            const date = new Date(inputDate);
+            if (isNaN(date.getTime())) return '';
+            
+            const options: Intl.DateTimeFormatOptions = {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            };
+            
+            return date.toLocaleDateString(currentLanguage, options);
         } catch (e) {
-            console.error('Invalid date format:', inputDate);
+            console.error('Invalid date format:', inputDate, e);
             return '';
         }
     };
@@ -112,7 +120,7 @@ export default function NewsCard2({ date, title, content, link, image, category,
                                 objectFit: 'cover',
                             }}
                             onError={(e) => {
-                                console.error('Gagal memuat gambar:', imageUrl);
+                                console.error(t('readMore', 'Baca Selengkapnya'), 'Gagal memuat gambar:', imageUrl);
                                 const target = e.target as HTMLImageElement;
                                 target.onerror = null;
                                 target.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23EEEEEE%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22220%22%20font-family%3D%22Arial%2C%20Helvetica%2C%20sans-serif%22%20font-size%3D%2220%22%20text-anchor%3D%22middle%22%20fill%3D%22%23AAAAAA%22%3ETidak%20ada%20gambar%3C%2Ftext%3E%3C%2Fsvg%3E';

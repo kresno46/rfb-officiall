@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import CardDetail from "../atoms/CardDetail";
 
 interface NewsCardProps {
@@ -29,6 +30,9 @@ export default function NewsCard({
 
     const trimmedExcerpt = trimText(content, 200);  // Ubah jadi 200 atau sesuai kebutuhan
 
+    const { t, i18n } = useTranslation('common');
+    const currentLanguage = i18n.language || 'id';
+
     const formatDate = (inputDate: string) => {
         const options: Intl.DateTimeFormatOptions = {
             day: "2-digit",
@@ -36,7 +40,7 @@ export default function NewsCard({
             year: "numeric",
         };
         const parsedDate = new Date(inputDate);
-        return parsedDate.toLocaleDateString("id-ID", options);
+        return parsedDate.toLocaleDateString(currentLanguage === 'id' ? 'id-ID' : 'en-GB', options);
     };
 
     const fullLink = `/analisis/berita/${slug}`;

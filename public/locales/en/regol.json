@@ -1,0 +1,40 @@
+{
+  "title": "Online Registration Procedure",
+  "steps": {
+    "website": "Access Company Website",
+    "website_desc": "Prospective clients visit the official website of PT Rifan Financindo Berjangka.",
+    "demo": "Demo Account Registration",
+    "demo_items": [
+      "Submit personal data",
+      "Get demo account access",
+      "Perform trading simulation"
+    ],
+    "documents": "Filling Out Agreement Documents",
+    "documents_desc": "Prospective clients must complete the following documents:",
+    "documents_items": [
+      "Agreement Application",
+      "Risk Disclosure Document",
+      "Power of Attorney (PPA)",
+      "Trading Mechanism (Trading Rules)",
+      "Supporting documents (ID Card and others)"
+    ],
+    "verification": "Verification by Futures Broker Representative",
+    "verification_desc": "Includes verification of personal data and margin deposit proof.",
+    "deposit": "Margin Deposit to Segregated Account",
+    "processing": "Registration Processing",
+    "processing_desc": "PT Rifan Financindo Berjangka processes all data and documents.",
+    "activation": "Account Activation",
+    "activation_desc": "After verification is complete, the account is activated and login details are sent to the client.",
+    "ready": "Ready to Trade",
+    "ready_desc": "Client can officially trade in the commodities futures market."
+  },
+  "bank_accounts": {
+    "bca": "BCA – Sudirman",
+    "cimb": "CIMB Niaga – Gajahmada",
+    "bni": "BNI – Gambir",
+    "mandiri": "Mandiri – Imam Bonjol",
+    "artha": "Artha Graha – Sudirman",
+    "idr": "IDR",
+    "usd": "USD"
+  }
+}

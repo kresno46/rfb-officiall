@@ -1,0 +1,29 @@
+{
+  "pageTitle": "Karier",
+  "joinTeam": "Bergabunglah Dengan Tim Kami",
+  "noJobs": "Tidak ada lowongan tersedia saat ini",
+  "error": {
+    "message": "Error",
+    "retry": "Coba Lagi"
+  },
+  "notFound": {
+    "title": "Lowongan Tidak Ditemukan",
+    "description": "Maaf, lowongan yang Anda cari tidak dapat ditemukan.",
+    "backToList": "Kembali ke Daftar Lowongan"
+  },
+  "jobDetails": {
+    "responsibilities": "Tanggung Jawab Pekerjaan",
+    "requirements": "Persyaratan",
+    "location": "Lokasi",
+    "type": "Jenis Pekerjaan",
+    "applyButton": "Lamar Sekarang",
+    "backButton": "Kembali ke Daftar",
+    "fullTime": "Penuh Waktu",
+    "applicationNote": "Hanya kandidat yang memenuhi kualifikasi yang akan diproses lebih lanjut.",
+    "viewDetails": "Lihat Detail"
+  },
+  "card": {
+    "applyNow": "Lamar Sekarang",
+    "viewDetails": "Lihat Detail"
+  }
+}

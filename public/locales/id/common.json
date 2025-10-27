@@ -1,0 +1,40 @@
+{
+  "welcome": "Selamat Datang",
+  "home": "Beranda",
+  "about": "Tentang Kami",
+  "products": "Produk",
+  "careers": "Karir",
+  "contact": "Kontak",
+  "login": "Masuk",
+  "register": "Daftar",
+  "search": "Cari...",
+  "language": "Bahasa",
+  "indonesian": "Indonesia",
+  "english": "Inggris",
+
+  "institutions": {
+    "licensedAndSupervised": "BERIZIN DAN DIAWASI",
+    "membershipOf": "KEANGGOTAAN DARI"
+  },
+  "welcomeModal": {
+    "title": "Selamat Datang!",
+    "logoAlt": "Logo RFB",
+    "heading": "Selamat Datang di PT Rifan Financindo Berjangka",
+    "subheading": "Bergabunglah sekarang dan mulailah perjalanan trading Anda!",
+    "registerButton": "Daftar Sekarang",
+    "laterButton": "Nanti Saja"
+  },
+  
+  "dateTime": {
+    "date": "Tanggal",
+    "worldTime": "Waktu Dunia",
+    "days": ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
+    "months": ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+    "timezones": {
+      "jkt": "WIB",
+      "tky": "JST",
+      "hk": "HKT",
+      "ny": "EST"
+    }
+  }
+}

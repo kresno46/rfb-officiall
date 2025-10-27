@@ -1,0 +1,95 @@
+{
+  "pageTitle": "Company Profile",
+  "profilTitle": "Company Profile",
+  "visiTitle": "Vision",
+  "misiTitle": "Mission",
+  "tentangKamiTitle": "About Us",
+  "keunggulanTitle": "Why You Should Choose Us",
+  "penghargaanTitle": "Awards",
+  "anggotaDari": "Member of:",
+  "visiItems": [
+    "To become the number one company in the commodity futures trading industry in Indonesia",
+    "To implement Good Corporate Governance in carrying out activities as a futures broker that upholds the values of fairness and legal certainty for everyone involved."
+  ],
+  "misiItems": [
+    "Enhance public literacy and education by collaborating with authorities and SROs through press releases, seminars, etc.",
+    "Improve the competence of Futures Broker Representatives through external and internal training to work more professionally.",
+    "Implement strict standard operating procedures, especially in accepting prospective clients."
+  ],
+  "achievements": [
+    {
+      "title": "KBI",
+      "subtitle": "1st Best in Margin Placement Compliance 2024"
+    },
+    {
+      "title": "KBI",
+      "subtitle": "Best Clearing Member Broker 2017"
+    },
+    {
+      "title": "JFX",
+      "subtitle": "3rd Rank in Most Multilateral Transactions 2017"
+    },
+    {
+      "title": "JFX",
+      "subtitle": "2nd Rank in Most Bilateral Transactions 2017"
+    },
+    {
+      "title": "KBI",
+      "subtitle": "3rd Best Clearing Member 2014"
+    },
+    {
+      "title": "KBI",
+      "subtitle": "Best Broker 1"
+    },
+    {
+      "title": "JFX",
+      "subtitle": "3rd Highest Bilateral Trading Volume Broker 2013"
+    },
+    {
+      "title": "JFX",
+      "subtitle": "Best Bilateral Volume Broker 2011"
+    }
+  ],
+  "aboutUs": {
+    "p1": "<strong>PT. Rifan Financindo Berjangka</strong> is a member of the futures exchange in Indonesia, namely the Jakarta Futures Exchange (JFX), and to ensure the financial integrity of the company, it is also a member of the clearing institution of the futures exchange, namely a member of the Indonesian Derivatives Clearing House (KBI). The company is committed to conducting futures trading in an orderly, fair, effective, and transparent manner as regulated in the laws and regulations in the field of Futures Trading to provide legal certainty for all parties in Futures Trading activities in Indonesia.",
+    "p2": "<strong>PT Rifan Financindo Berjangka</strong> has more than 20 years of experience in the Commodity Futures Trading industry and is the largest broker company, ranking among the top 10 most active futures broker companies at the Jakarta Futures Exchange. In addition to being an exchange member, PT Rifan Financindo Berjangka is also a member of PT Kliring Berjangka Indonesia (Persero) and is officially registered with the Commodity Futures Trading Regulatory Agency (BAPPEBTI). Since 2000, PT Rifan Financindo Berjangka has continued to grow with operational offices spread across major cities in Indonesia. Headquartered in Jakarta (Axa Tower) with branch offices in Jakarta (DBS Bank Tower), Bandung, Semarang, Solo, Yogyakarta, Surabaya (Ciputra World), Medan, Pekanbaru, Palembang, Balikpapan, and Surabaya (Pakuwon Tower)."
+  },
+  "whyChooseUs": [
+    {
+      "title": "Legal Certainty:",
+      "description": "All products traded through PT Rifan Financindo Berjangka are listed on the Jakarta Futures Exchange, and customer margin funds are placed in segregated accounts supervised by Bappebti and deposited with the Indonesian Derivatives Clearing House."
+    },
+    {
+      "title": "Online Registration:",
+      "description": "Account registration can be done online through our official website with the ONLINE ACCOUNT REGISTRATION feature."
+    },
+    {
+      "title": "Online Trading and Demo Account:",
+      "description": "Customers can trade anytime and anywhere with internet access. A demo account is available for simulation before real transactions."
+    },
+    {
+      "title": "Daily Transaction Reports:",
+      "description": "Customers receive daily reports including transaction summaries, equity positions, and open positions."
+    },
+    {
+      "title": "Fund Security:",
+      "description": "Customer funds are kept separate from company assets and supervised by Bappebti. Funds are only used according to customer instructions."
+    },
+    {
+      "title": "Fast Withdrawal:",
+      "description": "Withdrawal process can be completed within a maximum of three working days (T+3), or even faster (T+1)."
+    },
+    {
+      "title": "Professional Futures Broker Representatives:",
+      "description": "Our team of Futures Broker Representatives is professional and trained to provide recommendations based on fundamental and technical analysis."
+    },
+    {
+      "title": "News and Analysis Portal:",
+      "description": "The news portal <a href=\"https://www.rfbnews.com\" target=\"_blank\" class=\"text-blue-600 underline\">www.rfbnews.com</a> is available 24/7 for market research and analysis."
+    },
+    {
+      "title": "SITNa:",
+      "description": "Customers can monitor transaction transparency through the SITNa system to ensure recording at the Exchange and Clearing House."
+    }
+  ]
+}

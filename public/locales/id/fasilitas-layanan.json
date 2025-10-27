@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Fasilitas & Layanan",
+  "title": "Fasilitas & Layanan",
+  "items": [
+    {
+      "title": "Wakil Pialang Berjangka Profesional",
+      "content": "<p>Perusahaan memiliki <strong>Wakil Pialang Berjangka</strong> profesional yang selalu siap memberikan pelayanan kepada calon nasabah atau nasabah berupa edukasi, prosedur administrasi, dan mekanisme transaksi <em>Sistem Perdagangan Alternatif</em> di Bursa Berjangka Jakarta.</p>"
+    },
+    {
+      "title": "Fasilitas Online Trading & Demo Account",
+      "content": "<p>Fasilitas ini memberikan kemudahan bagi nasabah dalam bertransaksi melalui jaringan internet. Perusahaan juga menyediakan <strong>akun demo</strong> untuk simulasi transaksi agar calon nasabah lebih memahami dan menguasai platform trading yang tersedia.</p>"
+    },
+    {
+      "title": "Pelaporan Transaksi Setiap Hari",
+      "content": "<p>Setiap hari nasabah akan menerima <strong>laporan transaksi harian</strong> yang berisi catatan dan perkembangan transaksi. Nasabah juga dapat mengakses laporan tersebut langsung melalui <em>online trading platform</em> menggunakan menu Temporary Statement atau Daily Statement.</p>"
+    },
+    {
+      "title": "Penarikan Dana (Withdrawal) Secara Online",
+      "content": "<p><strong>Penarikan dana</strong> dapat dilakukan sewaktu-waktu oleh nasabah secara online melalui fitur yang tersedia di platform. Permintaan penarikan akan diupayakan agar dapat diproses maksimal satu hari kerja (T+1).</p>"
+    },
+    {
+      "title": "Rekening Terpisah (Segregated Account)",
+      "content": "<p>Semua dana investor disimpan dalam <strong>Segregated Account</strong> yang terpisah dari aset perusahaan dan ditempatkan di bank penyimpanan yang disetujui oleh BAPPEBTI seperti Bank BCA, CIMB Niaga, BNI, Mandiri, dan Artha Graha. Dana ini hanya digunakan untuk kebutuhan transaksi nasabah.</p>"
+    },
+    {
+      "title": "Fleksibilitas Transaksi",
+      "content": "<p><strong>Transaksi dua arah</strong> memberikan peluang bagi nasabah untuk meraih keuntungan baik saat harga pasar naik maupun turun. Produk yang likuid dan volatilitas harga yang tinggi menciptakan berbagai peluang trading.</p>"
+    }
+  ]
+}

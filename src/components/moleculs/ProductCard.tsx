@@ -1,3 +1,5 @@
+import { useTranslation } from 'next-i18next';
+
 interface ProductCardProps {
     title: string;
     image?: string;
@@ -15,6 +17,7 @@ export default function ProductCard({
     slug,
     description = ""
 }: ProductCardProps) {
+    const { t } = useTranslation('produk');
     return (
         <a 
             href={`/produk/${category}/${slug}`} 
@@ -32,12 +35,12 @@ export default function ProductCard({
                     />
                 ) : (
                     <div className="w-full h-full bg-gradient-to-r from-green-50 to-blue-50 flex items-center justify-center">
-                        <span className="text-gray-400">No Image</span>
+                        <span className="text-gray-400">{t('productCard.noImage')}</span>
                     </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                     <span className="text-white text-sm font-medium bg-green-600 px-2 py-1 rounded-full">
-                        {category.toUpperCase()}
+                        {t('productCard.seeDetails')} {category}
                     </span>
                 </div>
             </div>
@@ -53,7 +56,7 @@ export default function ProductCard({
                 )}
                 <div className="flex justify-between items-center">
                     <span className="inline-flex items-center text-sm font-medium text-green-600">
-                        Lihat Detail
+                        {t('productCard.seeDetails')}
                         <svg 
                             className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" 
                             fill="none" 

@@ -1,0 +1,40 @@
+{
+  "title": "Prosedur Registrasi Online",
+  "steps": {
+    "website": "Membuka Website Perusahaan",
+    "website_desc": "Calon Nasabah mengunjungi website resmi PT Rifan Financindo Berjangka.",
+    "demo": "Registrasi Akun Demo",
+    "demo_items": [
+      "Memasukkan data diri",
+      "Mendapatkan akses akun demo",
+      "Melakukan simulasi transaksi"
+    ],
+    "documents": "Pengisian Dokumen Perjanjian",
+    "documents_desc": "Calon Nasabah melengkapi dokumen berikut:",
+    "documents_items": [
+      "Aplikasi Perjanjian",
+      "Dokumen Pemberitahuan Adanya Risiko",
+      "Perjanjian Pemberian Amanat (PPA)",
+      "Mekanisme Transaksi (Trading Rules)",
+      "Dokumen pendukung (KTP dan lainnya)"
+    ],
+    "verification": "Verifikasi oleh Wakil Pialang Berjangka",
+    "verification_desc": "Meliputi verifikasi data pribadi dan bukti penyetoran dana margin.",
+    "deposit": "Setoran Dana Margin ke Rekening Segregasi",
+    "processing": "Pemrosesan Pendaftaran",
+    "processing_desc": "PT Rifan Financindo Berjangka memproses seluruh data dan dokumen.",
+    "activation": "Aktivasi Akun",
+    "activation_desc": "Setelah verifikasi selesai, akun aktif dan data login dikirim ke Nasabah.",
+    "ready": "Siap Melakukan Transaksi",
+    "ready_desc": "Nasabah resmi dapat bertransaksi di pasar berjangka komoditi."
+  },
+  "bank_accounts": {
+    "bca": "Bank BCA – Sudirman",
+    "cimb": "Bank CIMB Niaga – Gajahmada",
+    "bni": "Bank BNI – Gambir",
+    "mandiri": "Bank Mandiri – Imam Bonjol",
+    "artha": "Bank Artha Graha – Sudirman",
+    "idr": "IDR",
+    "usd": "USD"
+  }
+}
