@@ -1,9 +1,13 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import PageTemplate from '@/components/templates/PageTemplate';
 import ProfilContainer from '@/components/templates/PageContainer/Container';
 import NotFound from '@/components/moleculs/NotFound';
 import DetailBerita from '@/components/organisms/DetailBerita';
+import Link from 'next/link';
 
 interface Berita {
     id: number;
@@ -15,7 +19,24 @@ interface Berita {
     kategori?: string;
 }
 
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Generate paths at build time if needed
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale = 'id' }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'berita', 'navbar', 'footer'])),
+    },
+  };
+};
+
 export default function BeritaDetail() {
+    const { t } = useTranslation('berita');
     const router = useRouter();
     const { slug } = router.query;
     const [berita, setBerita] = useState<Berita | null>(null);
@@ -73,11 +94,11 @@ export default function BeritaDetail() {
 
     if (loading) {
         return (
-            <PageTemplate title="Memuat...">
+            <PageTemplate title={t('loadingNews')}>
                 <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                    <ProfilContainer title="Memuat Berita...">
+                    <ProfilContainer title={t('loadingNews')}>
                         <div className="flex justify-center items-center h-64">
-                            <div className="animate-pulse text-gray-500">Memuat berita...</div>
+                            <div className="animate-pulse text-gray-500">{t('loading')}</div>
                         </div>
                     </ProfilContainer>
                 </div>
@@ -87,13 +108,18 @@ export default function BeritaDetail() {
 
     if (!berita) {
         return (
-            <PageTemplate title="Berita Tidak Ditemukan">
+            <PageTemplate title={t('notFound')}>
                 <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                    <ProfilContainer title="Berita Tidak Ditemukan">
+                    <ProfilContainer title={t('notFound')}>
                         <div className='text-center'>
                             <NotFound />
-                            <div>
-                                <a href="/analisis/berita" className='bg-green-500 hover:bg-green-400 px-2 py-1 rounded text-black transition-all duration-300'>&#129032; Kembali ke Halaman Berita</a>
+                            <div className="mt-4">
+                                <Link 
+                                    href="/analisis/berita" 
+                                    className='bg-green-500 hover:bg-green-400 px-4 py-2 rounded text-black transition-all duration-300 inline-block'
+                                >
+                                    &#129032; {t('backToNews')}
+                                </Link>
                             </div>
                         </div>
                     </ProfilContainer>
@@ -109,10 +135,18 @@ export default function BeritaDetail() {
                     <DetailBerita
                         date={berita.created_at}
                         title={berita.judul}
+                        kategori={berita.kategori || t('category')}
                         img={berita.gambar}
                         content={berita.isi}
-                        kategori={berita.kategori || "Berita"}
                     />
+                    <div className="mt-8">
+                        <Link 
+                            href="/analisis/berita" 
+                            className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg text-white transition-all duration-300 inline-block"
+                        >
+                            &larr; {t('backToNews')}
+                        </Link>
+                    </div>
                 </ProfilContainer>
             </div>
         </PageTemplate>

@@ -1,0 +1,50 @@
+{
+  "title": "Data Historis",
+  "subtitle": "Data Historis Harga Komoditas",
+  "loading": "Memuat data historis...",
+  "noData": "Tidak ada data yang tersedia",
+  "date": "Tanggal",
+  "open": "Buka",
+  "high": "Tertinggi",
+  "low": "Terendah",
+  "close": "Tutup",
+  "change": "Perubahan",
+  "changePercent": "% Perubahan",
+  "volume": "Volume",
+  "searchPlaceholder": "Cari komoditas...",
+  "selectCommodity": "Pilih Komoditas",
+  "selectTimeframe": "Pilih Periode Waktu",
+  "timeframes": {
+    "1d": "1 Hari",
+    "1w": "1 Minggu",
+    "1m": "1 Bulan",
+    "3m": "3 Bulan",
+    "6m": "6 Bulan",
+    "1y": "1 Tahun",
+    "5y": "5 Tahun",
+    "max": "Maksimal"
+  },
+  "download": "Unduh Data",
+  "commodities": {
+    "gold": "Emas",
+    "silver": "Perak",
+    "oil": "Minyak Mentah",
+    "copper": "Tembaga",
+    "palladium": "Paladium",
+    "platinum": "Platinum"
+  },
+  "dateRangeSeparator": "s/d",
+  "loadingSymbols": "Memuat simbol...",
+  "reset": "Reset",
+  "error": {
+    "fetch": "Gagal mengambil data historis",
+    "loading": "Gagal memuat data. Silakan coba lagi nanti.",
+    "filter": "Gagal memfilter data. Silakan coba lagi.",
+    "download": "Gagal membuat file unduhan. Silakan coba lagi."
+  },
+  "pagination": {
+    "previous": "Sebelumnya",
+    "next": "Selanjutnya",
+    "showing": "Menampilkan {{from}} - {{to}} dari {{total}} data"
+  }
+}

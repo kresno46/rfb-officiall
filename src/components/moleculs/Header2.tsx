@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 
 interface Header2Props {
     title: string;
+    subtitle?: string;
     center?: boolean;
     className?: string;
     showViewAll?: boolean;
@@ -12,6 +13,7 @@ interface Header2Props {
 
 export default function Header2({ 
     title, 
+    subtitle,
     center = false, 
     className = "",
     showViewAll = false,
@@ -25,9 +27,14 @@ export default function Header2({
     return (
         <div className="flex justify-between items-center w-full">
             <div className="flex items-center gap-3">
-                <h1 className={`${baseClass} ${centerClass} ${className} uppercase`}>
-                    {title}
-                </h1>
+                <div className={`${center ? 'text-center' : ''}`}>
+                    <h2 className={`text-2xl font-bold ${className}`}>
+                        {title}
+                    </h2>
+                    {subtitle && (
+                        <p className="text-gray-600 mt-2">{subtitle}</p>
+                    )}
+                </div>
                 <div className="h-0.5 bg-green-500 w-25 rounded-full"></div>
             </div>
             

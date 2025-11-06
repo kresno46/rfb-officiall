@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useTranslation } from "next-i18next";
 
 // Definisikan tipe untuk input dan hasil
 type PivotInput = { [key: string]: string };
 type PivotResult = { [key: string]: number | string };
 
 export default function PivotSection() {
+    const { t } = useTranslation('pivot-fibo');
     const [inputs, setInputs] = useState<PivotInput>({
         high: "",
         low: "",
@@ -32,7 +34,7 @@ export default function PivotSection() {
         const open = parseFloat(inputs.open);
 
         if (isNaN(high) || isNaN(low) || isNaN(close) || isNaN(open)) {
-            alert('Mohon isi semua field (High, Low, Close, Open) dengan angka yang valid.');
+            alert(t('pivotSection.error.invalidInput'));
             return;
         }
 
@@ -98,27 +100,27 @@ export default function PivotSection() {
 
     return (
         <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Kalkulator Pivot Point</h2>
+            <h2 className="text-xl font-semibold">{t('pivotSection.title')}</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {['high', 'low', 'close', 'open'].map((field) => (
                     <div key={field} className="space-y-1">
-                        <label className="block text-sm font-medium text-gray-700">
-                            {field === 'high'
-                                ? 'Tertinggi'
+                        <label className="block text-sm font-medium text-gray-700">{field === 'high'
+                                ? t('pivotSection.high')
                                 : field === 'low'
-                                    ? 'Terendah'
+                                    ? t('pivotSection.low')
                                     : field === 'close'
-                                        ? 'Penutupan'
-                                        : 'Pembukaan'}
-                        </label>
+                                        ? t('pivotSection.close')
+                                        : t('pivotSection.open')}</label>
                         <input
                             type="text"
                             name={field}
                             value={inputs[field]}
                             onChange={handleInputChange}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                            placeholder={`Masukkan harga ${field}`}
+                            placeholder={t('pivotSection.placeholder', { 
+                                field: t(`pivotSection.${field}`)
+                            })}
                         />
                     </div>
                 ))}
@@ -129,7 +131,7 @@ export default function PivotSection() {
                     onClick={calculatePivots}
                     className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                    Hitung
+                    {t('pivotSection.calculate')}
                 </button>
                 <button
                     onClick={() => {
@@ -138,27 +140,34 @@ export default function PivotSection() {
                     }}
                     className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                 >
-                    Reset
+                    {t('pivotSection.reset')}
                 </button>
             </div>
 
             {results && (
                 <div className="mt-6 overflow-x-auto">
-                    <h3 className="text-lg font-medium mb-4">Hasil Perhitungan</h3>
+                    <h3 className="text-lg font-medium mb-4">{t('pivotSection.result')}</h3>
                     <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
                         <table className="min-w-full bg-white text-sm">
                             <thead className="bg-green-600 text-white">
                                 <tr>
-                                    <th className="py-3 px-6 text-left font-semibold">Level</th>
-                                    <th className="py-3 px-6 text-left font-semibold">Klasik</th>
-                                    <th className="py-3 px-6 text-left font-semibold">Woodie</th>
-                                    <th className="py-3 px-6 text-left font-semibold">Camarilla</th>
+                                    <th className="py-3 px-6 text-left font-semibold">{t('pivotSection.levels.level')}</th>
+                                    <th className="py-3 px-6 text-left font-semibold">{t('pivotSection.levels.classic')}</th>
+                                    <th className="py-3 px-6 text-left font-semibold">{t('pivotSection.levels.woodie')}</th>
+                                    <th className="py-3 px-6 text-left font-semibold">{t('pivotSection.levels.camarilla')}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {[
-                                    { level: 'R4', label: 'Resistance 4 (R4)', classic: results.classic.R4, woodie: results.woodie.R4, camarilla: results.camarilla.R4 },
-                                    { level: 'R3', label: 'Resistance 3 (R3)', classic: results.classic.R3, woodie: results.woodie.R3, camarilla: results.camarilla.R3 },
+                                    { level: 'R4', label: t('pivotSection.levels.R4'), classic: results.classic.R4, woodie: results.woodie.R4, camarilla: results.camarilla.R4 },
+                                    { level: 'R3', label: t('pivotSection.levels.R3'), classic: results.classic.R3, woodie: results.woodie.R3, camarilla: results.camarilla.R3 },
+                                    { level: 'R2', label: t('pivotSection.levels.R2'), classic: results.classic.R2, woodie: results.woodie.R2, camarilla: results.camarilla.R2 },
+                                    { level: 'R1', label: t('pivotSection.levels.R1'), classic: results.classic.R1, woodie: results.woodie.R1, camarilla: results.camarilla.R1 },
+                                    { level: 'PP', label: t('pivotSection.levels.PP'), classic: results.classic.PP, woodie: results.woodie.PP, camarilla: results.camarilla.PP },
+                                    { level: 'S1', label: t('pivotSection.levels.S1'), classic: results.classic.S1, woodie: results.woodie.S1, camarilla: results.camarilla.S1 },
+                                    { level: 'S2', label: t('pivotSection.levels.S2'), classic: results.classic.S2, woodie: results.woodie.S2, camarilla: results.camarilla.S2 },
+                                    { level: 'S3', label: t('pivotSection.levels.S3'), classic: results.classic.S3, woodie: results.woodie.S3, camarilla: results.camarilla.S3 },
+                                    { level: 'S4', label: t('pivotSection.levels.S4'), classic: results.classic.S4, woodie: results.woodie.S4, camarilla: results.camarilla.S4 },
                                     { level: 'R2', label: 'Resistance 2 (R2)', classic: results.classic.R2, woodie: results.woodie.R2, camarilla: results.camarilla.R2 },
                                     { level: 'R1', label: 'Resistance 1 (R1)', classic: results.classic.R1, woodie: results.woodie.R1, camarilla: results.camarilla.R1 },
                                     { level: 'PP', label: 'Pivot Point (PP)', classic: results.classic.PP, woodie: results.woodie.PP, camarilla: results.camarilla.PP },

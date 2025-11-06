@@ -1,0 +1,32 @@
+{
+  "title": "Contact Us",
+  "subtitle": "We're here to help you",
+  "kantorCabang": "Branch Offices",
+  "jamOperasional": "Operation Hours",
+  "hariKerja": "Monday - Friday",
+  "sabtu": "Saturday",
+  "mingguLibur": "Sunday & National Holidays",
+  "alamat": "Address",
+  "telepon": "Phone",
+  "fax": "Fax",
+  "lokasi": "View Location",
+  "sosialMedia": "Social Media",
+  "kontak": {
+    "telepon": "Phone",
+    "fax": "Fax",
+    "email": "Email"
+  },
+  "kantorPusat": {
+    "judul": "Head Office",
+    "jakarta": "Jakarta",
+    "alamat1": "AXA Tower Kuningan City 23rd, 25th, 30th & 35th Floor",
+    "alamat2": "Jl. Prof. DR. Satrio Kav. 18\nKuningan Setiabudi, Jakarta 12940",
+    "telepon": "Phone",
+    "fax": "Fax",
+    "email": "Email"
+  },
+  "tombol": {
+    "pengajuan": "ONLINE SUBMISSION",
+    "keluhan": "ONLINE COMPLAINT"
+  }
+}

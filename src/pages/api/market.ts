@@ -4,6 +4,11 @@ type MarketData = {
   symbol: string;
   last: number;
   percentChange: number;
+  high: number;
+  low: number;
+  open: number;
+  prevClose: number;
+  valueChange: number;
 };
 
 type ApiResponse = {
@@ -19,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     );
 
     if (!response.ok) {
-      return res.status(response.status).json({ error: 'Failed to fetch market data' });
+      return res.status(response.status).json({ error: 'Gagal mengambil data market' });
     }
 
     const apiResponse: ApiResponse = await response.json();

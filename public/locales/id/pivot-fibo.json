@@ -1,0 +1,50 @@
+{
+  "title": "Kalkulator Pivot & Fibonacci",
+  "description": "Hitung level pivot point dan level retracement Fibonacci dengan mudah",
+  "tabs": {
+    "pivot": "Pivot",
+    "fibonacci": "Fibonacci"
+  },
+  "pivotSection": {
+    "title": "Pivot Points",
+    "high": "Tertinggi",
+    "low": "Terendah",
+    "close": "Penutupan",
+    "open": "Pembukaan",
+    "placeholder": "Masukkan nilai {{field}}",
+    "calculate": "Hitung",
+    "reset": "Reset",
+    "levels": {
+      "r3": "Resistance 3",
+      "r2": "Resistance 2",
+      "r1": "Resistance 1",
+      "pp": "Pivot Point",
+      "s1": "Support 1",
+      "s2": "Support 2",
+      "s3": "Support 3"
+    },
+    "error": {
+      "invalidInput": "Mohon masukkan angka yang valid"
+    }
+  },
+  "fibonacciSection": {
+    "title": "Kalkulator Fibonacci",
+    "trend": {
+      "uptrend": "Uptrend",
+      "downtrend": "Downtrend"
+    },
+    "high": "Tertinggi",
+    "low": "Terendah",
+    "calculate": "Hitung",
+    "reset": "Reset",
+    "levels": {
+      "retracement": "Level Retracement",
+      "projection": "Level Proyeksi",
+      "level": "Level",
+      "price": "Nilai"
+    },
+    "error": {
+      "invalidInput": "Mohon masukkan angka yang valid"
+    }
+  }
+}

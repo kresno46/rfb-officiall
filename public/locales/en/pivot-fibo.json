@@ -1,0 +1,50 @@
+{
+  "title": "Pivot & Fibonacci Calculator",
+  "description": "Easily calculate pivot points and Fibonacci retracement levels",
+  "tabs": {
+    "pivot": "Pivot",
+    "fibonacci": "Fibonacci"
+  },
+  "pivotSection": {
+    "title": "Pivot Points",
+    "high": "High",
+    "low": "Low",
+    "close": "Close",
+    "open": "Open",
+    "placeholder": "Enter {{field}} value",
+    "calculate": "Calculate",
+    "reset": "Reset",
+    "levels": {
+      "r3": "Resistance 3",
+      "r2": "Resistance 2",
+      "r1": "Resistance 1",
+      "pp": "Pivot Point",
+      "s1": "Support 1",
+      "s2": "Support 2",
+      "s3": "Support 3"
+    },
+    "error": {
+      "invalidInput": "Please enter valid numbers"
+    }
+  },
+  "fibonacciSection": {
+    "title": "Fibonacci Calculator",
+    "trend": {
+      "uptrend": "Uptrend",
+      "downtrend": "Downtrend"
+    },
+    "high": "High",
+    "low": "Low",
+    "calculate": "Calculate",
+    "reset": "Reset",
+    "levels": {
+      "retracement": "Retracement Levels",
+      "projection": "Projection Levels",
+      "level": "Level",
+      "price": "Value"
+    },
+    "error": {
+      "invalidInput": "Please enter valid numbers"
+    }
+  }
+}
