@@ -1,46 +1,41 @@
-# =========================
-# Build stage (Alpine)
-# =========================
+# ========== Build stage ==========
 FROM node:22-alpine AS builder
-
 WORKDIR /app
 
-# Tools utk native deps + compat glibc (sering dibutuhin di Alpine)
+# Tools buat native deps + compat glibc di Alpine
 RUN apk add --no-cache python3 make g++ libc6-compat
 
-# Pakai lockfile & pin npm biar stabil di Alpine
+# Pakai lockfile & stabilin npm
 COPY package*.json ./
 RUN npm i -g npm@10.8.1 \
   && npm ci --no-audit --no-fund
 
-# Copy source & build
+# Build app
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 
-# =========================
-# Runtime stage (production)
-# =========================
+# ========== Runtime stage (production) ==========
 FROM node:22-alpine AS runner
-
 WORKDIR /app
+
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1
 
-# Compat glibc untuk binary prebuilt
+# Compat glibc (sering dibutuhin binary prebuilt)
 RUN apk add --no-cache libc6-compat
 
-# Install hanya prod deps (tanpa cache clean yang bikin crash)
-COPY package*.json ./
-RUN npm i -g npm@10.8.1 \
-  && npm ci --omit=dev --no-audit --no-fund
+# >>> Tidak install dari internet lagi <<<
+# Bawa node_modules hasil builder, lalu prune dev deps (offline)
+COPY --from=builder /app/node_modules ./node_modules
+RUN npm prune --omit=dev
 
-# Copy hasil build
+# Bawa hasil build & file pendukung
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-# Optional: kalau ada file config
 COPY --from=builder /app/next.config.* ./
+COPY --from=builder /app/package*.json ./
 
 EXPOSE 3000
 USER node
