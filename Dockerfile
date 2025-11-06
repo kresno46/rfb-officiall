@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install dependencies (production only)
+RUN npm ci --omit=dev && npm cache clean --force
 
 # Copy the rest of the application code
 COPY . .
@@ -26,9 +26,9 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install only production dependencies
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci --omit=dev && npm cache clean --force
 
-# Copy built application from builder stage
+# Copy built application files from builder stage
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.ts ./
