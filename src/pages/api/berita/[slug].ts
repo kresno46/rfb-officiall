@@ -24,7 +24,7 @@ export default async function handler(
 
   try {
     const response = await fetch(
-      `http://rfb-backend.test/api/berita/${encodeURIComponent(slug)}`
+      `https://rfbdev.newsmaker.id/api/berita/${encodeURIComponent(slug)}`
     );
 
     if (!response.ok) {

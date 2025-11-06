@@ -1,12 +1,27 @@
-// Profil Perusahaan
-
+import { GetStaticProps } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import KontakCard from "@/components/atoms/KontakCard";
 import CabangCard from "@/components/moleculs/CabangCard";
 import Header2 from "@/components/moleculs/Header2";
 import ProfilContainer from "@/components/templates/PageContainer/Container";
 import PageTemplate from "@/components/templates/PageTemplate";
 
+export const getStaticProps: GetStaticProps = async ({ locale = 'id' }) => {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale, [
+                'common',
+                'navbar',
+                'footer',
+                'hubungi-kami'
+            ])),
+        },
+    };
+};
+
 export default function HubungiKami() {
+    const { t } = useTranslation(['hubungi-kami', 'common', 'navbar', 'footer']);
     const kantorCabang = [
         {
             kota: "MEDAN",
@@ -88,33 +103,31 @@ export default function HubungiKami() {
     ];
 
     return (
-        <PageTemplate title="Hubungi Kami">
+        <PageTemplate title={t('title')}>
             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                <ProfilContainer title="Hubungi Kami: PT. Rifan Financindo Berjangka">
+                <ProfilContainer title={t('title')}>
                     <div className="space-y-5 text-left">
-                        <div className="space-y-5">
-                            <h2 className="text-2xl uppercase font-bold">Kantor Pusat</h2>
-                            <div className="">
-                                <h5 className="text-lg uppercase font-medium">Jakarta</h5>
-                                <p className="whitespace-pre-line">AXA Tower Kuningan City Lt. 23, 25, 30 & 35</p>
-                                <p className="whitespace-pre-line">Jl. Prof. DR. Satrio Kav. 18
-Kuningan Setiabudi, Jakarta 12940</p>
-                                <p><strong>Telp :</strong> (021) 30056300, <strong>Fax :</strong> (021) 30056200</p>
-                                <p><strong>Email:</strong> <a href="mailto:corporate@rifan-financindo-berjangka.co.id" className="hover:underline hover:text-green-500">corporate@rifan-financindo-berjangka.co.id</a></p>
-                            </div>
+                        <h3 className="text-2xl font-bold my-6">{t('kantorPusat.judul')}</h3>
+                        <div className="">
+                            <h5 className="text-lg uppercase font-medium">{t('kantorPusat.jakarta')}</h5>
+                            <p className="font-semibold">{t('mingguLibur')}</p>
+                            <p className="whitespace-pre-line">{t('kantorPusat.alamat1')}</p>
+                            <p className="whitespace-pre-line">{t('kantorPusat.alamat2')}</p>
+                            <p><strong>{t('kantorPusat.telepon')}:</strong> (021) 30056300, <strong>{t('kantorPusat.fax')}:</strong> (021) 30056200</p>
+                            <p><strong>{t('kantorPusat.email')}:</strong> <a href="mailto:corporate@rifan-financindo-berjangka.co.id" className="hover:underline hover:text-green-500">corporate@rifan-financindo-berjangka.co.id</a></p>
                         </div>
 
                         <hr className="border-zinc-300" />
 
                         <div className="flex flex-col gap-3">
-                            <a href="https://pengaduan.bappebti.go.id/" className="uppercase font-bold text-lg md:text-xl text-green-500 hover:text-green-600">PENGAJUAN ONLINE</a>
+                            <a href="https://pengaduan.bappebti.go.id/" className="uppercase font-bold text-lg md:text-xl text-green-500 hover:text-green-600">{t('tombol.pengajuan')}</a>
                             <div className="w-full border-t border-dashed border-gray-400 my-2"></div>
-                            <a href="mailto:corporate@rifan-financindo-berjangka.co.id" className="uppercase font-bold text-lg md:text-xl text-green-500 hover:text-green-600">PENYAMPAIAN KELUHAN ONLINE</a>
+                            <a href="mailto:corporate@rifan-financindo-berjangka.co.id" className="uppercase font-bold text-lg md:text-xl text-green-500 hover:text-green-600">{t('tombol.keluhan')}</a>
                             <div className="w-full border-t border-dashed border-gray-400 my-2"></div>
                         </div>
 
                         <div className="space-y-4">
-                            <Header2 title="Kantor Cabang" className="font-bold text-zinc-700" />
+                            <Header2 title={t('kantorCabang')} className="font-bold text-zinc-700" />
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {kantorCabang.map((cabang, index) => (
                                     <CabangCard

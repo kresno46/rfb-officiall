@@ -3,5 +3,13 @@
   "viewAll": "View All News",
   "readMore": "Read More",
   "noNews": "No news available.",
-  "loading": "Loading news..."
+  "loading": "Loading news...",
+  "backToNews": "Back to News",
+  "notFound": "News Not Found",
+  "loadingNews": "Loading News...",
+  "noImage": "No image available",
+  "otherNews": "Other News",
+  "share": "Share",
+  "publishedOn": "Published on",
+  "category": "Category"
 }

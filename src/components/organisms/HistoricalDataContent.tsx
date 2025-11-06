@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from 'next-i18next';
 
 interface HistoricalDataItem {
   id: number;
@@ -66,6 +67,9 @@ export default function HistoricalDataContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  const { t, i18n } = useTranslation('historical-data');
+  const { t: commonT } = useTranslation('common');
+
   // Hitung data yang akan ditampilkan di halaman saat ini
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -80,7 +84,7 @@ export default function HistoricalDataContent() {
         const response = await fetch('/api/historical-data');
 
         if (!response.ok) {
-          throw new Error('Gagal mengambil data historis');
+          throw new Error(t('error.fetch'));
         }
 
         const data: ApiResponse = await response.json();
@@ -103,7 +107,7 @@ export default function HistoricalDataContent() {
         setError(null);
       } catch (err) {
         console.error('Error fetching data:', err);
-        setError('Gagal memuat data. Silakan coba lagi nanti.');
+        setError(t('error.loading'));
       } finally {
         setIsLoading(false);
       }
@@ -158,7 +162,7 @@ export default function HistoricalDataContent() {
 
       } catch (err) {
         console.error('Error filtering data:', err);
-        setError('Gagal memfilter data. Silakan coba lagi.');
+        setError(t('error.filter'));
       } finally {
         setIsLoading(false);
       }
@@ -197,7 +201,7 @@ export default function HistoricalDataContent() {
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error('Error generating CSV:', err);
-      setError('Gagal membuat file unduhan. Silakan coba lagi.');
+      setError(t('error.download'));
     }
   };
 
@@ -205,15 +209,18 @@ export default function HistoricalDataContent() {
   const formatNumber = (value: number | null, decimals: number = 2) => {
     if (value === null || value === undefined) return '-';
 
-    // Jika desimal 0, tampilkan tanpa koma
+    // Format number based on current language
+    const locale = i18n.language === 'id' ? 'id-ID' : 'en-US';
+    
+    // If decimals is 0, show without decimal places
     if (decimals === 0) {
-      return value.toLocaleString('id-ID', {
+      return value.toLocaleString(locale, {
         maximumFractionDigits: 0,
         minimumFractionDigits: 0
       });
     }
 
-    return value.toLocaleString('id-ID', {
+    return value.toLocaleString(locale, {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals
     });
@@ -223,11 +230,19 @@ export default function HistoricalDataContent() {
   const formatDisplayDate = (dateStr: string) => {
     try {
       const date = new Date(formatDateToISO(dateStr));
-      return date.toLocaleDateString('id-ID', {
+      const locale = i18n.language === 'id' ? 'id-ID' : 'en-US';
+      const options: Intl.DateTimeFormatOptions = {
         day: '2-digit',
         month: 'short',
         year: 'numeric'
-      });
+      };
+      
+      // For English, use different month format if needed
+      if (locale === 'en-US') {
+        options.month = 'short';
+      }
+      
+      return date.toLocaleDateString(locale, options);
     } catch (e) {
       return dateStr;
     }
@@ -256,7 +271,7 @@ export default function HistoricalDataContent() {
     <div className="space-y-6 p-4">
       {/* Loading State */}
       {isLoading && (
-        <div className="text-center py-4">Memuat data...</div>
+        <div className="text-center py-4">{t('loading')}</div>
       )}
 
       {/* Error State */}
@@ -280,7 +295,7 @@ export default function HistoricalDataContent() {
                 disabled={isLoading || symbols.length === 0}
               >
                 {symbols.length === 0 ? (
-                  <option value="" disabled>Memuat simbol...</option>
+                  <option value="" disabled>{t('loadingSymbols')}</option>
                 ) : (
                   symbols.map((symbol) => (
                     <option key={symbol.value} value={symbol.value}>
@@ -301,7 +316,7 @@ export default function HistoricalDataContent() {
                 className="text-xs px-2 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 w-28"
                 disabled={isLoading}
               />
-              <span className="text-gray-500 whitespace-nowrap text-xs">s/d</span>
+              <span className="text-gray-500 whitespace-nowrap text-xs">{t('dateRangeSeparator')}</span>
               <input
                 type="date"
                 id="to"
@@ -323,14 +338,14 @@ export default function HistoricalDataContent() {
                 disabled={isLoading || (!fromDate && !toDate && !selectedSymbol)}
                 className="px-2.5 py-1.5 bg-white text-green-600 border border-green-600 rounded-md hover:bg-gray-50 transition-colors text-xs whitespace-nowrap flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>Reset</span>
+                <span>{t('reset')}</span>
               </button>
               <button
                 onClick={handleDownload}
                 disabled={isLoading || filteredData.length === 0}
                 className="px-2.5 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-xs whitespace-nowrap flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>Unduh</span>
+                <span>{t('download')}</span>
               </button>
             </div>
           </div>
@@ -345,33 +360,33 @@ export default function HistoricalDataContent() {
               <thead className="bg-zinc-800">
                 <tr>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Tanggal
+                    {t('date')}
                   </th>
                   <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                     Open
                   </th>
                   <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
-                    High
+                    {t('high')}
                   </th>
                   <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
-                    Low
+                    {t('low')}
                   </th>
                   <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
-                    Close
+                    {t('close')}
                   </th>
                   {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
                     <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
-                      Change
+                      {t('change')}
                     </th>
                   )}
                   {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
                     <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
-                      Volume
+                      {t('volume')}
                     </th>
                   )}
                   {selectedSymbol.includes('HSI') && (
                     <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
-                      Open Interest
+                      {t('openInterest')}
                     </th>
                   )}
                 </tr>
@@ -424,22 +439,24 @@ export default function HistoricalDataContent() {
                   disabled={currentPage === 1}
                   className={`relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md ${currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
                 >
-                  Sebelumnya
+                  {t('pagination.previous')}
                 </button>
                 <button
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages}
                   className={`ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md ${currentPage === totalPages ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50'}`}
                 >
-                  Selanjutnya
+                  {t('pagination.next')}
                 </button>
               </div>
               <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm text-gray-700">
-                    Menampilkan <span className="font-medium">{indexOfFirstItem + 1}</span> - <span className="font-medium">
-                      {Math.min(indexOfLastItem, filteredData.length)}
-                    </span> dari <span className="font-medium">{filteredData.length}</span> data
+                    {t('pagination.showing', {
+                      from: indexOfFirstItem + 1,
+                      to: Math.min(indexOfLastItem, filteredData.length),
+                      total: filteredData.length
+                    })}
                   </p>
                 </div>
                 <div>

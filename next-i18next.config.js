@@ -23,7 +23,10 @@ module.exports = {
     'wakil-pialang',
     'legalitas',
     'fasilitas-layanan',
-    'careers'
+    'careers',
+    'pivot-fibo',
+    'historical-data',
+    'economic-calendar'
   ],
   fallbackLng: 'id',
   react: {

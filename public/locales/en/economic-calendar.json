@@ -1,0 +1,22 @@
+{
+  "title": "Economic Calendar",
+  "loading": "Loading economic calendar...",
+  "error": "Failed to load economic calendar data. Please try again later.",
+  "time": "Time",
+  "country": "Country",
+  "impact": "Impact",
+  "figures": "Figures",
+  "previous": "Previous",
+  "forecast": "Forecast",
+  "actual": "Actual",
+  "high": "High",
+  "medium": "Medium",
+  "low": "Low",
+  "noData": "No data available",
+  "filters": {
+    "today": "Today",
+    "thisWeek": "This Week",
+    "previousWeek": "Previous Week",
+    "nextWeek": "Next Week"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Kalender Ekonomi",
+  "loading": "Memuat kalender ekonomi...",
+  "error": "Gagal memuat data kalender ekonomi. Silakan coba lagi nanti.",
+  "time": "Waktu",
+  "country": "Negara",
+  "impact": "Dampak",
+  "figures": "Data",
+  "previous": "Sebelumnya",
+  "forecast": "Perkiraan",
+  "actual": "Aktual",
+  "high": "Tinggi",
+  "medium": "Sedang",
+  "low": "Rendah",
+  "noData": "Tidak ada data yang tersedia",
+  "filters": {
+    "today": "Hari Ini",
+    "thisWeek": "Minggu Ini",
+    "previousWeek": "Minggu Lalu",
+    "nextWeek": "Minggu Depan"
+  }
+}

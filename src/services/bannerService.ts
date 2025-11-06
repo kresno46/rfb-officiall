@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://rfb-backend.test/api';
+const API_URL = 'https://rfbdev.newsmaker.id/api';
 
 export interface Banner {
   id: number;

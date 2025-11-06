@@ -22,7 +22,7 @@ export default function Market() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const prevDataRef = useRef<MarketItem[]>([]);
 
-    useEffect(() => {
+    useEffect(() => {   
         const fetchMarketData = async () => {
             try {
                 const res = await fetch('/api/market');

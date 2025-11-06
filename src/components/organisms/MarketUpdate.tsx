@@ -4,6 +4,11 @@ interface MarketItem {
   symbol: string;
   last: number;
   percentChange: number;
+  high: number;
+  low: number;
+  open: number;
+  prevClose: number;
+  valueChange: number;
 }
 
 export default function MarketUpdate() {
@@ -26,11 +31,20 @@ export default function MarketUpdate() {
         const data = await res.json();
 
         const filteredData: MarketItem[] = (data as any[])
-          .filter((item): item is MarketItem => item.symbol && typeof item.last === 'number')
+          .filter((item): item is MarketItem => 
+            item.symbol && 
+            typeof item.last === 'number' &&
+            typeof item.percentChange === 'number'
+          )
           .map((item) => ({
             symbol: item.symbol,
             last: item.last,
             percentChange: item.percentChange,
+            high: item.high || 0,
+            low: item.low || 0,
+            open: item.open || 0,
+            prevClose: item.prevClose || 0,
+            valueChange: item.valueChange || 0
           }));
 
         setMarketData(filteredData);

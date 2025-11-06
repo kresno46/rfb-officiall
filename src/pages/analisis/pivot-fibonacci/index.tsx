@@ -1,18 +1,27 @@
 import PageTemplate from "@/components/templates/PageTemplate";
 import ProfilContainer from "@/components/templates/PageContainer/Container";
 import { useState } from "react";
-import PivotSection from "@/components/organisms/PivotSection"; // Tambahkan ini
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import PivotSection from "@/components/organisms/PivotSection"; 
 import FibonacciSection from "@/components/organisms/FIbonacciSection";
 import HistoricalDataContent from "@/components/organisms/HistoricalDataContent";
 
-export default function HistoricalData() {
+export default function PivotFibonacciPage() {
+    const { t } = useTranslation(['pivot-fibo', 'common', 'navbar', 'footer']);
     const [activeTab, setActiveTab] = useState("Pivot");
 
     return (
-        <PageTemplate title="Pivot & Fibonacci">
+        <PageTemplate title={t('title')}>
             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                <ProfilContainer title="Pivot & Fibonacci" hideTitle={true}>
+                <ProfilContainer title={t('title')}>
                     <div className="space-y-6">
+                        <div className="mb-8">
+                            <p className="text-gray-600 mb-4">
+                                {t('description')}
+                            </p>
+                        </div>
                         {/* Tabs */}
                         <div className="flex border-b space-x-4">
                             {["Pivot", "Fibonacci"].map((tab) => (
@@ -24,7 +33,7 @@ export default function HistoricalData() {
                                         : "text-gray-500 hover:text-green-500"
                                         }`}
                                 >
-                                    {tab}
+                                    {t(`tabs.${tab.toLowerCase()}`)}
                                 </button>
                             ))}
                         </div>
@@ -42,3 +51,17 @@ export default function HistoricalData() {
         </PageTemplate>
     );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale = 'id' }) => {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale, [
+                'common',
+                'navbar',
+                'footer',
+                'pivot-fibo',
+                'historical-data',
+            ])),
+        },
+    };
+};

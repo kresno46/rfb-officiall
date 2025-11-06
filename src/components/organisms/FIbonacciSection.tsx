@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 
 // Definisikan tipe untuk hasil perhitungan
@@ -8,6 +9,7 @@ interface Result {
 
 // Komponen kalkulator tunggal yang bisa digunakan kembali
 const CalculatorSection = ({ trend }: { trend: 'Uptrend' | 'Downtrend' }) => {
+    const { t } = useTranslation('pivot-fibo');
     const [priceA, setPriceA] = useState(""); // Low untuk Uptrend, High untuk Downtrend
     const [priceB, setPriceB] = useState(""); // High untuk Uptrend, Low untuk Downtrend
     const [results, setResults] = useState<{ retracement: Result; projection: Result } | null>(null);
@@ -27,7 +29,7 @@ const CalculatorSection = ({ trend }: { trend: 'Uptrend' | 'Downtrend' }) => {
         const pA = parseFloat(priceA);
         const pB = parseFloat(priceB);
         if (isNaN(pA) || isNaN(pB)) {
-            alert("Please enter valid numbers for both prices.");
+            alert(t('fibonacciSection.error.invalidInput'));
             return;
         }
 
@@ -66,7 +68,7 @@ const CalculatorSection = ({ trend }: { trend: 'Uptrend' | 'Downtrend' }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-1">
-                        {isUptrend ? "Low" : "High"} (Price A)
+                        {isUptrend ? t('fibonacciSection.low') : t('fibonacciSection.high')} (Price A)
                     </label>
                     <input
                         type="text"
@@ -78,7 +80,7 @@ const CalculatorSection = ({ trend }: { trend: 'Uptrend' | 'Downtrend' }) => {
                 </div>
                 <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-1">
-                        {isUptrend ? "High" : "Low"} (Price B)
+                        {isUptrend ? t('fibonacciSection.high') : t('fibonacciSection.low')} (Price B)
                     </label>
                     <input
                         type="text"
@@ -93,7 +95,7 @@ const CalculatorSection = ({ trend }: { trend: 'Uptrend' | 'Downtrend' }) => {
                         onClick={handleCalculate} 
                         className="w-full py-2 mt-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 transition"
                     >
-                        Calculate
+                        {t('fibonacciSection.calculate')}
                     </button>
                 </div>
             </div>
@@ -101,13 +103,13 @@ const CalculatorSection = ({ trend }: { trend: 'Uptrend' | 'Downtrend' }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                     <h4 className="text-sm font-bold text-gray-800 mb-2">
-                        Retracement
+                        {t('fibonacciSection.levels.retracement')}
                     </h4>
                     <table className="w-full text-sm border border-gray-300 rounded overflow-hidden">
                         <thead className="bg-gray-100">
                             <tr>
-                                <th className="px-3 py-2 text-left font-medium text-gray-600">Level</th>
-                                <th className="px-3 py-2 text-right font-medium text-gray-600">Value</th>
+                                <th className="px-3 py-2 text-left font-medium text-gray-600">{t('fibonacciSection.levels.level')}</th>
+                                <th className="px-3 py-2 text-right font-medium text-gray-600">{t('fibonacciSection.levels.price')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -126,13 +128,13 @@ const CalculatorSection = ({ trend }: { trend: 'Uptrend' | 'Downtrend' }) => {
                 </div>
                 <div>
                     <h4 className="text-sm font-bold text-gray-800 mb-2">
-                        Projection
+                        {t('fibonacciSection.levels.projection')}
                     </h4>
                     <table className="w-full text-sm border border-gray-300 rounded overflow-hidden">
                         <thead className="bg-gray-100">
                             <tr>
-                                <th className="px-3 py-2 text-left font-medium text-gray-600">Level</th>
-                                <th className="px-3 py-2 text-right font-medium text-gray-600">Value</th>
+                                <th className="px-3 py-2 text-left font-medium text-gray-600">{t('fibonacciSection.levels.level')}</th>
+                                <th className="px-3 py-2 text-right font-medium text-gray-600">{t('fibonacciSection.levels.price')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -155,9 +157,10 @@ const CalculatorSection = ({ trend }: { trend: 'Uptrend' | 'Downtrend' }) => {
 };
 
 export default function FibonacciSection() {
+    const { t } = useTranslation('pivot-fibo');
     return (
         <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Fibonacci Calculator</h2>
+            <h2 className="text-xl font-semibold">{t('fibonacciSection.title')} Calculator</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <CalculatorSection trend="Uptrend" />
                 <CalculatorSection trend="Downtrend" />

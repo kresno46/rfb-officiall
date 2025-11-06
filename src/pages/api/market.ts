@@ -4,47 +4,59 @@ type MarketData = {
   symbol: string;
   last: number;
   percentChange: number;
+  high: number;
+  low: number;
+  open: number;
+  prevClose: number;
+  valueChange: number;
 };
 
-function cleanJsonResponse(text: string): string {
-  // Hapus karakter kontrol yang tidak valid
-  let cleaned = text.replace(/[\x00-\x1F\x7F-\x9F]/g, '');
-  
-  // Perbaiki masalah koma di antara objek
-  // 1. Hapus koma berurutan (,,)
-  cleaned = cleaned.replace(/,,+/g, ',');
-  // 2. Perbaiki pola }\s*{ menjadi },{
-  cleaned = cleaned.replace(/}\s*{/g, '},{');
-  // 3. Pastikan ada koma di antara objek-objek
-  cleaned = cleaned.replace(/}\s*([^,}\]]|$)/g, '},$1');
-  // 4. Hapus koma di akhir array/object
-  cleaned = cleaned.replace(/,\s*([}\]])/g, '$1');
-  
-  return cleaned;
+interface ApiResponse {
+  status: string;
+  updatedAt: string;
+  total: number;
+  data: Array<{
+    symbol: string;
+    last: number;
+    high: number;
+    low: number;
+    open: number;
+    prevClose: number;
+    valueChange: number;
+    percentChange: number;
+  }>;
+  source: string;
+  nonce: number;
+  symbols: string;
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const response = await fetch(
-      "https://www.newsmaker.id/quotes/live?s=LGD+LSI+GHSIK5+SN1M5+LCOPN5+DJIA+DAX+DX+AUDUSD+EURUSD+GBPUSD+CHF+JPY+RP"
-    );
+    const response = await fetch("https://endpoapi-production-3202.up.railway.app/api/quotes");
     
     if (!response.ok) {
-      return res.status(response.status).json({ error: 'Failed to fetch market data' });
+      return res.status(response.status).json({ error: 'Gagal mengambil data market' });
     }
     
-    const text = await response.text();
-    const cleanedText = cleanJsonResponse(text);
+    const data: ApiResponse = await response.json();
     
-    try {
-      const data: MarketData[] = JSON.parse(cleanedText);
-      return res.status(200).json(data);
-    } catch (parseError) {
-      console.error("Error parsing JSON:", parseError);
-      console.error("Original response:", text);
-      console.error("Cleaned response:", cleanedText);
-      throw new Error("Failed to parse market data");
+    if (data.status !== 'success' || !Array.isArray(data.data)) {
+      throw new Error('Format respons tidak valid');
     }
+    
+    // Map data ke format yang diharapkan oleh komponen
+    const formattedData: MarketData[] = data.data.map(item => ({
+      symbol: item.symbol,
+      last: item.last,
+      percentChange: item.percentChange,
+      high: item.high,
+      low: item.low,
+      open: item.open,
+      prevClose: item.prevClose,
+      valueChange: item.valueChange
+    }));
+    
+    return res.status(200).json(formattedData);
   } catch (error) {
     console.error("Error fetching market data:", error);
     res.status(500).json({ 

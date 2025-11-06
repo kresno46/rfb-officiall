@@ -1,0 +1,50 @@
+{
+  "title": "Historical Data",
+  "subtitle": "Commodity Price Historical Data",
+  "loading": "Loading historical data...",
+  "noData": "No data available",
+  "date": "Date",
+  "open": "Open",
+  "high": "High",
+  "low": "Low",
+  "close": "Close",
+  "change": "Change",
+  "changePercent": "% Change",
+  "volume": "Volume",
+  "searchPlaceholder": "Search commodities...",
+  "selectCommodity": "Select Commodity",
+  "selectTimeframe": "Select Timeframe",
+  "timeframes": {
+    "1d": "1 Day",
+    "1w": "1 Week",
+    "1m": "1 Month",
+    "3m": "3 Months",
+    "6m": "6 Months",
+    "1y": "1 Year",
+    "5y": "5 Years",
+    "max": "Max"
+  },
+  "download": "Download Data",
+  "commodities": {
+    "gold": "Gold",
+    "silver": "Silver",
+    "oil": "Crude Oil",
+    "copper": "Copper",
+    "palladium": "Palladium",
+    "platinum": "Platinum"
+  },
+  "dateRangeSeparator": "to",
+  "loadingSymbols": "Loading symbols...",
+  "reset": "Reset",
+  "error": {
+    "fetch": "Failed to fetch historical data",
+    "loading": "Failed to load data. Please try again later.",
+    "filter": "Failed to filter data. Please try again.",
+    "download": "Failed to generate download file. Please try again."
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "showing": "Showing {{from}} to {{to}} of {{total}} entries"
+  }
+}

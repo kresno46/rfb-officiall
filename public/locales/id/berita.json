@@ -3,5 +3,13 @@
   "viewAll": "Lihat Semua Berita",
   "readMore": "Baca Selengkapnya",
   "noNews": "Tidak ada berita tersedia.",
-  "loading": "Memuat berita..."
+  "loading": "Memuat berita...",
+  "backToNews": "Kembali ke Halaman Berita",
+  "notFound": "Berita Tidak Ditemukan",
+  "loadingNews": "Memuat Berita...",
+  "noImage": "Tidak ada gambar",
+  "otherNews": "Berita Lainnya",
+  "share": "Bagikan",
+  "publishedOn": "Dipublikasikan pada",
+  "category": "Kategori"
 }
