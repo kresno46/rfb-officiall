@@ -1,49 +1,47 @@
-# Use Node.js 22 Alpine as the base image for building
+# =========================
+# Build stage (Alpine)
+# =========================
 FROM node:22-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Install dependencies for building native modules
-RUN apk add --no-cache python3 make g++
+# Tools utk native deps + compat glibc (sering dibutuhin di Alpine)
+RUN apk add --no-cache python3 make g++ libc6-compat
 
-# Copy package.json and package-lock.json
+# Pakai lockfile & pin npm biar stabil di Alpine
 COPY package*.json ./
+RUN npm i -g npm@10.8.1 \
+  && npm ci --no-audit --no-fund
 
-# Install ALL dependencies (including devDependencies, needed for build)
-RUN npm install
-
-# Copy all application code
+# Copy source & build
 COPY . .
-
-# Build the application
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 
-# -------------------------
-# Production runtime stage
-# -------------------------
+# =========================
+# Runtime stage (production)
+# =========================
 FROM node:22-alpine AS runner
 
-# Set working directory
 WORKDIR /app
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1
 
-# Copy package.json and package-lock.json
+# Compat glibc untuk binary prebuilt
+RUN apk add --no-cache libc6-compat
+
+# Install hanya prod deps (tanpa cache clean yang bikin crash)
 COPY package*.json ./
+RUN npm i -g npm@10.8.1 \
+  && npm ci --omit=dev --no-audit --no-fund
 
-# Install ONLY production dependencies
-RUN npm install --omit=dev && npm cache clean --force
-
-# Copy built application from builder stage
+# Copy hasil build
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.ts ./
+# Optional: kalau ada file config
+COPY --from=builder /app/next.config.* ./
 
-# Expose app port
 EXPOSE 3000
-
-# Set environment to production
-ENV NODE_ENV=production
-
-# Start the app
+USER node
 CMD ["npm", "start"]
