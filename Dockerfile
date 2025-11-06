@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies (production only)
-RUN npm ci --omit=dev && npm cache clean --force
+RUN npm install --omit=dev && npm cache clean --force
 
 # Copy the rest of the application code
 COPY . .
@@ -16,7 +16,10 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Production stage
+
+# -------------------------
+# Production runtime stage
+# -------------------------
 FROM node:22-alpine AS runner
 
 # Set working directory
@@ -25,19 +28,20 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install only production dependencies
-RUN npm ci --omit=dev && npm cache clean --force
+# Install production dependencies only
+RUN npm install --omit=dev && npm cache clean --force
 
-# Copy built application files from builder stage
+# Copy built application from builder stage
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.ts ./
 
-# Expose port 3000
+
+# Expose the app port
 EXPOSE 3000
 
-# Set environment to production
+# Set production environment mode
 ENV NODE_ENV=production
 
-# Start the application
+# Start the app
 CMD ["npm", "start"]
