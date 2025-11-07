@@ -181,7 +181,7 @@ export default function CarouselWithContent() {
                                 <div 
                                     className="w-full h-full bg-cover bg-center"
                                     style={{
-                                        backgroundImage: `url(http://rfb-backend.test/storage/${slide.image})`,
+                                        backgroundImage: `url(http://rfbdev.newsmaker.id/storage/${slide.image})`,
                                     }}
                                 ></div>
                             </div>

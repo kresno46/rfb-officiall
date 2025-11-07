@@ -144,7 +144,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'id' }) 
   
   try {
     // Fetch the specific career by slug
-    const response = await fetch(`http://rfb-backend.test/api/karier/slug/${slug}`);
+    const response = await fetch(`http://rfbdev.newsmaker.id/api/karier/slug/${slug}`);
     const data = await response.json();
     
     if (!data.success || !data.data) {
@@ -176,7 +176,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'id' }) 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     // Fetch all careers to generate static paths
-    const response = await fetch('http://rfb-backend.test/api/karier');
+    const response = await fetch('http://rfbdev.newsmaker.id/api/karier');
     const data = await response.json();
     
     if (!data.success || !data.data) {
