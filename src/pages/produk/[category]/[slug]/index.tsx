@@ -67,7 +67,8 @@ export default function ProductDetail() {
                 if (!response.ok) throw new Error(t('errorLoading'));
 
                 const data: Product[] = await response.json();
-                const found = data.find(item => item.slug === slug);
+                const normalizedSlug = String(slug).toLowerCase();
+                const found = data.find(item => item.slug.toLowerCase() === normalizedSlug);
 
                 setProduct(found || null);
                 setError(null);
@@ -104,7 +105,7 @@ export default function ProductDetail() {
                             <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('productNotFound')}</h2>
                             <p className="text-gray-600 mb-6">{error || t('noProducts')}</p>
                             <Link
-                                href={`/produk/${category}`}
+                                href={`/produk/${String(category).toLowerCase()}`}
                                 className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white transition-all duration-300 inline-flex items-center"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
