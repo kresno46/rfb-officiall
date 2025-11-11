@@ -1,20 +1,62 @@
 {
   "pageTitle": "Profil Perusahaan",
   "profilTitle": "Profil Perusahaan",
-  "visiTitle": "Visi",
-  "misiTitle": "Misi",
   "tentangKamiTitle": "Tentang Kami",
+  "aboutUs": {
+    "p1": "PT Rifan Financindo Berjangka adalah perusahaan pialang berjangka yang resmi, terdaftar, dan berada di bawah pengawasan Badan Pengawas Perdagangan Berjangka Komoditi (BAPPEBTI), Otoritas Jasa Keuangan (OJK), dan Bank Indonesia (BI). Dengan pengalaman lebih dari dua dekade, kami menjadi salah satu pelaku utama dalam industri Perdagangan Berjangka Komoditi di Indonesia.",
+    "p2": "Sebagai anggota PT Bursa Berjangka Jakarta (Jakarta Futures Exchange/JFX) dan PT Kliring Berjangka Indonesia (KBI), PT Rifan Financindo Berjangka memastikan integritas, keamanan, serta keandalan keuangan dalam setiap transaksi yang dilakukan nasabah.<br><br>Kami berkomitmen untuk menyelenggarakan kegiatan Perdagangan Berjangka secara teratur, wajar, efektif, dan transparan, sesuai dengan ketentuan peraturan perundang-undangan yang berlaku. Komitmen ini menjadi dasar kami dalam memberikan kepastian dan kenyamanan bagi seluruh pihak yang berkepentingan."
+  },
   "keunggulanTitle": "Kenapa Anda Harus Memilih Kami",
   "penghargaanTitle": "Penghargaan",
   "anggotaDari": "Anggota Dari:",
-  "visiItems": [
-    "Menjadi perusahaan nomor satu dalam industri perdagangan berjangka komoditi di Indonesia",
-    "Menerapkan Good Corporate Governance dalam menjalankan kegiatan sebagai pialang berjangka yang menjunjung tinggi nilai fairness dan kepastian hukum bagi setiap orang yang terlibat di dalamnya."
+  "visiTitle": "Visi",
+  "visi": [
+    "Menjadi perusahaan terdepan dalam industri Perdagangan Berjangka Komoditi di Indonesia.",
+    "Menerapkan prinsip Good Corporate Governance (GCG) dalam seluruh aktivitas operasional sebagai pialang berjangka, dengan menjunjung tinggi nilai keadilan (fairness) dan kepastian hukum bagi setiap pihak yang terlibat."
   ],
-  "misiItems": [
-    "Meningkatkan literasi dan edukasi kepada masyarakat dengan menggandeng otoritas dan SRO melalui press rilis media, seminar dsb.",
-    "Meningkatkan kompetensi Wakil Pialang Berjangka melalui pelatihan-pelatihan eksternal maupun internal agar dalam bekerja menjadi lebih profesional.",
-    "Penerapan prosedur kerja standar yang ketat terutama terhadap penerimaan calon nasabah."
+  "misiTitle": "Misi",
+  "misi": [
+    "Meningkatkan literasi dan edukasi masyarakat dengan bekerja sama dengan otoritas, bursa, dan lembaga kliring melalui berbagai media, seminar, dan kegiatan edukatif lainnya.",
+    "Meningkatkan kompetensi Wakil Pialang Berjangka melalui pelatihan internal maupun eksternal agar semakin profesional dan berdaya saing tinggi.",
+    "Menerapkan prosedur kerja standar yang ketat, khususnya dalam proses penerimaan calon nasabah, demi menjaga integritas dan kualitas pelayanan."
+  ],
+  "whyChooseUs": [
+    {
+      "title": "Kepastian Hukum",
+      "description": "PT Rifan Financindo Berjangka merupakan perusahaan resmi yang terdaftar dan diawasi oleh BAPPEBTI, OJK, dan Bank Indonesia. Seluruh produk yang diperdagangkan tercatat di Bursa Berjangka Jakarta (JFX), sementara dana nasabah ditempatkan pada Rekening Terpisah (Segregated Account) dan disetorkan ke Kliring Berjangka Indonesia (KBI) sebagai penjamin pelaksanaan transaksi."
+    },
+    {
+      "title": "Fasilitas Registrasi Online",
+      "description": "Proses pendaftaran dapat dilakukan kapan saja dan di mana saja secara online melalui situs resmi www.rf-berjangka.com."
+    },
+    {
+      "title": "Fasilitas Online Trading & Akun Demo",
+      "description": "Nasabah dapat bertransaksi kapan pun dan di mana pun selama jam perdagangan. Disediakan pula akun demo untuk simulasi sebelum melakukan transaksi riil."
+    },
+    {
+      "title": "Laporan Transaksi Harian",
+      "description": "Nasabah menerima laporan harian yang mencakup rekap transaksi, posisi ekuitas, serta posisi terbuka. Nasabah juga dapat memantau transaksi secara real-time melalui Temporary Statement pada akun riil."
+    },
+    {
+      "title": "Keamanan Dana",
+      "description": "Dana nasabah disimpan dalam Rekening Terpisah (Segregated Account) yang terpisah dari aset perusahaan dan hanya digunakan untuk keperluan transaksi sesuai instruksi nasabah."
+    },
+    {
+      "title": "Penarikan Dana Cepat",
+      "description": "Permohonan penarikan dana dapat diajukan secara online melalui fitur withdrawal, dan diproses dengan waktu penyelesaian T+1."
+    },
+    {
+      "title": "Wakil Pialang Berjangka Tersertifikasi",
+      "description": "Seluruh Wakil Pialang Berjangka kami telah memiliki sertifikasi kompetensi dari Lembaga Sertifikasi Profesi Perdagangan Berjangka Komoditi (LSP PBK) yang diakui secara nasional. Mereka bekerja dengan integritas dan profesionalisme untuk memberikan pelayanan terbaik bagi nasabah."
+    },
+    {
+      "title": "Portal Berita dan Analisis",
+      "description": "Portal berita www.rfbnews.com tersedia 24 jam sebagai sumber riset dan analisis pasar yang dapat digunakan sebagai bahan pertimbangan dalam bertransaksi."
+    },
+    {
+      "title": "SITNa (Sistem Informasi Transaksi Nasabah)",
+      "description": "Melalui aplikasi SITNa, nasabah dapat memonitor transparansi transaksi dan memastikan seluruh aktivitas tercatat serta terdaftar di lembaga kliring."
+    }
   ],
   "achievements": [
     {
@@ -51,49 +93,7 @@
     },
     {
       "title": "JFX",
-      "subtitle": "Pialang Dengan Volume Bilateral Terbaik 2011"
-    }
-  ],
-  "aboutUs": {
-    "p1": "<strong>PT. Rifan Financindo Berjangka</strong> adalah anggota dari bursa berjangka yang ada di Indonesia yaitu Jakarta Futures Exchange (JFX) serta untuk menjamin integritas keuangan perusahaan juga merupakan anggota dari lembaga kliring dari bursa berjangka tersebut yaitu anggota dari Indonesian Derivatives Clearing House (KBI). Perusahaan berkomitmen untuk melaksanakan perdagangan berjangka secara teratur, wajar, efektif dan transparan yang diatur dalam undang-undang di bidang Perdagangan Berjangka untuk memberikan kepastian hukum bagi semua pihak dalam kegiatan Perdagangan Berjangka di Indonesia.",
-    "p2": "<strong>PT Rifan Financindo Berjangka</strong> telah berpengalaman lebih dari 20 tahun di industri Perdagangan Berjangka Komoditi dan merupakan perusahaan pialang terbesar dengan menduduki posisi teratas dari 10 perusahaan pialang berjangka dengan transaksi teraktif di PT Bursa Berjangka Jakarta. Selain anggota bursa, PT Rifan Financindo Berjangka juga merupakan anggota PT Kliring Berjangka Indonesia (Persero) dan terdaftar resmi di Badan Pengawas Perdagangan Berjangka Komoditi (BAPPEBTI). Sejak tahun 2000 PT Rifan Financindo Berjangka terus berkembang dengan jumlah kantor operasional yang tersebar di kota-kota besar di Indonesia. Berkantor pusat di Jakarta (Axa Tower) dan kantor cabang yang berada di Jakarta (DBS Bank Tower), Bandung, Semarang, Solo, Yogyakarta, Surabaya (Ciputra World), Medan, Pekanbaru dan Palembang, Balikpapan dan Surabaya (Pakuwon Tower)."
-  },
-  "whyChooseUs": [
-    {
-      "title": "Kepastian Hukum:",
-      "description": "Seluruh produk yang ditransaksikan melalui PT Rifan Financindo Berjangka tercatat di Bursa Berjangka Jakarta, dan dana jaminan (margin) Nasabah ditempatkan di rekening terpisah (Segregated Account) yang diawasi oleh Bappebti serta disetorkan ke Kliring Berjangka Indonesia."
-    },
-    {
-      "title": "Fasilitas Registrasi Online:",
-      "description": "Registrasi akun dapat dilakukan secara online melalui website resmi kami dengan fitur REGISTRASI AKUN ONLINE."
-    },
-    {
-      "title": "Fasilitas Online Trading dan Akun Demo:",
-      "description": "Nasabah dapat bertransaksi kapan saja dan di mana saja dengan akses internet. Tersedia akun demo untuk simulasi sebelum transaksi riil."
-    },
-    {
-      "title": "Laporan Transaksi Harian:",
-      "description": "Nasabah menerima laporan harian yang mencakup rekap transaksi, posisi ekuitas, dan posisi transaksi terbuka."
-    },
-    {
-      "title": "Keamanan Dana:",
-      "description": "Dana nasabah disimpan terpisah dari aset perusahaan dan diawasi oleh Bappebti. Dana hanya digunakan sesuai perintah nasabah."
-    },
-    {
-      "title": "Penarikan Dana Cepat:",
-      "description": "Proses penarikan dana dapat dilakukan maksimal dalam tiga hari kerja (T+3), bahkan bisa lebih cepat (T+1)."
-    },
-    {
-      "title": "Wakil Pialang Berjangka Profesional:",
-      "description": "Tim Wakil Pialang kami profesional dan terlatih untuk memberikan rekomendasi berdasarkan analisis fundamental dan teknikal."
-    },
-    {
-      "title": "Portal Berita dan Analisa:",
-      "description": "Portal berita <a href=\"https://www.rfbnews.com\" target=\"_blank\" class=\"text-blue-600 underline\">www.rfbnews.com</a> tersedia 24 jam untuk riset dan analisa pasar."
-    },
-    {
-      "title": "SITNa:",
-      "description": "Nasabah dapat memonitor transparansi transaksi melalui sistem SITNa untuk memastikan pencatatan di Bursa dan Kliring Berjangka."
+      "subtitle": "Pialang Dengan Volume Transaksi Bilateral Terbanyak Tahun 2011"
     }
   ]
 }
