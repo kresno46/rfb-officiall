@@ -57,9 +57,9 @@ export default function WakilPialang() {
 
     if (isLoading) {
         return (
-            <PageTemplate title="Wakil Pialang">
+            <PageTemplate title={t('listTitle')}>
                 <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                    <ProfilContainer title="Wakil Pialang">
+                    <ProfilContainer title={t('listTitle')}>
                         <div className="flex justify-center items-center h-64">
                             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
                         </div>
@@ -71,9 +71,9 @@ export default function WakilPialang() {
 
     if (error) {
         return (
-            <PageTemplate title="Wakil Pialang">
+            <PageTemplate title={t('listTitle')}>
                 <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                    <ProfilContainer title="Wakil Pialang">
+                    <ProfilContainer title={t('listTitle')}>
                         <div className="text-center py-10 text-red-500">
                             {error}
                         </div>
@@ -86,9 +86,9 @@ export default function WakilPialang() {
     // If translations are not loaded yet, show loading state
     if (isLoading) {
         return (
-            <PageTemplate title={t('wakil-pialang:pageTitle')}>
+            <PageTemplate title={t('listTitle')}>
                 <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                    <ProfilContainer title={t('wakil-pialang:profilTitle')}>
+                    <ProfilContainer title={t('listTitle')}>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                             {Array(6).fill(0).map((_, index) => (
                                 <div key={index} className="animate-pulse h-40 bg-gray-200 rounded-lg"></div>
@@ -103,9 +103,9 @@ export default function WakilPialang() {
     // If there's an error, show error message
     if (error) {
         return (
-            <PageTemplate title={t('wakil-pialang:pageTitle')}>
+            <PageTemplate title={t('listTitle')}>
                 <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                    <ProfilContainer title={t('wakil-pialang:profilTitle')}>
+                    <ProfilContainer title={t('listTitle')}>
                         <div className="text-center py-10">
                             <p className="text-red-500">{error}</p>
                         </div>
@@ -119,9 +119,9 @@ export default function WakilPialang() {
     const enhancedCategories = kategoriList;
 
     return (
-        <PageTemplate title={t('wakil-pialang:pageTitle')}>
+        <PageTemplate title={t('listTitle')}>
             <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
-                <ProfilContainer title={t('wakil-pialang:profilTitle')}>
+                <ProfilContainer title={t('listTitle')}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {enhancedCategories.map((kategori) => (
                             <CardCategoryPialang 
