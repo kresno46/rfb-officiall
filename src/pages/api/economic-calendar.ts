@@ -1,62 +1,102 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 interface CalendarEvent {
-  id: number;
-  title: string;
   time: string;
-  country: string;
-  impact: 'High' | 'Medium' | 'Low';
-  figures: string;
+  currency: string;
+  impact: string;
+  event: string;
   previous: string;
   forecast: string;
   actual: string;
-  created_at: string;
-  updated_at: string;
+  details?: {
+    sources?: string;
+    measures?: string;
+    usualEffect?: string;
+    frequency?: string;
+    nextReleased?: string;
+    notes?: string;
+    whyTraderCare?: string;
+    history?: Array<{
+      date: string;
+      previous: string;
+      forecast: string;
+      actual: string;
+    }>;
+  };
 }
 
-interface CalendarResponse {
+interface ApiResponse {
   status: string;
+  updatedAt: string;
+  total: number;
   data: CalendarEvent[];
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { filter = 'today' } = req.query;
+  
+  // Validate filter value
+  const validFilters = ['today', 'this-week', 'previous-week'];
+  if (!validFilters.includes(filter as string)) {
+    return res.status(400).json({ 
+      status: 'error',
+      message: 'Invalid filter parameter. Must be one of: today, this-week, previous-week'
+    });
+  }
+
+  const endpoints = {
+    'today': 'https://endpoapi-production-3202.up.railway.app/api/calendar/today',
+    'this-week': 'https://endpoapi-production-3202.up.railway.app/api/calendar/this-week',
+    'previous-week': 'https://endpoapi-production-3202.up.railway.app/api/calendar/previous-week'
+  };
+
   try {
-    const portalApiUrl = process.env.NEXT_PUBLIC_PORTAL_API_URL || 'https://portalnews.newsmaker.id';
-    const portalApiToken = process.env.NEXT_PUBLIC_PORTAL_API_TOKEN || 'RFB-115886a7f25067f3';
-    const response = await fetch(`${portalApiUrl}/api/v1/kalender-ekonomi`, {
+    const endpoint = endpoints[filter as keyof typeof endpoints];
+    console.log('Fetching data from:', endpoint);
+
+    const response = await fetch(endpoint, {
       headers: {
         'accept': 'application/json',
-        'Authorization': `Bearer ${portalApiToken}`
       },
       cache: 'no-store' as RequestCache
     });
-    
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API Error:', {
+        status: response.status,
+        statusText: response.statusText,
+        error: errorText
+      });
       throw new Error(`API request failed with status ${response.status}`);
     }
-    
-    const data: CalendarResponse = await response.json();
-    
-    if (data.status !== 'success' || !Array.isArray(data.data)) {
+
+    const result: ApiResponse = await response.json();
+
+    // Ensure the response has the expected format
+    if (result.status !== 'success' || !Array.isArray(result.data)) {
       throw new Error('Invalid API response format');
     }
-    
-    // Format data to match the frontend structure
-    const formattedData = data.data.map(event => ({
-      time: event.time,
-      country: event.country,
-      impact: event.impact,
-      figures: event.figures,
-      previous: event.previous,
-      forecast: event.forecast,
-      actual: event.actual
+
+    // Format data for the frontend
+    const formattedData = result.data.map(event => ({
+      time: event.time || '',
+      country: event.currency || '',
+      impact: event.impact || '★',
+      figures: event.event || '',
+      previous: event.previous || '',
+      forecast: event.forecast || '',
+      actual: event.actual || '',
+      details: event.details || {}
     }));
-    
-    res.status(200).json(formattedData);
+
+    return res.status(200).json(formattedData);
+
   } catch (error) {
-    console.error('Error fetching economic calendar:', error);
-    res.status(500).json({ 
-      error: 'Failed to fetch economic calendar data',
+    console.error('Error in API route:', error);
+    return res.status(500).json({ 
+      status: 'error',
+      message: 'Failed to fetch economic calendar data',
       details: error instanceof Error ? error.message : 'Unknown error'
     });
   }
