@@ -295,7 +295,7 @@ const ApplyModal: React.FC<ApplyModalProps> = ({ isOpen, onClose, position, city
 
             <div>
               <label htmlFor="motivation" className="block text-sm font-medium text-gray-700 mb-1">
-                Jelaskan motivasi Anda bergabung dengan PT Valbury Asia Futures <span className="text-red-500">*</span>
+                Jelaskan motivasi Anda bergabung dengan PT Rifan Financindo Berjangka <span className="text-red-500">*</span>
               </label>
               <textarea
                 id="motivation"
