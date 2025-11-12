@@ -79,7 +79,7 @@ export default function WakilPialangDetail() {
                 
                 try {
                     // Get all wakil pialang
-                    const allWakilPialang = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://rfb-backend.test/api'}/wakil-pialang`);
+                    const allWakilPialang = await fetch('https://rfbdev.newsmaker.id/api/wakil-pialang');
                     if (!allWakilPialang.ok) {
                         throw new Error('Gagal mengambil data wakil pialang');
                     }
