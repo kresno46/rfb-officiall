@@ -59,11 +59,13 @@ const CareersPage = () => {
   if (careers.length === 0) {
     return (
       <PageTemplate title={t('pageTitle')}>
+        <div className="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-52 my-10">
         <ProfilContainer>
           <div className="text-center py-10">
             <p className="text-gray-600">{t('noJobs')}</p>
           </div>
         </ProfilContainer>
+        </div>
       </PageTemplate>
     );
   }

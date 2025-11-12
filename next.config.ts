@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "kpf-backpanel-production.up.railway.app",
+        hostname: "api-dev.rf-berjangka.com",
         port: "",
         pathname: "/**", // Mengizinkan semua path dari domain ini
       },
