@@ -9,12 +9,12 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      // {
-      //   protocol: "https",
-      //   hostname: "kpf-backpanel-production.up.railway.app",
-      //   port: "",
-      //   pathname: "/**", // Mengizinkan semua path dari domain ini
-      // },
+      {
+        protocol: "https",
+        hostname: "api-dev.rf-berjangka.com",
+        port: "",
+        pathname: "/**", // Mengizinkan semua path dari domain ini
+      },
       {
         protocol: "https",
         hostname: "rfbdev.newsmaker.id",

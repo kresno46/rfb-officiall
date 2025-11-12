@@ -32,18 +32,27 @@ export const fetchCareers = async (): Promise<Career[]> => {
 
 export const fetchCareerBySlug = async (slug: string): Promise<Career | null> => {
   try {
+    console.log(`Fetching career with slug: ${slug}`);
     const response = await api.get<{
       success: boolean;
       message: string;
       data: Career;
-    }>(`/karier/${slug}`);
+    }>(`/karier/slug/${slug}`);
     
-    if (response.data.success) {
+    console.log('Career API response:', response.data);
+    
+    if (response.data.success && response.data.data) {
       return response.data.data;
     }
+    console.warn(`No data found for slug: ${slug}`);
     return null;
-  } catch (error) {
-    console.error(`Error fetching career with slug ${slug}:`, error);
+  } catch (error: any) {
+    console.error(`Error fetching career with slug ${slug}:`, {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data,
+      url: error.config?.url
+    });
     return null;
   }
 };
