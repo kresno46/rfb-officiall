@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import MarketUpdate from "./MarketUpdate";
 import LocaleLink from "@/components/common/LocaleLink";
 
@@ -17,46 +17,79 @@ type MenuItem = {
 
 const NavBar = () => {
   const router = useRouter();
-  const { t } = useTranslation('navbar');
+  const { t } = useTranslation("navbar");
   const { locale } = router;
-  
+
   const menuItems: MenuItem[] = [
-    { label: t('menu.home'), href: "/" },
+    { label: t("menu.home"), href: "/" },
     {
-      label: t('menu.profile.label'),
+      label: t("menu.profile.label"),
       href: "/profil",
       submenu: [
-        { label: t('menu.profile.submenu.companyProfile'), href: "/profil/perusahaan" },
-        { label: t('menu.profile.submenu.brokerRepresentative'), href: "/profil/wakil-pialang" },
-        { label: t('menu.profile.submenu.legality'), href: "/profil/legalitas" },
-        { label: t('menu.profile.submenu.facilitiesServices'), href: "/informasi/fasilitas-layanan" },
-        { label: t('menu.profile.submenu.generalInfo'), href: "/informasi/umum" },
-        { label: t('menu.profile.submenu.generalVideo'), href: "/informasi/video-umum" },
-        { label: t('menu.profile.submenu.careers'), href: "/careers" },
+        {
+          label: t("menu.profile.submenu.companyProfile"),
+          href: "/profil/perusahaan",
+        },
+        {
+          label: t("menu.profile.submenu.brokerRepresentative"),
+          href: "/profil/wakil-pialang",
+        },
+        {
+          label: t("menu.profile.submenu.legality"),
+          href: "/profil/legalitas",
+        },
+        {
+          label: t("menu.profile.submenu.facilitiesServices"),
+          href: "/informasi/fasilitas-layanan",
+        },
+        {
+          label: t("menu.profile.submenu.generalInfo"),
+          href: "/informasi/umum",
+        },
+        {
+          label: t("menu.profile.submenu.generalVideo"),
+          href: "/informasi/video-umum",
+        },
+        { label: t("menu.profile.submenu.careers"), href: "/careers" },
       ],
     },
     {
-      label: t('menu.products.label'),
+      label: t("menu.products.label"),
       href: "/produk",
       submenu: [
-        { label: t('menu.products.submenu.jfx'), href: "/produk/jfx" },
-        { label: t('menu.products.submenu.spa'), href: "/produk/spa" },
-        { label: t('menu.products.submenu.registrationProcedure'), href: "/prosedur/registrasi-online" },
-        { label: t('menu.products.submenu.withdrawalProcedure'), href: "/prosedur/penarikan" },
-        { label: t('menu.products.submenu.transactionGuide'), href: "/prosedur/petunjuk-transaksi" },
+        { label: t("menu.products.submenu.jfx"), href: "/produk/jfx" },
+        { label: t("menu.products.submenu.spa"), href: "/produk/spa" },
+        {
+          label: t("menu.products.submenu.registrationProcedure"),
+          href: "/prosedur/registrasi-online",
+        },
+        {
+          label: t("menu.products.submenu.withdrawalProcedure"),
+          href: "/prosedur/penarikan",
+        },
+        {
+          label: t("menu.products.submenu.transactionGuide"),
+          href: "/prosedur/petunjuk-transaksi",
+        },
       ],
     },
     {
-      label: t('menu.analysis.label'),
+      label: t("menu.analysis.label"),
       href: "/analisis",
       submenu: [
-        { label: t('menu.analysis.submenu.news'), href: "/analisis/berita" },
-        { label: t('menu.analysis.submenu.economicCalendar'), href: "/analisis/economic-calendar" },
-        { label: t('menu.analysis.submenu.historicalData'), href: "/analisis/historical-data" },
+        { label: t("menu.analysis.submenu.news"), href: "/analisis/berita" },
+        {
+          label: t("menu.analysis.submenu.economicCalendar"),
+          href: "/analisis/economic-calendar",
+        },
+        {
+          label: t("menu.analysis.submenu.historicalData"),
+          href: "/analisis/historical-data",
+        },
         { label: "Pivot & Fibonacci", href: "/analisis/pivot-fibonacci" },
       ],
     },
-    { label: t('menu.contact'), href: "/hubungi-kami" },
+    { label: t("menu.contact"), href: "/hubungi-kami" },
   ];
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -97,17 +130,20 @@ const NavBar = () => {
     setMenuOpen(false);
   };
 
-
   return (
     <header className="sticky top-0 z-40">
       <div className="bg-zinc-800 text-white">
         <div className="flex justify-between items-center px-3 md:px-10 lg:px-22 py-3">
           {/* Logo */}
-          <LocaleLink 
-            href="/" 
+          <LocaleLink
+            href="/"
             className="flex items-center gap-3 text-base sm:text-lg lg:text-xl font-bold"
           >
-            <img src="/assets/logo-rfb.png" alt="Logo RFB" className="h-6 md:h-10" />
+            <img
+              src="/assets/logo-rfb.png"
+              alt="Logo RFB"
+              className="h-6 md:h-10"
+            />
             <span>Rifan Financindo Berjangka</span>
           </LocaleLink>
 
@@ -130,36 +166,31 @@ const NavBar = () => {
               >
                 {item.submenu ? (
                   <>
-                    <div className="flex items-center">
-                      <LocaleLink
-                        href={item.href}
-                        className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
-                      >
-                        {item.label}
-                      </LocaleLink>
-                      <button
-                        onClick={() => toggleDropdown(item.label)}
-                        className="px-1 focus:outline-none"
-                      >
-                        <i className="fa-solid fa-chevron-down text-sm" />
-                      </button>
-                    </div>
+                    <button
+                      onClick={() => toggleDropdown(item.label)}
+                      className="flex items-center text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium focus:outline-none"
+                    >
+                      {item.label}
+                      <i className="fa-solid fa-chevron-down text-sm ml-1" />
+                    </button>
                     {openDropdown === item.label && (
-                      <div 
-                        className="absolute top-full left-0 w-56 mt-2 z-50" 
-                        onMouseEnter={() => handleMouseEnter(item.label)} 
+                      <div
+                        className="absolute top-full left-0 w-56 mt-2 z-50"
+                        onMouseEnter={() => handleMouseEnter(item.label)}
                         onMouseLeave={handleMouseLeave}
                       >
                         <ul className="bg-white text-black rounded shadow">
                           {item.submenu.map((sub) => (
                             <li key={sub.href}>
-                              <LocaleLink 
-                                href={sub.href}
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                onClick={closeAllMenus}
+                              <button
+                                onClick={() => {
+                                  router.push(sub.href);
+                                  closeAllMenus();
+                                }}
+                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none"
                               >
                                 {sub.label}
-                              </LocaleLink>
+                              </button>
                             </li>
                           ))}
                         </ul>
@@ -193,20 +224,24 @@ const NavBar = () => {
                     >
                       {item.label}
                       <i
-                        className={`fa-solid fa-chevron-down transition-transform ${openDropdown === item.label ? "rotate-180" : ""}`}
+                        className={`fa-solid fa-chevron-down transition-transform ${
+                          openDropdown === item.label ? "rotate-180" : ""
+                        }`}
                       />
                     </button>
                     {openDropdown === item.label && (
                       <ul className="pl-4">
                         {item.submenu.map((sub) => (
                           <li key={sub.href}>
-                            <LocaleLink
-                              href={sub.href}
-                              className="block py-2 text-white hover:text-green-400"
-                              onClick={closeAllMenus}
+                            <button
+                              onClick={() => {
+                                router.push(sub.href);
+                                closeAllMenus();
+                              }}
+                              className="block w-full text-left py-2 text-white hover:text-green-400 focus:outline-none"
                             >
                               {sub.label}
-                            </LocaleLink>
+                            </button>
                           </li>
                         ))}
                       </ul>
@@ -229,6 +264,6 @@ const NavBar = () => {
       <MarketUpdate />
     </header>
   );
-}
+};
 
 export default NavBar;

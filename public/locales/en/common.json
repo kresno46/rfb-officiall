@@ -25,6 +25,12 @@
     "laterButton": "Later"
   },
   
+  "404": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you are looking for is not available or has been moved.",
+    "backHome": "Back to Home"
+  },
+
   "dateTime": {
     "date": "Date",
     "worldTime": "World Time",
