@@ -26,7 +26,12 @@ module.exports = {
     'careers',
     'pivot-fibo',
     'historical-data',
-    'economic-calendar'
+    'economic-calendar',
+    'hubungi-kami',
+    'penarikan',
+    'petunjuk-transaksi',
+    'regol',
+    'video'
   ],
   fallbackLng: 'id',
   react: {
@@ -37,10 +42,10 @@ module.exports = {
   interpolation: {
     escapeValue: false,
   },
-  // Hapus konfigurasi yang tidak diperlukan
-  saveMissing: process.env.NODE_ENV === 'development',
+  // Optimasi untuk performa
+  saveMissing: false,
   returnObjects: true,
   compatibilityJSON: 'v3',
-  reloadOnPrerender: process.env.NODE_ENV === 'development',
-  debug: process.env.NODE_ENV === 'development',
+  reloadOnPrerender: false,
+  debug: false,
 };
