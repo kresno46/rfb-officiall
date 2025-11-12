@@ -30,11 +30,27 @@ export default function CarouselWithContent() {
     const [showTnC, setShowTnC] = useState(false);
     const [showPrivacy, setShowPrivacy] = useState(false);
 
+    // Auto slide effect
+    const resetTimeout = useCallback(() => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+    }, []);
+
     useEffect(() => {
+        resetTimeout();
+        
         const fetchBanners = async () => {
             try {
                 const bannerData = await getBanners();
                 setSlides(bannerData);
+                // Mulai auto slide setelah data dimuat
+                if (bannerData.length > 1) {
+                    timeoutRef.current = setTimeout(
+                        () => setIndex((prevIndex) => (prevIndex + 1) % bannerData.length),
+                        5000 // Ganti slide setiap 5 detik
+                    );
+                }
             } catch (err) {
                 setError('Gagal memuat banner. Silakan coba lagi nanti.');
                 console.error('Error fetching banners:', err);
@@ -44,7 +60,12 @@ export default function CarouselWithContent() {
         };
 
         fetchBanners();
-    }, []);
+        
+        // Bersihkan timeout saat komponen unmount
+        return () => {
+            resetTimeout();
+        };
+    }, [resetTimeout]);
 
     const totalSlides = slides.length;
 
@@ -142,7 +163,14 @@ export default function CarouselWithContent() {
     }
 
     return (
-        <div className="relative w-full overflow-hidden text-white">
+        <div className="relative w-full overflow-hidden" onMouseEnter={resetTimeout} onMouseLeave={() => {
+                if (slides.length > 1) {
+                    timeoutRef.current = setTimeout(
+                        () => setIndex((prevIndex) => (prevIndex + 1) % slides.length),
+                        5000
+                    );
+                }
+            }}>
             <div
                 className="flex"
                 style={{
@@ -157,7 +185,7 @@ export default function CarouselWithContent() {
                         className="flex-shrink-0 w-full flex flex-col-reverse md:flex-row items-center justify-center gap-8 px-6 py-8 md:px-16 lg:px-32"
                     >
                         {/* Teks */}
-                        <div className="text-center md:text-left max-w-xl">
+                        <div className="text-center md:text-left max-w-xl text-white">
                             <h1 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h1>
                             <p className="text-base md:text-lg mb-6">{slide.description}</p>
                             <div className="flex flex-col md:flex-row gap-3">
@@ -179,9 +207,12 @@ export default function CarouselWithContent() {
                         <div className="mt-8 md:mt-0 w-full md:w-1/2 flex-shrink-0">
                             <div className="relative w-full h-[300px] md:h-[450px] lg:h-[420px]">
                                 <div 
-                                    className="w-full h-full bg-cover bg-center"
+                                    className="w-full h-full bg-contain bg-no-repeat bg-center"
                                     style={{
-                                        backgroundImage: `url(http://rfbdev.newsmaker.id/storage/${slide.image})`,
+                                        backgroundImage: `url(https://rfbdev.newsmaker.id/storage/${slide.image})`,
+                                        backgroundSize: 'contain',
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundPosition: 'center center'
                                     }}
                                 ></div>
                             </div>

@@ -20,7 +20,7 @@ export default function ProductCard({
     const { t } = useTranslation('produk');
     return (
         <a 
-            href={`/produk/${category}/${slug}`} 
+            href={`/produk/${category.toLowerCase()}/${slug}`} 
             className={`${className} group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1`}
         >
             <div className="relative h-48 overflow-hidden">
