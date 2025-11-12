@@ -1,4 +1,6 @@
 import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface ProductCardProps {
     title: string;
@@ -18,10 +20,19 @@ export default function ProductCard({
     description = ""
 }: ProductCardProps) {
     const { t } = useTranslation('produk');
+    const router = useRouter();
+    const { locale } = router;
+    
+    // Dapatkan path dengan locale yang benar
+    const getLocalizedPath = (path: string) => {
+        return `/${locale}${path}`;
+    };
+
     return (
-        <a 
+        <Link 
             href={`/produk/${category.toLowerCase()}/${slug}`} 
-            className={`${className} group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1`}
+            as={getLocalizedPath(`/produk/${category.toLowerCase()}/${slug}`)}
+            className={`${className} group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 block`}
         >
             <div className="relative h-48 overflow-hidden">
                 {image ? (
@@ -74,6 +85,6 @@ export default function ProductCard({
                     </span>
                 </div>
             </div>
-        </a>
+        </Link>
     );
 }
