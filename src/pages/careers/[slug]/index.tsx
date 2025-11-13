@@ -5,6 +5,7 @@ import PageTemplate from '@/components/templates/PageTemplate';
 import ProfilContainer from '@/components/templates/PageContainer/Container';
 import ApplyModal from '@/components/moleculs/ApplyModal';
 import { fetchCareerBySlug } from '@/services/careerService';
+import api from '@/services/api';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
 import { Career } from '@/services/careerService';
@@ -142,20 +143,23 @@ const CareerDetail: React.FC<CareerDetailProps> = ({ career }) => {
 export const getStaticProps: GetStaticProps = async ({ params, locale = 'id' }) => {
   const slug = params?.slug as string;
   
+  if (!slug) {
+    console.error('No slug provided');
+    return { notFound: true };
+  }
+  
   try {
-    // Fetch the specific career by slug
-    const response = await fetch(`http://rfbdev.newsmaker.id/api/karier/slug/${slug}`);
-    const data = await response.json();
+    console.log(`Fetching career with slug: ${slug}`);
+    const career = await fetchCareerBySlug(slug);
     
-    if (!data.success || !data.data) {
-      return {
-        notFound: true,
-      };
+    if (!career) {
+      console.error(`Career not found for slug: ${slug}`);
+      return { notFound: true };
     }
 
     return {
       props: {
-        career: data.data || null,
+        career,
         ...(await serverSideTranslations(locale, [
           'common',
           'navbar',
@@ -166,41 +170,39 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'id' }) 
       revalidate: 60, // Revalidate every 60 seconds
     };
   } catch (error) {
-    console.error('Error fetching career:', error);
-    return {
-      notFound: true,
-    };
+    console.error('Error in getStaticProps:', error);
+    return { notFound: true };
   }
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  console.log('Fetching careers for static paths...');
   try {
     // Fetch all careers to generate static paths
-    const response = await fetch('http://rfbdev.newsmaker.id/api/karier');
-    const data = await response.json();
+    const response = await api.get('/karier');
+    const data = response.data;
     
     if (!data.success || !data.data) {
-      return {
-        paths: [],
-        fallback: 'blocking',
-      };
+      console.log('No careers data found');
+      return { paths: [], fallback: 'blocking' };
     }
 
     // Generate paths for all careers
     const paths = data.data.map((career: any) => ({
       params: { slug: career.slug },
     }));
-
-    return {
-      paths,
-      fallback: 'blocking',
-    };
-  } catch (error) {
-    console.error('Error generating static paths:', error);
-    return {
-      paths: [],
-      fallback: 'blocking',
-    };
+    
+    console.log(`Generated ${paths.length} career paths`);
+    return { paths, fallback: 'blocking' };
+    
+  } catch (error: any) {
+    console.error('Error in getStaticPaths:', {
+      message: error.message,
+      url: error.config?.url,
+      status: error.response?.status,
+      data: error.response?.data
+    });
+    return { paths: [], fallback: 'blocking' };
   }
 };
 
