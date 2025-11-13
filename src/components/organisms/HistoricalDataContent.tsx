@@ -205,25 +205,10 @@ export default function HistoricalDataContent() {
     }
   };
 
-  // Format angka dengan pemisah ribuan
-  const formatNumber = (value: number | null, decimals: number = 2) => {
+  // Return value as is without formatting
+  const formatNumber = (value: number | null) => {
     if (value === null || value === undefined) return '-';
-
-    // Format number based on current language
-    const locale = i18n.language === 'id' ? 'id-ID' : 'en-US';
-    
-    // If decimals is 0, show without decimal places
-    if (decimals === 0) {
-      return value.toLocaleString(locale, {
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0
-      });
-    }
-
-    return value.toLocaleString(locale, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals
-    });
+    return value.toString();
   };
 
   // Format tanggal untuk tampilan
@@ -416,12 +401,12 @@ export default function HistoricalDataContent() {
                     )}
                     {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-center">
-                        {item.volume ? formatNumber(item.volume, 0) : '-'}
+                        {item.volume ? formatNumber(item.volume) : '-'}
                       </td>
                     )}
                     {selectedSymbol.includes('HSI') && (
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-center">
-                        {item.openInterest ? formatNumber(item.openInterest, 0) : '-'}
+                        {item.openInterest ? formatNumber(item.openInterest) : '-'}
                       </td>
                     )}
                   </tr>
