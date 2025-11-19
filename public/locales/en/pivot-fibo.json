@@ -14,14 +14,21 @@
     "placeholder": "Enter {{field}} value",
     "calculate": "Calculate",
     "reset": "Reset",
+    "result": "Calculation Results",
     "levels": {
+      "level": "Level",
+      "classic": "Classic",
+      "woodie": "Woodie",
+      "camarilla": "Camarilla",
+      "r4": "Resistance 4",
       "r3": "Resistance 3",
       "r2": "Resistance 2",
       "r1": "Resistance 1",
       "pp": "Pivot Point",
       "s1": "Support 1",
       "s2": "Support 2",
-      "s3": "Support 3"
+      "s3": "Support 3",
+      "s4": "Support 4"
     },
     "error": {
       "invalidInput": "Please enter valid numbers"

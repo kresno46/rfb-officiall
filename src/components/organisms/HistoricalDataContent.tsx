@@ -46,7 +46,8 @@ const formatDateToISO = (dateStr: string): string => {
     const year = parseInt(parts[3], 10);
 
     if (!isNaN(day) && !isNaN(year) && month !== undefined) {
-      const date = new Date(year, month, day);
+      // Gunakan UTC untuk menghindari masalah zona waktu
+      const date = new Date(Date.UTC(year, month, day));
       return date.toISOString().split('T')[0];
     }
   }
@@ -205,42 +206,40 @@ export default function HistoricalDataContent() {
     }
   };
 
-  // Format angka dengan pemisah ribuan
-  const formatNumber = (value: number | null, decimals: number = 2) => {
+  // Return value as is without formatting
+  const formatNumber = (value: number | null) => {
     if (value === null || value === undefined) return '-';
-
-    // Format number based on current language
-    const locale = i18n.language === 'id' ? 'id-ID' : 'en-US';
-    
-    // If decimals is 0, show without decimal places
-    if (decimals === 0) {
-      return value.toLocaleString(locale, {
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0
-      });
-    }
-
-    return value.toLocaleString(locale, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals
-    });
+    return value.toString();
   };
 
   // Format tanggal untuk tampilan
   const formatDisplayDate = (dateStr: string) => {
     try {
-      const date = new Date(formatDateToISO(dateStr));
+      // Parse tanggal dari format asli (DD MMM YYYY)
+      const parts = dateStr.match(/^(\d{1,2})\s(\w{3})\s(\d{4})$/);
+      if (!parts) return dateStr; // Kembalikan aslinya jika format tidak sesuai
+      
+      const months: Record<string, number> = {
+        'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+        'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+      };
+      
+      const day = parseInt(parts[1], 10);
+      const month = months[parts[2]];
+      const year = parseInt(parts[3], 10);
+      
+      if (isNaN(day) || isNaN(year) || month === undefined) return dateStr;
+      
+      // Buat tanggal dengan zona waktu UTC untuk konsistensi
+      const date = new Date(Date.UTC(year, month, day));
+      
       const locale = i18n.language === 'id' ? 'id-ID' : 'en-US';
       const options: Intl.DateTimeFormatOptions = {
         day: '2-digit',
         month: 'short',
-        year: 'numeric'
+        year: 'numeric',
+        timeZone: 'UTC' // Pastikan menggunakan UTC
       };
-      
-      // For English, use different month format if needed
-      if (locale === 'en-US') {
-        options.month = 'short';
-      }
       
       return date.toLocaleDateString(locale, options);
     } catch (e) {
@@ -416,12 +415,12 @@ export default function HistoricalDataContent() {
                     )}
                     {(selectedSymbol.includes('HSI') || selectedSymbol.includes('SNI')) && (
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-center">
-                        {item.volume ? formatNumber(item.volume, 0) : '-'}
+                        {item.volume ? formatNumber(item.volume) : '-'}
                       </td>
                     )}
                     {selectedSymbol.includes('HSI') && (
                       <td className="px-4 py-3 whitespace-nowrap text-sm text-[#4C4C4C] text-center">
-                        {item.openInterest ? formatNumber(item.openInterest, 0) : '-'}
+                        {item.openInterest ? formatNumber(item.openInterest) : '-'}
                       </td>
                     )}
                   </tr>

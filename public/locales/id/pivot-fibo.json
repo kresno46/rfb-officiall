@@ -14,14 +14,21 @@
     "placeholder": "Masukkan nilai {{field}}",
     "calculate": "Hitung",
     "reset": "Reset",
+    "result": "Hasil Perhitungan",
     "levels": {
+      "level": "Level",
+      "classic": "Klasik",
+      "woodie": "Woodie",
+      "camarilla": "Camarilla",
+      "r4": "Resistance 4",
       "r3": "Resistance 3",
       "r2": "Resistance 2",
       "r1": "Resistance 1",
-      "pp": "Pivot Point",
+      "pp": "Titik Pivot",
       "s1": "Support 1",
       "s2": "Support 2",
-      "s3": "Support 3"
+      "s3": "Support 3",
+      "s4": "Support 4"
     },
     "error": {
       "invalidInput": "Mohon masukkan angka yang valid"

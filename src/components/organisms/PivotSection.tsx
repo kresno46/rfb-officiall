@@ -8,10 +8,10 @@ type PivotResult = { [key: string]: number | string };
 export default function PivotSection() {
     const { t } = useTranslation('pivot-fibo');
     const [inputs, setInputs] = useState<PivotInput>({
+        open: "",
         high: "",
         low: "",
-        close: "",
-        open: ""
+        close: ""
     });
     const [results, setResults] = useState<{
         classic: PivotResult;
@@ -28,49 +28,51 @@ export default function PivotSection() {
     };
 
     const calculatePivots = () => {
-        const high = parseFloat(inputs.high);
-        const low = parseFloat(inputs.low);
-        const close = parseFloat(inputs.close);
-        const open = parseFloat(inputs.open);
+        // Parse input values, default to NaN if empty
+        const high = inputs.high ? parseFloat(inputs.high) : NaN;
+        const low = inputs.low ? parseFloat(inputs.low) : NaN;
+        const close = inputs.close ? parseFloat(inputs.close) : NaN;
+        const open = inputs.open ? parseFloat(inputs.open) : NaN;
 
-        if (isNaN(high) || isNaN(low) || isNaN(close) || isNaN(open)) {
-            alert(t('pivotSection.error.invalidInput'));
-            return;
-        }
+        // Calculate range if both high and low are provided
+        const range = !isNaN(high) && !isNaN(low) ? high - low : NaN;
 
-        const range = high - low;
+        // Helper function to calculate or return NaN if any parameter is NaN
+        const safeCalc = (fn: (...args: number[]) => number, ...args: number[]): number => {
+            return args.some(isNaN) ? NaN : fn(...args);
+        };
 
-        // Classic Pivots
-        const classicPP = (high + low + close) / 3;
-        const classicR1 = (2 * classicPP) - low;
-        const classicS1 = (2 * classicPP) - high;
-        const classicR2 = classicPP + range;
-        const classicS2 = classicPP - range;
-        const classicR3 = classicR1 + range;
-        const classicS3 = classicS1 - range;
-        const classicR4 = classicR2 + range * 1.618;
-        const classicS4 = classicS2 - range * 1.618;
+        // Classic Pivots (requires high, low, close)
+        const classicPP = safeCalc((h, l, c) => (h + l + c) / 3, high, low, close);
+        const classicR1 = safeCalc((pp, l) => (2 * pp) - l, classicPP, low);
+        const classicS1 = safeCalc((pp, h) => (2 * pp) - h, classicPP, high);
+        const classicR2 = safeCalc((pp, r) => pp + r, classicPP, range);
+        const classicS2 = safeCalc((pp, r) => pp - r, classicPP, range);
+        const classicR3 = safeCalc((r1, r) => r1 + r, classicR1, range);
+        const classicS3 = safeCalc((s1, r) => s1 - r, classicS1, range);
+        const classicR4 = safeCalc((r2, r) => r2 + r * 1.618, classicR2, range);
+        const classicS4 = safeCalc((s2, r) => s2 - r * 1.618, classicS2, range);
 
-        // Woodie Pivots (menggunakan Open)
-        const woodiePP = (high + low + 2 * open) / 4;
-        const woodieR1 = (2 * woodiePP) - low;
-        const woodieS1 = (2 * woodiePP) - high;
-        const woodieR2 = woodiePP + range;
-        const woodieS2 = woodiePP - range;
-        const woodieR3 = woodieR1 + range;
-        const woodieS3 = woodieS1 - range;
-        const woodieR4 = woodieR2 + range;
-        const woodieS4 = woodieS2 - range;
+        // Woodie Pivots (requires high, low, open)
+        const woodiePP = safeCalc((h, l, o) => (h + l + 2 * o) / 4, high, low, open);
+        const woodieR1 = safeCalc((pp, l) => (2 * pp) - l, woodiePP, low);
+        const woodieS1 = safeCalc((pp, h) => (2 * pp) - h, woodiePP, high);
+        const woodieR2 = safeCalc((pp, r) => pp + r, woodiePP, range);
+        const woodieS2 = safeCalc((pp, r) => pp - r, woodiePP, range);
+        const woodieR3 = safeCalc((r1, r) => r1 + r, woodieR1, range);
+        const woodieS3 = safeCalc((s1, r) => s1 - r, woodieS1, range);
+        const woodieR4 = safeCalc((r2, r) => r2 + r, woodieR2, range);
+        const woodieS4 = safeCalc((s2, r) => s2 - r, woodieS2, range);
 
-        // Camarilla Pivots (menggunakan close & range)
-        const camarillaR4 = close + (range * 1.1) / 2;
-        const camarillaR3 = close + (range * 1.1) / 4;
-        const camarillaR2 = close + (range * 1.1) / 6;
-        const camarillaR1 = close + (range * 1.1) / 12;
-        const camarillaS1 = close - (range * 1.1) / 12;
-        const camarillaS2 = close - (range * 1.1) / 6;
-        const camarillaS3 = close - (range * 1.1) / 4;
-        const camarillaS4 = close - (range * 1.1) / 2;
+        // Camarilla Pivots (requires close, range)
+        const camarillaR4 = safeCalc((c, r) => c + (r * 1.1) / 2, close, range);
+        const camarillaR3 = safeCalc((c, r) => c + (r * 1.1) / 4, close, range);
+        const camarillaR2 = safeCalc((c, r) => c + (r * 1.1) / 6, close, range);
+        const camarillaR1 = safeCalc((c, r) => c + (r * 1.1) / 12, close, range);
+        const camarillaS1 = safeCalc((c, r) => c - (r * 1.1) / 12, close, range);
+        const camarillaS2 = safeCalc((c, r) => c - (r * 1.1) / 6, close, range);
+        const camarillaS3 = safeCalc((c, r) => c - (r * 1.1) / 4, close, range);
+        const camarillaS4 = safeCalc((c, r) => c - (r * 1.1) / 2, close, range);
 
         setResults({
             classic: {
@@ -93,9 +95,9 @@ export default function PivotSection() {
 
     const formatNumber = (num: number | string) => {
         if (typeof num === 'number') {
-            return num.toFixed(2);
+            return isNaN(num) ? 'NaN' : num.toFixed(2);
         }
-        return num;
+        return num || 'NaN';
     };
 
     return (
@@ -103,7 +105,7 @@ export default function PivotSection() {
             <h2 className="text-xl font-semibold">{t('pivotSection.title')}</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                {['high', 'low', 'close', 'open'].map((field) => (
+                {['open', 'high', 'low', 'close'].map((field) => (
                     <div key={field} className="space-y-1">
                         <label className="block text-sm font-medium text-gray-700">{field === 'high'
                                 ? t('pivotSection.high')
@@ -135,7 +137,7 @@ export default function PivotSection() {
                 </button>
                 <button
                     onClick={() => {
-                        setInputs({ high: "", low: "", close: "", open: "" });
+                        setInputs({ open: "", high: "", low: "", close: "" });
                         setResults(null);
                     }}
                     className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
@@ -159,22 +161,15 @@ export default function PivotSection() {
                             </thead>
                             <tbody>
                                 {[
-                                    { level: 'R4', label: t('pivotSection.levels.R4'), classic: results.classic.R4, woodie: results.woodie.R4, camarilla: results.camarilla.R4 },
-                                    { level: 'R3', label: t('pivotSection.levels.R3'), classic: results.classic.R3, woodie: results.woodie.R3, camarilla: results.camarilla.R3 },
-                                    { level: 'R2', label: t('pivotSection.levels.R2'), classic: results.classic.R2, woodie: results.woodie.R2, camarilla: results.camarilla.R2 },
-                                    { level: 'R1', label: t('pivotSection.levels.R1'), classic: results.classic.R1, woodie: results.woodie.R1, camarilla: results.camarilla.R1 },
-                                    { level: 'PP', label: t('pivotSection.levels.PP'), classic: results.classic.PP, woodie: results.woodie.PP, camarilla: results.camarilla.PP },
-                                    { level: 'S1', label: t('pivotSection.levels.S1'), classic: results.classic.S1, woodie: results.woodie.S1, camarilla: results.camarilla.S1 },
-                                    { level: 'S2', label: t('pivotSection.levels.S2'), classic: results.classic.S2, woodie: results.woodie.S2, camarilla: results.camarilla.S2 },
-                                    { level: 'S3', label: t('pivotSection.levels.S3'), classic: results.classic.S3, woodie: results.woodie.S3, camarilla: results.camarilla.S3 },
-                                    { level: 'S4', label: t('pivotSection.levels.S4'), classic: results.classic.S4, woodie: results.woodie.S4, camarilla: results.camarilla.S4 },
-                                    { level: 'R2', label: 'Resistance 2 (R2)', classic: results.classic.R2, woodie: results.woodie.R2, camarilla: results.camarilla.R2 },
-                                    { level: 'R1', label: 'Resistance 1 (R1)', classic: results.classic.R1, woodie: results.woodie.R1, camarilla: results.camarilla.R1 },
-                                    { level: 'PP', label: 'Pivot Point (PP)', classic: results.classic.PP, woodie: results.woodie.PP, camarilla: results.camarilla.PP },
-                                    { level: 'S1', label: 'Support 1 (S1)', classic: results.classic.S1, woodie: results.woodie.S1, camarilla: results.camarilla.S1 },
-                                    { level: 'S2', label: 'Support 2 (S2)', classic: results.classic.S2, woodie: results.woodie.S2, camarilla: results.camarilla.S2 },
-                                    { level: 'S3', label: 'Support 3 (S3)', classic: results.classic.S3, woodie: results.woodie.S3, camarilla: results.camarilla.S3 },
-                                    { level: 'S4', label: 'Support 4 (S4)', classic: results.classic.S4, woodie: results.woodie.S4, camarilla: results.camarilla.S4 },
+                                    { level: 'R4', label: t('pivotSection.levels.r4'), classic: results.classic.R4, woodie: results.woodie.R4, camarilla: results.camarilla.R4 },
+                                    { level: 'R3', label: t('pivotSection.levels.r3'), classic: results.classic.R3, woodie: results.woodie.R3, camarilla: results.camarilla.R3 },
+                                    { level: 'R2', label: t('pivotSection.levels.r2'), classic: results.classic.R2, woodie: results.woodie.R2, camarilla: results.camarilla.R2 },
+                                    { level: 'R1', label: t('pivotSection.levels.r1'), classic: results.classic.R1, woodie: results.woodie.R1, camarilla: results.camarilla.R1 },
+                                    { level: 'PP', label: t('pivotSection.levels.pp'), classic: results.classic.PP, woodie: results.woodie.PP, camarilla: results.camarilla.PP },
+                                    { level: 'S1', label: t('pivotSection.levels.s1'), classic: results.classic.S1, woodie: results.woodie.S1, camarilla: results.camarilla.S1 },
+                                    { level: 'S2', label: t('pivotSection.levels.s2'), classic: results.classic.S2, woodie: results.woodie.S2, camarilla: results.camarilla.S2 },
+                                    { level: 'S3', label: t('pivotSection.levels.s3'), classic: results.classic.S3, woodie: results.woodie.S3, camarilla: results.camarilla.S3 },
+                                    { level: 'S4', label: t('pivotSection.levels.s4'), classic: results.classic.S4, woodie: results.woodie.S4, camarilla: results.camarilla.S4 }
                                 ].map((row, idx) => (
                                     <tr
                                         key={row.level}
