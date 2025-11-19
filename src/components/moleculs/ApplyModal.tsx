@@ -99,7 +99,7 @@ const ApplyModal: React.FC<ApplyModalProps> = ({ isOpen, onClose, position, city
     }
 
     try {
-      const response = await fetch('http://rfb-backend.test/api/career-application', {
+      const response = await fetch('https://rfbdev.newsmaker.id/api/career-application', {
         method: 'POST',
         body: formDataToSend,
         headers: {
