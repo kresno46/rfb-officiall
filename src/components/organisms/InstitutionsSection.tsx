@@ -1,5 +1,4 @@
 import { useTranslation } from 'next-i18next';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const InstitutionsSection = () => {
@@ -70,10 +69,8 @@ const InstitutionsSection = () => {
                 rel="noopener noreferrer"
                 className="transition-transform hover:scale-105"
               >
-                <Image
+                <img
                   src={item.logo}
-                  width={item.className.includes('24') ? 96 : item.className.includes('20') ? 80 : 60}
-                  height={item.className.includes('24') ? 96 : item.className.includes('20') ? 80 : 60}
                   className={`${item.className} w-auto object-contain`}
                   alt={item.name}
                 />
