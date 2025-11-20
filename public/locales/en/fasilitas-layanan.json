@@ -25,6 +25,14 @@
     {
       "title": "Transaction Flexibility",
       "content": "<p><strong>Two-way transactions</strong> provide opportunities for customers to profit whether market prices rise or fall. Liquid products and high price volatility create various trading opportunities.</p>"
+    },
+    {
+      "title": "Dispute Resolution",
+      "content": "<p>The dispute resolution mechanisms used when disputes arise in futures trading:</p><ol><li>Consensus Deliberation, which is a dispute resolution approach based on family principles.</li><li>Mediation facilitated by PT Bursa Berjangka Jakarta.</li><li>Badan Arbitrase Perdagangan Berjangka Komoditi (BAKTI).</li><li>State Court.</li></ol>"
+    },
+    {
+      "title": "SITNa",
+      "content": "<p><strong>SITNa</strong> is a facility provided by PT KBI (Persero) as a means of transparency in transactions. SITNa allows every customer to check if their transaction is registered at the Jakarta Futures Exchange (JFE) and the Clearing House for Futures and Options.</p>"
     }
   ]
 }

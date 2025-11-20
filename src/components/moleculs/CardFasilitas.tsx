@@ -8,9 +8,10 @@ export default function CardFasilitas({ title, content }: CardFasilitasProps) {
         <div className="bg-gray-50 p-6 rounded-2xl shadow border border-zinc-200 hover:border-green-500 hover:shadow-lg transition duration-300">
             <h2 className="text-xl font-bold text-gray-800 mb-3">{title}</h2>
             <div 
-                className="text-gray-700 text-justify leading-relaxed text-base prose max-w-none"
+                className="text-gray-700 text-left leading-relaxed text-base prose max-w-none prose-ol:list-decimal prose-ol:ml-5 prose-ul:list-disc prose-ul:ml-5"
                 dangerouslySetInnerHTML={{ __html: content }}
             />
         </div>
     );
 }
+    

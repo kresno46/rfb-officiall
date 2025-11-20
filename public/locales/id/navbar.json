@@ -16,8 +16,8 @@
     "products": {
       "label": "Produk",
       "submenu": {
-        "jfx": "Produk Multilateral (JFX)",
-        "spa": "Produk Bilateral (SPA)",
+        "jfx": "Multilateral (JFX)",
+        "spa": "Bilateral (SPA)",
         "registrationProcedure": "Prosedur Registrasi Online",
         "withdrawalProcedure": "Prosedur Penarikan",
         "transactionGuide": "Petunjuk Transaksi"
