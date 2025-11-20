@@ -353,7 +353,17 @@ export default function HistoricalDataContent() {
 
       {/* Tabel Data */}
       {!isLoading && filteredData.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm border border-[#E5E7EB] overflow-hidden">
+        <div className="bg-white rounded-lg shadow-sm border border-[#E5E7EB] overflow-hidden relative">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: 'url(/assets/logo-rfb.png)',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: '30%',
+              opacity: 0.1
+            }}
+          ></div>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-[#E5E7EB]">
               <thead className="bg-zinc-800">
