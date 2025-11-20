@@ -20,7 +20,8 @@
         "spa": "Bilateral (SPA)",
         "registrationProcedure": "Online Registration Procedure",
         "withdrawalProcedure": "Withdrawal Procedure",
-        "transactionGuide": "Transaction Guide"
+        "transactionGuide": "Transaction Guide",
+        "ilustrasiTransaksi": "Transaction Illustration"
       }
     },
     "analysis": {

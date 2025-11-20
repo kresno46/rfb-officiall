@@ -1,0 +1,125 @@
+{
+  "title": "Transaction Illustration",
+
+  "contentTitle": "STOCK INDEX, GOLD & SILVER LOCO LONDON TRANSACTIONS",
+
+  "formulaSectionTitle": "Transaction Formula:",
+  "formulaText": "[ ( Selling Price – Buying Price ) x Contract Size x n Lot ] – [ ( Facility Fee + VAT ) x n Lot ]",
+
+  "keteranganTitle": "Notes:",
+  "keteranganLines": [
+    "Contract Size (contract value): US $5 per point for stock index rolling contracts, 100 troy ounces for Loco London gold daily rolling, and 100,000 for forex daily rolling spot.",
+    "n Lot: number of lots being traded.",
+    "Facility Fee (commission): US $15 per lot per side (buy or sell).",
+    "Total commission fee is US $30 for 1 lot settlement.",
+    "VAT (Value Added Tax): 11% of commission fee, i.e. US $1.65/lot/side.",
+    "Total VAT is US $3.3 for 1 lot settlement.",
+    "If the transaction is settled more than one day (overnight), a roll-over fee applies for each lot (see trading table)."
+  ],
+
+  "ex1": {
+    "title": "Example 1 (HKK5U_BBJ)",
+    "p1": "An investor buys HKK5U_BBJ at 18,000 for 2 lots (Open Buy 2 lots), expecting price to rise. During the day session price rises to 18,400 and they close all positions at 18,300 (Closed Sell 2 lots).",
+    "formulaHeading": "Calculation:",
+    "f1": "P/L = [(18,300-18,000) pts x US$5 x 2 lots] - [(US$30 + US$3.3) x 2 lots]",
+    "f2": "P/L = (300 pts x US$10) - US$66.6",
+    "f3": "P/L = US$2,933.4",
+    "result": "Net profit is US$2,933.4",
+    "noteHeading": "Note:",
+    "note": "P = Profit, L = Loss"
+  },
+
+  "ex2": {
+    "title": "Example 2 (JPK5U_BBJ)",
+    "p1": "An investor anticipates a decline in JPK5U_BBJ and sells at 14,850 for 2 lots. Two days later they close at 14,650.",
+    "formulaHeading": "Calculation:",
+    "f1": "P/L = [(Selling Price - Buying Price) x Contract Size x n Lot] - [(Fee US$30 + VAT) x n Lot]",
+    "f2": "P/L = [(14,850-14,650) x US$ 5 x 2 lots] - [(US$ 30 + US$ 3.3) x 2 lots]",
+    "f3": "P/L = (200 points x $ 5 x 2 lots) - (US$ 33 x 2 lots) = US$2,000 - US$66.6",
+    "f4": "P/L = US$1,933.4 (gross profit)",
+    "result": "Overnight fee US$8 (US$2 x 2 lots x 2 nights). Net profit = US$1,933.4 - US$8 = US$1,925.4"
+  },
+
+  "ex3": {
+    "title": "Example 3 (XULF)",
+    "p1": "An investor predicts a positive trend in Loco London gold and plans to buy. They buy 2 lots at $1,175.30/oz. Price falls to $1,160.65/oz and they close 1 lot at $1,165.30/oz. The next day they close the remaining lot at $1,190.20/oz.",
+    "formulaHeading": "Calculation:",
+    "day1": "Day One",
+    "d1f1": "P/L = [US$(1165.30 - 1175.30) / troy ounce x 100 troy ounces x 1 lot] - [US$(30 + 3.3) x 1 lot]",
+    "d1f2": "P/L = - US$1000 - US$33.3 = - US$1,033.3",
+    "day2": "Day Two",
+    "d2f1": "P/L = [US$(1190.20 to 1175.30) / troy ounce x 100 x 1 lot] - [US$ (30 + 3.3) x 1 lot]",
+    "d2f2": "P/L = US$1,490 - US$33.3 = US$1,456.7",
+    "rollover": "Since held more than 1 day, roll over fee: US$5 x 1 lot x 1 night = US$5",
+    "net": "Net profit = -US$1,033.3 + US$1,456.7 - US$5 = US$418.4"
+  },
+
+  "ex4": {
+    "title": "Example 4 (XAGF)",
+    "p1": "An investor expects Loco London silver price to rise, buys XAGF at $24.175/oz for 1 lot, and closes at $24.200.",
+    "formulaHeading": "",
+    "f1": "P/L = [ ( Selling Price – Buying Price ) x Contract Size x n Lot ] - [ ( Facility Fee + VAT ) x n Lot ]",
+    "f2": "P/L = [ ( US $ 24,200 / troy ounce – US $ 24,175 / troy ounce ) x 100 troy ounces x 1 lot ] – [ ( US $ 30 + US $ 3.3 ) x 1 lot ]",
+    "f3": "P/L = ( 0.025 / troy ounce x 5,000 / troy ounce x 1 lot ) – ( US $ 33.3 )",
+    "result": "P/L = US$ 91.70 — Net profit US$ 91.70",
+    "altHeading": "If closed at $24.155, then:",
+    "af1": "P/L = [ ( Selling Price – Buying Price ) x Contract Size x n Lot ] - [ ( Facility Fee + VAT ) x n Lot ]",
+    "af2": "P/L = [ ( US $ 24,155 / troy ounce – US $ 24,175 / troy ounce ) x 5,000 troy ounces x 1 lot ] – [ ( US $ 30 + US $ 3.3 ) x 1 lot ]",
+    "af3": "P/L = ( - 0.020 / troy ounce x 5,000 / troy ounce x 1 lot ) – ( US $ 33.3 )",
+    "altResult": "P/L = - US$ 133.30 — Net loss - US$ 133.30"
+  },
+
+  "forex": {
+    "sectionTitle": "FOREX TRANSACTION",
+    "tableTitle": "CONTRACT CODES & TYPES",
+    "headers": {
+      "code": "CONTRACT CODE",
+      "base": "BASE",
+      "category": "CATEGORY",
+      "type": "CONTRACT TYPE"
+    },
+    "formulaTitle": "Forex Transaction Formula",
+    "directRatesTitle": "Direct Rates",
+    "directFormula": "P / L = [ ( Selling Price – Buying Price ) x Contract Size x n Lot ] – [ ( Facility Fee + VAT ) x n Lot ]",
+    "indirectRatesTitle": "Indirect Rates",
+    "indirectFormula": "P / L = (Selling Price - Purchase Price) / Liquidation Price x Contract Size x Number of Lots",
+    "examplesTitle": "Example 1: EU1010_BBJ (Daytrade)",
+    "ex1": {
+      "title": "",
+      "p1": "Investor predicts EUR/USD will rise, buys 2 lots at 1.3530 and later closes at 1.3540 (clear position).",
+      "f1": "P/L = [ ( Selling Price – Buying Price ) x Contract Size x n Lot ] – [ ( Facility Fee + VAT ) x n Lot ]",
+      "f2": "P/L = [ (1.3540-1.3530) x 100,000 x 2 lots ] - [ (US$30 + US$3.3) x 2 lots ]",
+      "f3": "P/L = (0.0010 x 100,000 x 2) - US$66.6",
+      "f4": "P/L = US$200 - US$66.6 = US$133.4",
+      "result": "Net profit: Rp 1,334,000.00 (fixed rate US$1 = Rp 10,000.00)"
+    },
+    "ex2": {
+      "title": "Example 2: UJ1010_BBJ (Daytrade)",
+      "p1": "Investor predicts USD/JPY will fall, sells 1 lot at 102.20 then closes at 102.12.",
+      "f1": "P/L = [ (102.20-102.12)/102.12 x 100,000 x 1 lot ] - [ (US$30 + US$3.3) x 1 lot ]",
+      "f2": "P/L = (0.0007834 x 100,000 x 1) - US$33.3",
+      "result": "P/L = US$45.04 — Profit Rp 450,400.00 (fixed rate US$1 = Rp 10,000.00)",
+      "altHeading": "If price goes to 102.27 and is closed at the same level:",
+      "af1": "P/L = [(102.20-102.27)/102.27 x 100,000 x 1 lot ] - [ (US$30 + US$3.3) x 1 lot ]",
+      "af2": "P/L = (-0.0006844 x 100,000 x 1 lot) - US$33.3",
+      "af3": "P/L = - US$68.44 - US$33.3 = - US$101.74",
+      "altResult": "Net loss: Rp 1,017,400.00 (fixed rate US$1 = Rp 10,000.00)"
+    },
+    "table": [
+      { "kode": "GU1010_BBJ & GU10F_BBJ", "dasar": "GBP/USD", "kategori": "DIRECT", "tipe": "Daily Rolling Spot Great Britain Pound Sterling (GBP) vs US Dollar (USD)" },
+      { "kode": "EU1010_BBJ & EU10F_BBJ", "dasar": "EUR/USD", "kategori": "DIRECT", "tipe": "Daily Rolling Spot Euro (EUR) vs US Dollar (USD)" },
+      { "kode": "AU1010_BBJ & AU10F_BBJ", "dasar": "AUD/USD", "kategori": "DIRECT", "tipe": "Daily Rolling Spot Australian Dollar (AUD) vs US Dollar (USD)" },
+      { "kode": "UC1010_BBJ & UC10F_BBJ", "dasar": "USD/CHF", "kategori": "INDIRECT", "tipe": "Daily Rolling Spot US Dollar (USD) vs Swiss Franc (CHF)" },
+      { "kode": "UJ1010_BBJ & UJ10F_BBJ", "dasar": "USD/JPY", "kategori": "INDIRECT", "tipe": "Daily Rolling Spot US Dollar (USD) vs Japanese Yen (JPY)" }
+    ]
+  },
+
+  "forexTable": [
+    { "kode": "GU1010_BBJ & GU10F_BBJ", "dasar": "GBP/USD", "kategori": "DIRECT", "tipe": "Daily Rolling Spot GBP vs USD" },
+    { "kode": "EU1010_BBJ & EU10F_BBJ", "dasar": "EUR/USD", "kategori": "DIRECT", "tipe": "Daily Rolling Spot EUR vs USD" },
+    { "kode": "AU1010_BBJ & AU10F_BBJ", "dasar": "AUD/USD", "kategori": "DIRECT", "tipe": "Daily Rolling Spot AUD vs USD" },
+    { "kode": "UC1010_BBJ & UC10F_BBJ", "dasar": "USD/CHF", "kategori": "INDIRECT", "tipe": "Spot USD vs Swiss Franc" },
+    { "kode": "UJ1010_BBJ & UJ10F_BBJ", "dasar": "USD/JPY", "kategori": "INDIRECT", "tipe": "Spot USD vs Japanese Yen" }
+  ]
+}
+
