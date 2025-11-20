@@ -8,5 +8,12 @@
   "example1": {
     "deskripsi": "example1.deskripsi",
     "keterangan": "example1.keterangan"
-  }
+  },
+  "keteranganLines": "keteranganLines",
+  "forexTable": "forexTable",
+  "title": "title",
+  "contentTitle": "contentTitle",
+  "formulaSectionTitle": "formulaSectionTitle",
+  "formulaText": "formulaText",
+  "keteranganTitle": "keteranganTitle"
 }
