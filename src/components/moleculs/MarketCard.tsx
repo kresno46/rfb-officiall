@@ -19,7 +19,7 @@ export default function MarketCard({
     dir === 'up'
       ? 'bg-green-100 border-green-500'
       : dir === 'down'
-      ? 'bg-red-100 border-red-500'
+      ? 'bg-red-200 border-red-500'
       : 'bg-gray-100 border-gray-400';
 
   const iconBg =

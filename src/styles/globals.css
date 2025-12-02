@@ -39,7 +39,7 @@
 
 body {
   background: 
-    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    /* linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), */
     url("/assets/bg-rfb.jpg");
   background-size: cover; /* Ensure the image covers the entire page */
   background-position: center; /* Center the image */

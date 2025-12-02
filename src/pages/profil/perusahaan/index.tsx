@@ -61,7 +61,7 @@ export default function ProfilPerusahaan() {
         <ProfilContainer title={t('perusahaan:profilTitle')}>
           <div className="space-y-10">
             {/* Tentang Kami */}
-            <div className="bg-white rounded-xl shadow-md p-6">
+            <div className="bg-white rounded-lg shadow-md p-6">
               <TitleH3 className="text-green-700 mb-6 border-b pb-2">{t('perusahaan:tentangKamiTitle')}</TitleH3>
               <div className="space-y-4 text-gray-700">
                 <div 
@@ -76,13 +76,13 @@ export default function ProfilPerusahaan() {
             </div>
 
             {/* Keunggulan */}
-            <div className="bg-white rounded-xl shadow-md p-6">
+            <div className="bg-white rounded-xl shadow-md p-6 mb-8">
               <TitleH3 className="text-green-700 mb-6 border-b pb-2">{t('perusahaan:keunggulanTitle')}</TitleH3>
               <div className="space-y-4">
                 {whyChooseUs.map((item, index) => (
                   <div 
                     key={index}
-                    className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    className="flex items-start space-x-4 p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors duration-200"
                   >
                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
                       {index + 1}
@@ -99,7 +99,7 @@ export default function ProfilPerusahaan() {
             {/* Visi Misi Grid */}
             <div className="grid md:grid-cols-2 gap-8">
               {/* Visi */}
-              <div className="bg-white rounded-xl shadow-md p-6">
+              <div className="bg-white/80 rounded-xl shadow-md p-6 backdrop-blur-sm">
                 <TitleH3 className="text-green-700 mb-6 text-center">{t('perusahaan:visiTitle')}</TitleH3>
                 <div className="space-y-4">
                   {VisiItems.map((item, index) => (
@@ -119,7 +119,7 @@ export default function ProfilPerusahaan() {
               </div>
 
               {/* Misi */}
-              <div className="bg-white rounded-xl shadow-md p-6">
+              <div className="bg-white/80 rounded-xl shadow-md p-6 backdrop-blur-sm">
                 <TitleH3 className="text-green-700 mb-6 text-center">{t('perusahaan:misiTitle')}</TitleH3>
                 <div className="space-y-4">
                   {MisiItems.map((item, index) => (
@@ -150,18 +150,18 @@ export default function ProfilPerusahaan() {
               {keunggulanGrid.map((item, index) => (
                 <div
                   key={index}
-                  className="group bg-gray-50 rounded-lg overflow-hidden hover:bg-gray-100 transition-colors duration-200"
+                  className="group bg-white rounded-lg overflow-hidden hover:bg-gray-50 transition-colors duration-200 border border-gray-100"
                 >
-                  <div className="h-40 overflow-hidden">
+                  <div className="h-48 flex items-center justify-center p-4 bg-white">
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="max-w-full max-h-full w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
-                  <div className="p-4">
-                    <h4 className="font-bold text-green-700 mb-1">{item.title}</h4>
-                    <p className="text-sm text-gray-600">{item.subtitle}</p>
+                  <div className="p-4 border-t border-gray-100">
+                    <h4 className="font-bold text-green-700 text-sm md:text-base mb-1">{item.title}</h4>
+                    <p className="text-xs md:text-sm text-gray-600">{item.subtitle}</p>
                   </div>
                 </div>
               ))}
@@ -173,13 +173,13 @@ export default function ProfilPerusahaan() {
             <TitleH3 className="text-green-700 mb-6 border-b pb-2">
               {t('perusahaan:anggotaDari')}
             </TitleH3>
-            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 py-4">
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 py-4">
               {anggotaLogos.map((logo, index) => (
-                <div key={index} className="p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                <div key={index} className="p-2 hover:bg-gray-50 rounded-lg transition-colors border border-gray-100 bg-white">
                   <img
                     src={logo.src}
                     alt={logo.alt}
-                    className="h-12 sm:h-14 md:h-16 w-auto object-contain"
+                    className="h-12 w-auto max-h-12 object-contain"
                   />
                 </div>
               ))}
