@@ -53,8 +53,8 @@ const NavBar = () => {
       label: t('menu.prosedur'),
       submenu: [
         { key: 'registration-procedure', label: t('menu.products.submenu.registrationProcedure'), href: "/prosedur/registrasi-online" },
-        { key: 'withdrawal-procedure', label: t('menu.products.submenu.withdrawalProcedure'), href: "/prosedur/penarikan" },
         { key: 'transaction-guide', label: t('menu.products.submenu.transactionGuide'), href: "/prosedur/petunjuk-transaksi" },
+        { key: 'withdrawal-procedure', label: t('menu.products.submenu.withdrawalProcedure'), href: "/prosedur/penarikan" },
       ],
     },
     {
