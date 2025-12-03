@@ -7,12 +7,10 @@ import MarketUpdate from "./MarketUpdate";
 import LocaleLink from "@/components/common/LocaleLink";
 
 type MenuItem = {
+  key: string;
   label: string;
   href: string;
-  submenu?: Array<{
-    label: string;
-    href: string;
-  }>;
+  submenu?: MenuItem[];
 };
 
 const NavBar = () => {
@@ -21,45 +19,60 @@ const NavBar = () => {
   const { locale } = router;
   
   const menuItems: MenuItem[] = [
-    { label: t('menu.home'), href: "/" },
+    { key: 'home', label: t('menu.home'), href: "/" },
     {
+      key: 'profile',
       label: t('menu.profile.label'),
       href: "/profil",
       submenu: [
-        { label: t('menu.profile.submenu.companyProfile'), href: "/profil/perusahaan" },
-        { label: t('menu.profile.submenu.brokerRepresentative'), href: "/profil/wakil-pialang" },
-        { label: t('menu.profile.submenu.legality'), href: "/profil/legalitas" },
-        { label: t('menu.profile.submenu.facilitiesServices'), href: "/informasi/fasilitas-layanan" },
-        { label: t('menu.profile.submenu.generalInfo'), href: "/informasi/umum" },
-        { label: t('menu.profile.submenu.generalVideo'), href: "/informasi/video-umum" },
-        { label: t('menu.profile.submenu.careers'), href: "/careers" },
+        { key: 'company-profile', label: t('menu.profile.submenu.companyProfile'), href: "/profil/perusahaan" },
+        { key: 'legality', label: t('menu.profile.submenu.legality'), href: "/profil/legalitas" },
+        { key: 'awards', label: t('menu.profile.submenu.awards'), href: "/profil/penghargaan" },
+        { key: 'broker-representative', label: t('menu.profile.submenu.brokerRepresentative'), href: "/profil/wakil-pialang" },
+        { key: 'general-info', label: t('menu.profile.submenu.generalInfo'), href: "/informasi/umum" },
+        { key: 'general-video', label: t('menu.profile.submenu.generalVideo'), href: "/informasi/video-umum" },
       ],
     },
     {
+      key: 'products',
       label: t('menu.products.label'),
       href: "/produk",
       submenu: [
-        { label: t('menu.products.submenu.jfx'), href: "/produk/jfx" },
-        { label: t('menu.products.submenu.spa'), href: "/produk/spa" },
-        { label: t('menu.products.submenu.registrationProcedure'), href: "/prosedur/registrasi-online" },
-        { label: t('menu.products.submenu.withdrawalProcedure'), href: "/prosedur/penarikan" },
-        { label: t('menu.products.submenu.transactionGuide'), href: "/prosedur/petunjuk-transaksi" },
-        { label: t('menu.products.submenu.ilustrasiTransaksi'), href: "/prosedur/ilustrasi-transaksi" },
-        { label: t('menu.products.submenu.kelebihanKarakteristik'), href: "/informasi/kelebihan-karakteristik" },
-        
+        { key: 'jfx', label: t('menu.products.submenu.jfx'), href: "/produk/jfx" },
+        { 
+          key: 'spa',
+          label: t('menu.products.submenu.spa'), 
+          href: "/produk/spa",
+          submenu: [
+            { key: 'ilustrasi-transaksi', label: t('menu.products.submenu.ilustrasiTransaksi'), href: "/prosedur/ilustrasi-transaksi" },
+            { key: 'kelebihan-karakteristik', label: t('menu.products.submenu.kelebihanKarakteristik'), href: "/informasi/kelebihan-karakteristik" },
+          ]
+        }
       ],
     },
     {
+      key: 'prosedur',
+      label: t('menu.prosedur'),
+      href: "/prosedur",
+      submenu: [
+        { key: 'registration-procedure', label: t('menu.products.submenu.registrationProcedure'), href: "/prosedur/registrasi-online" },
+        { key: 'withdrawal-procedure', label: t('menu.products.submenu.withdrawalProcedure'), href: "/prosedur/penarikan" },
+        { key: 'transaction-guide', label: t('menu.products.submenu.transactionGuide'), href: "/prosedur/petunjuk-transaksi" },
+      ],
+    },
+    {
+      key: 'analysis',
       label: t('menu.analysis.label'),
       href: "/analisis",
       submenu: [
-        { label: t('menu.analysis.submenu.news'), href: "/analisis/berita" },
-        { label: t('menu.analysis.submenu.economicCalendar'), href: "/analisis/economic-calendar" },
-        { label: t('menu.analysis.submenu.historicalData'), href: "/analisis/historical-data" },
-        { label: "Pivot & Fibonacci", href: "/analisis/pivot-fibonacci" },
+        { key: 'news', label: t('menu.analysis.submenu.news'), href: "/analisis/berita" },
+        { key: 'economic-calendar', label: t('menu.analysis.submenu.economicCalendar'), href: "/analisis/economic-calendar" },
+        { key: 'historical-data', label: t('menu.analysis.submenu.historicalData'), href: "/analisis/historical-data" },
+        { key: 'pivot-fibonacci', label: "Pivot & Fibonacci", href: "/analisis/pivot-fibonacci" },
       ],
     },
-    { label: t('menu.contact'), href: "/hubungi-kami" },
+    { key: 'careers', label: t('menu.profile.submenu.careers'), href: "/careers" },
+    { key: 'contact', label: t('menu.contact'), href: "/hubungi-kami" },
   ];
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -155,14 +168,40 @@ const NavBar = () => {
                       >
                         <ul className="bg-white text-black rounded shadow">
                           {item.submenu.map((sub) => (
-                            <li key={sub.href}>
-                              <LocaleLink 
-                                href={sub.href}
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                onClick={closeAllMenus}
-                              >
-                                {sub.label}
-                              </LocaleLink>
+                            <li key={sub.key} className="relative group">
+                              <div className="flex justify-between items-center">
+                                <LocaleLink 
+                                  href={sub.href}
+                                  className={`block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${sub.submenu ? 'pr-8' : ''}`}
+                                  onClick={closeAllMenus}
+                                >
+                                  {sub.label}
+                                </LocaleLink>
+                                {sub.submenu && (
+                                  <span className="px-2">
+                                    <i className="fa-solid fa-chevron-right text-xs" />
+                                  </span>
+                                )}
+                              </div>
+                              {sub.submenu && (
+                                <div 
+                                  className="absolute left-full top-0 w-56 bg-white shadow-lg rounded ml-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200"
+                                >
+                                  <ul>
+                                    {sub.submenu.map((nestedSub) => (
+                                      <li key={nestedSub.key}>
+                                        <LocaleLink
+                                          href={nestedSub.href}
+                                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                          onClick={closeAllMenus}
+                                        >
+                                          {nestedSub.label}
+                                        </LocaleLink>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
                             </li>
                           ))}
                         </ul>
