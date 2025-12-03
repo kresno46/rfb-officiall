@@ -19,7 +19,7 @@ const NavBar = () => {
   const { locale } = router;
   
   const menuItems: MenuItem[] = [
-    { key: 'home', label: t('menu.home') },
+    { key: 'home', label: t('menu.home'), href: "/" },
     {
       key: 'profile',
       label: t('menu.profile.label'),
