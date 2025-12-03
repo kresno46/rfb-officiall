@@ -139,50 +139,23 @@ export default function ProfilPerusahaan() {
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Penghargaan */}
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <TitleH3 className="text-green-700 mb-6 border-b pb-2">
-              {t('perusahaan:penghargaanTitle')}
-            </TitleH3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {keunggulanGrid.map((item, index) => (
-                <div
-                  key={index}
-                  className="group bg-white rounded-lg overflow-hidden hover:bg-gray-50 transition-colors duration-200 border border-gray-100"
-                >
-                  <div className="h-48 flex items-center justify-center p-4 bg-white">
+            {/* Anggota Dari */}
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <TitleH3 className="text-green-700 mb-6 border-b pb-2">
+                {t('perusahaan:anggotaDari')}
+              </TitleH3>
+              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 py-4">
+                {anggotaLogos.map((logo, index) => (
+                  <div key={index} className="p-2 hover:bg-gray-50 rounded-lg transition-colors border border-gray-100 bg-white">
                     <img
-                      src={item.image}
-                      alt={item.title}
-                      className="max-w-full max-h-full w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="h-12 w-auto max-h-12 object-contain"
                     />
                   </div>
-                  <div className="p-4 border-t border-gray-100">
-                    <h4 className="font-bold text-green-700 text-sm md:text-base mb-1">{item.title}</h4>
-                    <p className="text-xs md:text-sm text-gray-600">{item.subtitle}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Anggota Dari */}
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <TitleH3 className="text-green-700 mb-6 border-b pb-2">
-              {t('perusahaan:anggotaDari')}
-            </TitleH3>
-            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 py-4">
-              {anggotaLogos.map((logo, index) => (
-                <div key={index} className="p-2 hover:bg-gray-50 rounded-lg transition-colors border border-gray-100 bg-white">
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="h-12 w-auto max-h-12 object-contain"
-                  />
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </ProfilContainer>

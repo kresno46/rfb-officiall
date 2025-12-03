@@ -10,7 +10,8 @@
         "facilitiesServices": "Fasilitas & Layanan",
         "generalInfo": "Informasi Umum",
         "generalVideo": "Video Umum",
-        "careers": "Karier"
+        "careers": "Karier",
+        "awards": "Penghargaan"
       }
     },
     "products": {
@@ -49,6 +50,7 @@
         "glossary": "Glosarium"
       }
     },
+    "prosedur": "Prosedur",
     "marketInfo": "Info Pasar",
     "contact": "Kontak"
   }

@@ -10,7 +10,8 @@
         "facilitiesServices": "Facilities & Services",
         "generalInfo": "General Information",
         "generalVideo": "General Video",
-        "careers": "Careers"
+        "careers": "Careers",
+        "awards": "Awards"
       }
     },
     "products": {
@@ -49,6 +50,7 @@
         "glossary": "Glossary"
       }
     },
+    "prosedur": "Prosedur",
     "marketInfo": "Market Info",
     "contact": "Contact"
   }
