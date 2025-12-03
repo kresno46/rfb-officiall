@@ -1,0 +1,35 @@
+{
+  "title": "title",
+  "efisiensi_modal": {
+    "title": "efisiensi_modal.title",
+    "content": "efisiensi_modal.content"
+  },
+  "fleksibilitas_transaksi": {
+    "title": "fleksibilitas_transaksi.title",
+    "content": "fleksibilitas_transaksi.content"
+  },
+  "pergerakan_harga": {
+    "title": "pergerakan_harga.title",
+    "content": "pergerakan_harga.content"
+  },
+  "likuiditas_tinggi": {
+    "title": "likuiditas_tinggi.title",
+    "content": "likuiditas_tinggi.content"
+  },
+  "tanpa_batasan_waktu": {
+    "title": "tanpa_batasan_waktu.title",
+    "content": "tanpa_batasan_waktu.content"
+  },
+  "jenis_investasi": {
+    "title": "jenis_investasi.title",
+    "content": "jenis_investasi.content",
+    "fixed_rate": {
+      "title": "jenis_investasi.fixed_rate.title",
+      "content": "jenis_investasi.fixed_rate.content"
+    },
+    "floating_rate": {
+      "title": "jenis_investasi.floating_rate.title",
+      "content": "jenis_investasi.floating_rate.content"
+    }
+  }
+}

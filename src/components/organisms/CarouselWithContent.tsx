@@ -13,9 +13,19 @@ interface Slide {
 }
 
 const items = [
-    { label: "Registrasi Akun Online", link: "https://regol.rifan-financindo-berjangka.co.id/" },
-    { label: "Akun Demo", link: "https://demo.rifanberjangka.com/login" },
-    { label: "Akun Real", link: "https://etrade.rifanberjangka.com/login" },
+    { 
+        label: "Registrasi Akun Online", 
+        link: "https://regol.rifan-financindo-berjangka.co.id/" 
+    },
+    { 
+        label: "Akun Demo", 
+        link: "https://demo.rifanberjangka.com/login" 
+    },
+    { 
+        label: "Akun Real", 
+        link: "https://etrade.rifanberjangka.com/login",
+        isReal: true
+    },
 ];
 
 export default function CarouselWithContent() {
@@ -195,7 +205,7 @@ export default function CarouselWithContent() {
                                         href={item.link}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-block bg-white hover:bg-gray-100 transition text-[#080031] rounded-full px-5 py-3 font-semibold shadow text-center"
+                                        className={`px-4 py-2 rounded-full font-medium transition-colors ${item.isReal ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-white text-black hover:bg-gray-100'}`}
                                     >
                                         {item.label}
                                     </a>

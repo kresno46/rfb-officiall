@@ -11,6 +11,7 @@ const DateTimeDisplay = () => {
     const [currentTimeTKY, setCurrentTimeTKY] = useState("");
     const [currentTimeHK, setCurrentTimeHK] = useState("");
     const [currentTimeNY, setCurrentTimeNY] = useState("");
+    const [currentTimeLDN, setCurrentTimeLDN] = useState("");
 
     const [showDate, setShowDate] = useState(false);
     const [showTime, setShowTime] = useState(false);
@@ -36,6 +37,7 @@ const DateTimeDisplay = () => {
             setCurrentTimeJKT(formatTime("Asia/Jakarta"));
             setCurrentTimeTKY(formatTime("Asia/Tokyo"));
             setCurrentTimeHK(formatTime("Asia/Hong_Kong"));
+            setCurrentTimeLDN(formatTime("Europe/London"));
             setCurrentTimeNY(formatTime("America/New_York"));
         };
 
@@ -58,6 +60,7 @@ const DateTimeDisplay = () => {
                         <p><strong>{t('dateTime.timezones.jkt')}</strong> {currentTimeJKT}</p>
                         <p><strong>{t('dateTime.timezones.tky')}</strong> {currentTimeTKY}</p>
                         <p><strong>{t('dateTime.timezones.hk')}</strong> {currentTimeHK}</p>
+                        <p><strong>{t('dateTime.timezones.ldn')}</strong> {currentTimeLDN}</p>
                         <p><strong>{t('dateTime.timezones.ny')}</strong> {currentTimeNY}</p>
                     </div>
                 </div>
@@ -100,6 +103,7 @@ const DateTimeDisplay = () => {
                                     <p><strong>{t('dateTime.timezones.jkt')}:</strong> {currentTimeJKT}</p>
                                     <p><strong>{t('dateTime.timezones.tky')}:</strong> {currentTimeTKY}</p>
                                     <p><strong>{t('dateTime.timezones.hk')}:</strong> {currentTimeHK}</p>
+                                    <p><strong>{t('dateTime.timezones.ldn')}:</strong> {currentTimeLDN}</p>
                                     <p><strong>{t('dateTime.timezones.ny')}:</strong> {currentTimeNY}</p>
                                 </div>
                             </div>

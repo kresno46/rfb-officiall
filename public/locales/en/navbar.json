@@ -16,11 +16,13 @@
     "products": {
       "label": "Products",
       "submenu": {
-        "jfx": "Multilateral Products (JFX)",
-        "spa": "Bilateral Products (SPA)",
+        "jfx": "Multilateral (JFX)",
+        "spa": "Bilateral (SPA)",
         "registrationProcedure": "Online Registration Procedure",
         "withdrawalProcedure": "Withdrawal Procedure",
-        "transactionGuide": "Transaction Guide"
+        "transactionGuide": "Transaction Guide",
+        "ilustrasiTransaksi": "Transaction Illustration",
+        "kelebihanKarakteristik": "Advantages & Characteristic"
       }
     },
     "analysis": {

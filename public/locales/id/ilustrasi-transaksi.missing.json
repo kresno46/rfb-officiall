@@ -1,0 +1,19 @@
+{
+  "content": "content",
+  "example2": {
+    "gross": "example2.gross",
+    "overnight": "example2.overnight",
+    "net": "example2.net"
+  },
+  "example1": {
+    "deskripsi": "example1.deskripsi",
+    "keterangan": "example1.keterangan"
+  },
+  "keteranganLines": "keteranganLines",
+  "forexTable": "forexTable",
+  "title": "title",
+  "contentTitle": "contentTitle",
+  "formulaSectionTitle": "formulaSectionTitle",
+  "formulaText": "formulaText",
+  "keteranganTitle": "keteranganTitle"
+}

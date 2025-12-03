@@ -1,0 +1,35 @@
+{
+  "title": "Advantages and Product Characteristics",
+  "efisiensi_modal": {
+    "title": "Capital Efficiency",
+    "content": "By using Margin Trading (collateral funds), investors can conduct large transactions with relatively small capital, without needing to use 100% funds (full margin) as in stock market trading."
+  },
+  "fleksibilitas_transaksi": {
+    "title": "Transaction Flexibility",
+    "content": "Transactions take advantage of two-way trends, allowing investors to get profit opportunities when price trends move up or down."
+  },
+  "pergerakan_harga": {
+    "title": "Highly Fluctuating Price Movements",
+    "content": "Large daily price movements ranging from 100 - 500 points on stock indices, 10 - 20 troy ounces on Loco London gold, and 100 - 150 pips in forex trading will provide great profit opportunities with contract values of US$ 5/point, 100,000 per forex currency, and 100 troy ounces per Loco London gold, and customers are only charged relatively small transaction fees."
+  },
+  "likuiditas_tinggi": {
+    "title": "High Liquidity",
+    "content": "This product has very high liquidity, so investors can buy and sell transactions anytime during market hours, supported by an online trading system facility."
+  },
+  "tanpa_batasan_waktu": {
+    "title": "No Time Limit for Open Positions",
+    "content": "Customers are free to determine how long to transact without any penalties or administrative fees when withdrawing funds or closing accounts."
+  },
+  "jenis_investasi": {
+    "title": "Types of Investment",
+    "content": "There are two types of investment:",
+    "fixed_rate": {
+      "title": "Fixed Rate / Fixed Exchange Rate",
+      "content": "US$ 1 = Rp. 10,000 (fixed rate)\nAvoid risk of loss due to USD/IDR fluctuations"
+    },
+    "floating_rate": {
+      "title": "Floating Rate / Floating Exchange Rate",
+      "content": "US$ 1 = US$ 1 (according to USD/IDR rate)\nNo fees for opening and withdrawing USD funds partially or fully"
+    }
+  }
+}

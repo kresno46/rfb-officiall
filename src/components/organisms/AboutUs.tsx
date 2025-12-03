@@ -9,14 +9,16 @@ export default function AboutUs() {
     
     return (
         <div className="container mx-auto px-4 py-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[500px]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-[300px] lg:h-[500px]">
                 {/* Kolom Kiri - Gambar */}
-                <div className="w-full h-full overflow-hidden rounded-xl shadow-lg">
-                    <img
-                        src="/assets/gedung-rfb.jpg"
-                        alt="Rifan Financindo Berjangka"
-                        className="w-full h-full object-cover"
-                    />
+                <div className="w-full h-full min-h-[300px] lg:min-h-0 overflow-hidden rounded-xl shadow-lg bg-gray-50">
+                    <div className="w-full h-full flex items-center justify-center p-4">
+                        <img
+                            src="/assets/gedung-rfb.jpg"
+                            alt="Rifan Financindo Berjangka"
+                            className="w-auto h-auto max-w-full max-h-full object-contain"
+                        />
+                    </div>
                 </div>
 
                 {/* Kolom Kanan - Dibagi 2 bagian */}

@@ -40,7 +40,8 @@
       "jkt": "WIB",
       "tky": "JST",
       "hk": "HKT",
-      "ny": "EST"
+      "ny": "EST",
+      "ldn": "GMT"
     }
   }
 }

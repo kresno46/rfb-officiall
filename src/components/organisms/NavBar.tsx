@@ -57,20 +57,14 @@ const NavBar = () => {
       label: t("menu.products.label"),
       href: "/produk",
       submenu: [
-        { label: t("menu.products.submenu.jfx"), href: "/produk/jfx" },
-        { label: t("menu.products.submenu.spa"), href: "/produk/spa" },
-        {
-          label: t("menu.products.submenu.registrationProcedure"),
-          href: "/prosedur/registrasi-online",
-        },
-        {
-          label: t("menu.products.submenu.withdrawalProcedure"),
-          href: "/prosedur/penarikan",
-        },
-        {
-          label: t("menu.products.submenu.transactionGuide"),
-          href: "/prosedur/petunjuk-transaksi",
-        },
+        { label: t('menu.products.submenu.jfx'), href: "/produk/jfx" },
+        { label: t('menu.products.submenu.spa'), href: "/produk/spa" },
+        { label: t('menu.products.submenu.registrationProcedure'), href: "/prosedur/registrasi-online" },
+        { label: t('menu.products.submenu.withdrawalProcedure'), href: "/prosedur/penarikan" },
+        { label: t('menu.products.submenu.transactionGuide'), href: "/prosedur/petunjuk-transaksi" },
+        { label: t('menu.products.submenu.ilustrasiTransaksi'), href: "/prosedur/ilustrasi-transaksi" },
+        { label: t('menu.products.submenu.kelebihanKarakteristik'), href: "/informasi/kelebihan-karakteristik" },
+        
       ],
     },
     {

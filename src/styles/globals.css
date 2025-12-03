@@ -39,7 +39,7 @@
 
 body {
   background: 
-    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    /* linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), */
     url("/assets/bg-rfb.jpg");
   background-size: cover; /* Ensure the image covers the entire page */
   background-position: center; /* Center the image */
@@ -76,4 +76,18 @@ body {
 .prose th {
   background-color: #f8f8f8;
   font-weight: bold;
+}
+
+.prose ol {
+  list-style: decimal;
+  margin-left: 1.25rem;
+}
+
+.prose ul {
+  list-style: disc;
+  margin-left: 1.25rem;
+}
+
+.prose li {
+  list-style-position: outside;
 }

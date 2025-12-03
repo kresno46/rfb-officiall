@@ -12,19 +12,19 @@ const InstitutionsSection = () => {
           name: 'Bappebti', 
           url: 'https://www.bappebti.go.id/', 
           logo: '/assets/bappebti-logo.png',
-          className: 'h-14 sm:h-16 md:h-20'
+          className: 'h-10 sm:h-12 md:h-14'
         },
         { 
           name: 'OJK', 
           url: 'https://ojk.go.id/', 
           logo: '/assets/logo-ojk.png',
-          className: 'h-16 sm:h-20 md:h-24'
+          className: 'h-12 sm:h-14 md:h-16'
         },
         { 
           name: 'Bank Indonesia', 
           url: 'https://www.bi.go.id/', 
           logo: '/assets/logo-bankindonesia.png',
-          className: 'h-10 sm:h-14 md:h-16'
+          className: 'h-8 sm:h-10 md:h-12'
         },
       ]
     },
@@ -35,19 +35,19 @@ const InstitutionsSection = () => {
           name: 'JFX', 
           url: 'https://www.jfx.co.id/', 
           logo: '/assets/logo-jfx.png',
-          className: 'h-16 sm:h-20 md:h-24'
+          className: 'h-12 sm:h-14 md:h-16'
         },
         { 
           name: 'KBI', 
           url: 'https://www.ptkbi.com/index.php/c_kbi_wppue_01_anggota_mitra#PL', 
           logo: '/assets/logo-kbi.png',
-          className: 'h-16 sm:h-20 md:h-24'
+          className: 'h-12 sm:h-14 md:h-16'
         },
         { 
           name: 'Aspebtindo', 
           url: 'https://www.aspebtindo.org/anggota/daftar-anggota', 
           logo: '/assets/logo-aspebtindo.png',
-          className: 'h-16 sm:h-20 md:h-24'
+          className: 'h-12 sm:h-14 md:h-16'
         },
       ]
     }
