@@ -67,14 +67,19 @@ const NavBar = () => {
         { key: 'pivot-fibonacci', label: "Pivot & Fibonacci", href: "/analisis/pivot-fibonacci" },
       ],
     },
-    { key: 'careers', label: t('menu.profile.submenu.careers') },
-    { key: 'contact', label: t('menu.contact') },
+    { key: 'careers', label: t('menu.profile.submenu.careers'), href: "/careers" },
+    { key: 'contact', label: t('menu.contact'), href: "/hubungi-kami" },
   ];
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -149,6 +154,7 @@ const NavBar = () => {
                       <button
                         onClick={() => toggleDropdown(item.label)}
                         className="px-1 focus:outline-none"
+                        type="button"
                       >
                         <i className="fa-solid fa-chevron-down text-sm" />
                       </button>
@@ -213,6 +219,14 @@ const NavBar = () => {
                       </div>
                     )}
                   </>
+                ) : item.href ? (
+                  <LocaleLink 
+                    href={item.href}
+                    className="text-center hover:border-b-2 border-green-700 transition text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium block"
+                    onClick={closeAllMenus}
+                  >
+                    {item.label}
+                  </LocaleLink>
                 ) : (
                   <span className="text-center hover:border-b-2 border-green-700 transition text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium cursor-default">
                     {item.label}
@@ -227,7 +241,7 @@ const NavBar = () => {
         {menuOpen && (
           <nav className="md:hidden px-6 pb-4 space-y-2 text-base bg-zinc-900">
             {menuItems.map((item) => (
-              <div key={item.label}>
+              <div key={item.key} className="border-b border-gray-700 pb-2">
                 {item.submenu ? (
                   <>
                     <button
@@ -236,7 +250,9 @@ const NavBar = () => {
                     >
                       {item.label}
                       <i
-                        className={`fa-solid fa-chevron-down transition-transform ${openDropdown === item.label ? "rotate-180" : ""}`}
+                        className={`fa-solid fa-chevron-down transition-transform ${
+                          openDropdown === item.label ? "rotate-180" : ""
+                        }`}
                       />
                     </button>
                     {openDropdown === item.label && (
@@ -261,6 +277,14 @@ const NavBar = () => {
                       </ul>
                     )}
                   </>
+                ) : item.href ? (
+                  <LocaleLink
+                    href={item.href}
+                    className="block py-2 text-white hover:text-green-400"
+                    onClick={closeAllMenus}
+                  >
+                    {item.label}
+                  </LocaleLink>
                 ) : (
                   <span className="block py-2 text-white">
                     {item.label}
