@@ -5,7 +5,7 @@
       "label": "Profile",
       "submenu": {
         "companyProfile": "Company Profile",
-        "brokerRepresentative": "Broker Representative",
+        "brokerRepresentative": "Futures Broker Representative",
         "legality": "Legality",
         "facilitiesServices": "Facilities & Services",
         "generalInfo": "General Information",
