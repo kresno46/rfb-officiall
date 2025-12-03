@@ -9,7 +9,7 @@ import LocaleLink from "@/components/common/LocaleLink";
 type MenuItem = {
   key: string;
   label: string;
-  href: string;
+  href?: string;
   submenu?: MenuItem[];
 };
 
@@ -19,11 +19,10 @@ const NavBar = () => {
   const { locale } = router;
   
   const menuItems: MenuItem[] = [
-    { key: 'home', label: t('menu.home'), href: "/" },
+    { key: 'home', label: t('menu.home') },
     {
       key: 'profile',
       label: t('menu.profile.label'),
-      href: "/profil",
       submenu: [
         { key: 'company-profile', label: t('menu.profile.submenu.companyProfile'), href: "/profil/perusahaan" },
         { key: 'legality', label: t('menu.profile.submenu.legality'), href: "/profil/legalitas" },
@@ -36,7 +35,6 @@ const NavBar = () => {
     {
       key: 'products',
       label: t('menu.products.label'),
-      href: "/produk",
       submenu: [
         { key: 'jfx', label: t('menu.products.submenu.jfx'), href: "/produk/jfx" },
         { 
@@ -53,7 +51,6 @@ const NavBar = () => {
     {
       key: 'prosedur',
       label: t('menu.prosedur'),
-      href: "/prosedur",
       submenu: [
         { key: 'registration-procedure', label: t('menu.products.submenu.registrationProcedure'), href: "/prosedur/registrasi-online" },
         { key: 'withdrawal-procedure', label: t('menu.products.submenu.withdrawalProcedure'), href: "/prosedur/penarikan" },
@@ -63,7 +60,6 @@ const NavBar = () => {
     {
       key: 'analysis',
       label: t('menu.analysis.label'),
-      href: "/analisis",
       submenu: [
         { key: 'news', label: t('menu.analysis.submenu.news'), href: "/analisis/berita" },
         { key: 'economic-calendar', label: t('menu.analysis.submenu.economicCalendar'), href: "/analisis/economic-calendar" },
@@ -71,8 +67,8 @@ const NavBar = () => {
         { key: 'pivot-fibonacci', label: "Pivot & Fibonacci", href: "/analisis/pivot-fibonacci" },
       ],
     },
-    { key: 'careers', label: t('menu.profile.submenu.careers'), href: "/careers" },
-    { key: 'contact', label: t('menu.contact'), href: "/hubungi-kami" },
+    { key: 'careers', label: t('menu.profile.submenu.careers') },
+    { key: 'contact', label: t('menu.contact') },
   ];
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -147,12 +143,9 @@ const NavBar = () => {
                 {item.submenu ? (
                   <>
                     <div className="flex items-center">
-                      <LocaleLink
-                        href={item.href}
-                        className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
-                      >
+                      <span className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium cursor-default">
                         {item.label}
-                      </LocaleLink>
+                      </span>
                       <button
                         onClick={() => toggleDropdown(item.label)}
                         className="px-1 focus:outline-none"
@@ -170,13 +163,19 @@ const NavBar = () => {
                           {item.submenu.map((sub) => (
                             <li key={sub.key} className="relative group">
                               <div className="flex justify-between items-center">
-                                <LocaleLink 
-                                  href={sub.href}
-                                  className={`block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${sub.submenu ? 'pr-8' : ''}`}
-                                  onClick={closeAllMenus}
-                                >
-                                  {sub.label}
-                                </LocaleLink>
+                                {sub.href ? (
+                                  <LocaleLink 
+                                    href={sub.href}
+                                    className={`block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${sub.submenu ? 'pr-8' : ''}`}
+                                    onClick={closeAllMenus}
+                                  >
+                                    {sub.label}
+                                  </LocaleLink>
+                                ) : (
+                                  <span className={`block w-full px-4 py-2 text-sm text-gray-700 ${sub.submenu ? 'pr-8' : ''}`}>
+                                    {sub.label}
+                                  </span>
+                                )}
                                 {sub.submenu && (
                                   <span className="px-2">
                                     <i className="fa-solid fa-chevron-right text-xs" />
@@ -190,13 +189,19 @@ const NavBar = () => {
                                   <ul>
                                     {sub.submenu.map((nestedSub) => (
                                       <li key={nestedSub.key}>
-                                        <LocaleLink
-                                          href={nestedSub.href}
-                                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                          onClick={closeAllMenus}
-                                        >
-                                          {nestedSub.label}
-                                        </LocaleLink>
+                                        {nestedSub.href ? (
+                                          <LocaleLink
+                                            href={nestedSub.href}
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            onClick={closeAllMenus}
+                                          >
+                                            {nestedSub.label}
+                                          </LocaleLink>
+                                        ) : (
+                                          <span className="block px-4 py-2 text-sm text-gray-700">
+                                            {nestedSub.label}
+                                          </span>
+                                        )}
                                       </li>
                                     ))}
                                   </ul>
@@ -209,13 +214,9 @@ const NavBar = () => {
                     )}
                   </>
                 ) : (
-                  <LocaleLink
-                    href={item.href}
-                    className="text-center hover:border-b-2 border-green-700 transition text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
-                    onClick={closeAllMenus}
-                  >
+                  <span className="text-center hover:border-b-2 border-green-700 transition text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium cursor-default">
                     {item.label}
-                  </LocaleLink>
+                  </span>
                 )}
               </div>
             ))}
@@ -241,27 +242,29 @@ const NavBar = () => {
                     {openDropdown === item.label && (
                       <ul className="pl-4">
                         {item.submenu.map((sub) => (
-                          <li key={sub.href}>
-                            <LocaleLink
-                              href={sub.href}
-                              className="block py-2 text-white hover:text-green-400"
-                              onClick={closeAllMenus}
-                            >
-                              {sub.label}
-                            </LocaleLink>
+                          <li key={sub.key}>
+                            {sub.href ? (
+                              <LocaleLink
+                                href={sub.href}
+                                className="block py-2 text-white hover:text-green-400"
+                                onClick={closeAllMenus}
+                              >
+                                {sub.label}
+                              </LocaleLink>
+                            ) : (
+                              <span className="block py-2 text-white">
+                                {sub.label}
+                              </span>
+                            )}
                           </li>
                         ))}
                       </ul>
                     )}
                   </>
                 ) : (
-                  <LocaleLink
-                    href={item.href}
-                    className="block py-2 text-white hover:text-green-400"
-                    onClick={closeAllMenus}
-                  >
+                  <span className="block py-2 text-white">
                     {item.label}
-                  </LocaleLink>
+                  </span>
                 )}
               </div>
             ))}
