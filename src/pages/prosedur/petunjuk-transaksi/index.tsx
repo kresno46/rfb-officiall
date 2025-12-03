@@ -10,19 +10,21 @@ interface TermItemProps {
 }
 
 const TermItem = ({ text, terms }: TermItemProps) => {
+    if (!text || !terms) return <span></span>;
+
     // Create a map of replacements with their HTML-wrapped versions
     const replacements = {
-        '{realtrading}': `<span class="font-medium">${terms.realtrading}</span>`,
-        '{userid}': `<span class="font-medium">${terms.userid}</span>`,
-        '{password}': `<span class="font-medium">${terms.password}</span>`
+        '{realtrading}': `<span class="font-medium">${terms.realtrading || 'real online trading'}</span>`,
+        '{userid}': `<span class="font-medium">${terms.userid || 'User ID'}</span>`,
+        '{password}': `<span class="font-medium">${terms.password || 'Password'}</span>`
     };
-    
+
     // Replace all placeholders with their HTML-wrapped versions
     let processedText = text;
     Object.entries(replacements).forEach(([key, value]) => {
         processedText = processedText.split(key).join(value);
     });
-    
+
     return <span dangerouslySetInnerHTML={{ __html: processedText }} />;
 };
 

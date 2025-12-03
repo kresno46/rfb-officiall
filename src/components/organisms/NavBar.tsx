@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import MarketUpdate from "./MarketUpdate";
 import LocaleLink from "@/components/common/LocaleLink";
 
@@ -15,9 +15,9 @@ type MenuItem = {
 
 const NavBar = () => {
   const router = useRouter();
-  const { t } = useTranslation('navbar');
+  const { t } = useTranslation("navbar");
   const { locale } = router;
-  
+
   const menuItems: MenuItem[] = [
     { key: 'home', label: t('menu.home'), href: "/" },
     {
@@ -54,8 +54,8 @@ const NavBar = () => {
       label: t('menu.prosedur'),
       submenu: [
         { key: 'registration-procedure', label: t('menu.products.submenu.registrationProcedure'), href: "/prosedur/registrasi-online" },
-        { key: 'withdrawal-procedure', label: t('menu.products.submenu.withdrawalProcedure'), href: "/prosedur/penarikan" },
         { key: 'transaction-guide', label: t('menu.products.submenu.transactionGuide'), href: "/prosedur/petunjuk-transaksi" },
+        { key: 'withdrawal-procedure', label: t('menu.products.submenu.withdrawalProcedure'), href: "/prosedur/penarikan" },
       ],
     },
     {
@@ -115,17 +115,20 @@ const NavBar = () => {
     setMenuOpen(false);
   };
 
-
   return (
     <header className="sticky top-0 z-40">
       <div className="bg-zinc-800 text-white">
         <div className="flex justify-between items-center px-3 md:px-10 lg:px-22 py-3">
           {/* Logo */}
-          <LocaleLink 
-            href="/" 
+          <LocaleLink
+            href="/"
             className="flex items-center gap-3 text-base sm:text-lg lg:text-xl font-bold"
           >
-            <img src="/assets/logo-rfb.png" alt="Logo RFB" className="h-6 md:h-10" />
+            <img
+              src="/assets/logo-rfb.png"
+              alt="Logo RFB"
+              className="h-6 md:h-10"
+            />
             <span>Rifan Financindo Berjangka</span>
           </LocaleLink>
 
@@ -161,9 +164,9 @@ const NavBar = () => {
                       </button>
                     </div>
                     {openDropdown === item.label && (
-                      <div 
-                        className="absolute top-full left-0 w-56 mt-2 z-50" 
-                        onMouseEnter={() => handleMouseEnter(item.label)} 
+                      <div
+                        className="absolute top-full left-0 w-56 mt-2 z-50"
+                        onMouseEnter={() => handleMouseEnter(item.label)}
                         onMouseLeave={handleMouseLeave}
                       >
                         <ul className="bg-white text-black rounded shadow">
@@ -299,6 +302,6 @@ const NavBar = () => {
       <MarketUpdate />
     </header>
   );
-}
+};
 
 export default NavBar;

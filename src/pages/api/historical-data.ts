@@ -30,7 +30,8 @@ interface ApiResponse {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     // Ambil data dari API eksternal
-    const response = await fetch('https://endpoapi-production-3202.up.railway.app/api/historical');
+    const historicalApiUrl = process.env.NEXT_PUBLIC_HISTORICAL_API_URL || 'https://endpoapi-production-3202.up.railway.app';
+    const response = await fetch(`${historicalApiUrl}/api/historical`);
     
     if (!response.ok) {
       throw new Error(`API request failed with status ${response.status}`);

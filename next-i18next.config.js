@@ -44,10 +44,10 @@ module.exports = {
   interpolation: {
     escapeValue: false,
   },
-  // Hapus konfigurasi yang tidak diperlukan
-  saveMissing: process.env.NODE_ENV === 'development',
+  // Optimasi untuk performa
+  saveMissing: false,
   returnObjects: true,
   compatibilityJSON: 'v3',
-  reloadOnPrerender: process.env.NODE_ENV === 'development',
-  debug: process.env.NODE_ENV === 'development',
+  reloadOnPrerender: false,
+  debug: false,
 };
