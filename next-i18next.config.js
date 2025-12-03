@@ -27,11 +27,13 @@ module.exports = {
     'pivot-fibo',
     'historical-data',
     'economic-calendar',
+    'kelebihan-karakteristik',
     'hubungi-kami',
+    'ilustrasi-transaksi',
     'penarikan',
     'petunjuk-transaksi',
-    'regol',
-    'video'
+    'video',
+    'regol'
   ],
   fallbackLng: 'id',
   react: {
