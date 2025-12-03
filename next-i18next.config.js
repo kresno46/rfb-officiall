@@ -26,7 +26,14 @@ module.exports = {
     'careers',
     'pivot-fibo',
     'historical-data',
-    'economic-calendar'
+    'economic-calendar',
+    'kelebihan-karakteristik',
+    'hubungi-kami',
+    'ilustrasi-transaksi',
+    'penarikan',
+    'petunjuk-transaksi',
+    'video',
+    'regol'
   ],
   fallbackLng: 'id',
   react: {
