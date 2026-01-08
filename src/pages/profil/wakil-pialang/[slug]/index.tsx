@@ -79,7 +79,7 @@ export default function WakilPialangDetail() {
                 
                 try {
                     // Get all wakil pialang
-                    const allWakilPialang = await fetch('https://rfbdev.newsmaker.id/api/wakil-pialang');
+                    const allWakilPialang = await fetch('http://rfb-backend.test/api/wakil-pialang');
                     if (!allWakilPialang.ok) {
                         throw new Error('Gagal mengambil data wakil pialang');
                     }
@@ -91,8 +91,16 @@ export default function WakilPialangDetail() {
                         item.kategori_wakil_pialang?.nama_kategori?.toLowerCase() === currentKategori.nama_kategori.toLowerCase()
                     );
                     
-                    console.log('Data wakil pialang yang difilter:', filteredData);
-                    setWakilPialangList(filteredData);
+                    // Sort by order in descending order (highest order first)
+                    const sortedData = [...filteredData].sort((a, b) => {
+                        // Default to 0 if order is not defined
+                        const orderA = a.order || 0;
+                        const orderB = b.order || 0;
+                        return orderB - orderA; // Descending order
+                    });
+                    
+                    console.log('Data wakil pialang yang sudah diurutkan:', sortedData);
+                    setWakilPialangList(sortedData);
                 } catch (err) {
                     console.error('Error fetching wakil pialang:', err);
                     setError('Gagal memuat data wakil pialang');

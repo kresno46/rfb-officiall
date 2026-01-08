@@ -1,4 +1,4 @@
-const API_URL = 'https://rfbdev.newsmaker.id/api';
+const API_URL = 'http://rfb-backend.test/api';
 
 export interface WakilPialang {
     id: number;
